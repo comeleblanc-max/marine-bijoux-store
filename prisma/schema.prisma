@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String      @id @default(cuid())
+  name        String
+  slug        String      @unique
+  description String?
+  details     String?
+  price       Decimal     @db.Decimal(10, 2)
+  compareAt   Decimal?    @db.Decimal(10, 2)
+  images      String[]
+  category    String
+  collection  String?
+  material    String?
+  inStock     Boolean     @default(true)
+  featured    Boolean     @default(false)
+  newArrival  Boolean     @default(false)
+  variants    Variant[]
+  orderItems  OrderItem[]
+  reviews     Review[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Variant {
+  id        String   @id @default(cuid())
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId String
+  name      String
+  sku       String   @unique
+  stock     Int      @default(0)
+  price     Decimal? @db.Decimal(10, 2)
+}
+
+model Collection {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  description String?
+  image       String?
+  featured    Boolean @default(false)
+  order       Int     @default(0)
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  user        User?       @relation(fields: [userId], references: [id])
+  userId      String?
+  email       String
+  status      OrderStatus @default(PENDING)
+  total       Decimal     @db.Decimal(10, 2)
+  items       OrderItem[]
+  shippingName    String
+  shippingAddress String
+  shippingCity    String
+  shippingZip     String
+  shippingCountry String  @default("FR")
+  stripeId    String?
+  promoCode   String?
+  discount    Decimal?    @db.Decimal(10, 2)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  variantId String?
+  name      String
+  image     String
+  quantity  Int
+  price     Decimal @db.Decimal(10, 2)
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String?
+  role      Role      @default(CUSTOMER)
+  orders    Order[]
+  reviews   Review[]
+  wishlist  String[]
+  createdAt DateTime  @default(now())
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  name      String
+  rating    Int
+  comment   String
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Newsletter {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
+model PromoCode {
+  id         String   @id @default(cuid())
+  code       String   @unique
+  discount   Decimal  @db.Decimal(5, 2)
+  type       String   @default("percent")
+  usageLimit Int?
+  usageCount Int      @default(0)
+  active     Boolean  @default(true)
+  expiresAt  DateTime?
+  createdAt  DateTime @default(now())
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+}
