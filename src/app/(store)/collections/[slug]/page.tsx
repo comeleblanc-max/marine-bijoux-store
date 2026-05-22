@@ -1,86 +1,89 @@
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import { COLLECTIONS, PRODUCTS } from '@/lib/data'
 import { ProductCard } from '@/components/product/ProductCard'
-import { Reveal, Stagger, StaggerItem } from '@/components/ui/motion'
+import { Stagger, StaggerItem } from '@/components/ui/motion'
 
-interface Props {
+interface PageProps {
   params: Promise<{ slug: string }>
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  const collection = COLLECTIONS.find((c) => c.slug === slug)
-  if (!collection) return {}
-  return {
-    title: collection.name,
-    description: collection.description ?? undefined,
-  }
-}
-
 export async function generateStaticParams() {
-  return COLLECTIONS.map((c) => ({ slug: c.slug }))
+  const slugs = ['all', ...COLLECTIONS.map((c) => c.slug)]
+  return slugs.map((slug) => ({ slug }))
 }
 
-export default async function CollectionPage({ params }: Props) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
-  const collection =
-    slug === 'all'
-      ? {
-          id: 'all',
-          name: 'Tous les bijoux',
-          slug: 'all',
-          description: 'Découvrez l\'intégralité de notre univers estival.',
-          image: null,
-          featured: false,
-          order: 0,
-        }
-      : COLLECTIONS.find((c) => c.slug === slug)
+  if (slug === 'all') {
+    return { title: 'Tous les bijoux — Marine et la douceur de l\'été' }
+  }
+  const col = COLLECTIONS.find((c) => c.slug === slug)
+  return { title: col ? `${col.name} — Marine` : 'Collection' }
+}
 
-  if (!collection) notFound()
+export default async function CollectionPage({ params }: PageProps) {
+  const { slug } = await params
 
-  const products =
-    slug === 'all'
-      ? PRODUCTS
-      : PRODUCTS.filter((p) => p.category === slug || p.collection === slug)
+  let products = PRODUCTS
+  let title = 'Tous les bijoux'
+  let description = 'Découvrez l\'intégralité de la collection.'
+  let eyebrow = 'Boutique'
+
+  if (slug !== 'all') {
+    const col = COLLECTIONS.find((c) => c.slug === slug)
+    if (!col) notFound()
+    products = PRODUCTS.filter((p) => p.category === slug || p.collection === slug)
+    title = col.name
+    description = col.description ?? ''
+    eyebrow = col.slug === 'lumiere-dete' ? 'Collection' : 'Catégorie'
+  }
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* En-tête */}
-      <div className="bg-gradient-to-br from-[#F5E9D6] to-[#ede6db] py-16 sm:py-20 px-4 text-center">
-        <Reveal>
-          <h1
-            className="text-3xl sm:text-5xl text-[#1F3A56] font-light mb-3"
-            style={{ fontFamily: 'var(--font-playfair)' }}
-          >
-            {collection.name}
-          </h1>
-          {collection.description && (
-            <p className="text-gray-500 max-w-md mx-auto">{collection.description}</p>
+    <div className="bg-white">
+      {/* En-tête de collection */}
+      <section className="border-b border-[#E8E2D5] py-14 sm:py-20 bg-[#FAF7F2]">
+        <div className="container-x text-center">
+          {/* Fil d'Ariane */}
+          <nav className="flex items-center justify-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#6B6B6B] mb-5">
+            <Link href="/" className="hover:text-[#1A1A1A] transition-colors">Accueil</Link>
+            <span>/</span>
+            <span className="text-[#1A1A1A]">{title}</span>
+          </nav>
+
+          <p className="eyebrow mb-3">{eyebrow}</p>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A] mb-4">{title}</h1>
+          {description && (
+            <p className="text-[#6B6B6B] max-w-lg mx-auto leading-relaxed">{description}</p>
           )}
-          <p className="text-[#D4AF37] text-sm mt-3 font-medium">
+          <p className="text-[11px] tracking-[0.2em] uppercase text-[#C9A45F] mt-6">
             {products.length} bijou{products.length > 1 ? 'x' : ''}
           </p>
-        </Reveal>
-      </div>
+        </div>
+      </section>
 
       {/* Grille produits */}
-      <div className="max-w-7xl mx-auto px-4 py-12 sm:py-16">
-        {products.length === 0 ? (
-          <Reveal className="text-center py-20 text-gray-400">
-            <p className="text-5xl mb-4">🌊</p>
-            <p className="text-xl">Bientôt disponible ✨</p>
-          </Reveal>
-        ) : (
-          <Stagger className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-            {products.map((product) => (
-              <StaggerItem key={product.id}>
-                <ProductCard product={product} />
-              </StaggerItem>
-            ))}
-          </Stagger>
-        )}
-      </div>
+      <section className="py-14 sm:py-20">
+        <div className="container-x">
+          {products.length === 0 ? (
+            <div className="text-center py-16">
+              <p className="text-[#6B6B6B]">Aucun bijou dans cette catégorie pour le moment.</p>
+              <Link href="/collections/all" className="btn-ghost mt-6 inline-flex">
+                Voir tous les bijoux
+              </Link>
+            </div>
+          ) : (
+            <Stagger className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+              {products.map((p) => (
+                <StaggerItem key={p.id}>
+                  <ProductCard product={p} />
+                </StaggerItem>
+              ))}
+            </Stagger>
+          )}
+        </div>
+      </section>
     </div>
   )
 }

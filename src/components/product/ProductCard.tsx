@@ -2,29 +2,40 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Heart, ShoppingBag } from 'lucide-react'
-import { useState } from 'react' // gardé pour d'autres états potentiels
+import { Heart, Plus } from 'lucide-react'
 import type { Product } from '@/types'
 import { formatPrice } from '@/lib/utils'
-import { Badge } from '@/components/ui/Badge'
 import { useCart } from '@/store/cart'
 import { useWishlist } from '@/hooks/useWishlist'
-import { motion } from '@/components/ui/motion'
+import { motion } from 'framer-motion'
 
-interface ProductCardProps {
+interface Props {
   product: Product
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+const COLOR_MAP: Record<string, string> = {
+  'doré': '#C9A45F',
+  'argenté': '#C0C0C0',
+  'nacre': '#F8F0DA',
+}
+
+export function ProductCard({ product }: Props) {
+  const { addItem } = useCart()
   const { toggle, has } = useWishlist()
   const wished = has(product.id)
-  const { addItem } = useCart()
+
+  // Couleurs disponibles déduites du matériau
+  const colors: string[] = []
+  const m = (product.material ?? '').toLowerCase()
+  if (m.includes('doré')) colors.push('doré')
+  if (m.includes('argenté')) colors.push('argenté')
+  if (m.includes('nacre')) colors.push('nacre')
 
   const discount = product.compareAt
     ? Math.round((1 - product.price / product.compareAt) * 100)
     : null
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const onAdd = (e: React.MouseEvent) => {
     e.preventDefault()
     addItem({
       id: `${product.id}-default`,
@@ -39,105 +50,103 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <Link href={`/products/${product.slug}`} className="group block">
-      <motion.div
-        whileHover={{ y: -8 }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        className="relative aspect-square bg-[#F5E9D6] rounded-2xl overflow-hidden mb-3"
-      >
-        {/* Image principale */}
+      {/* Image */}
+      <div className="relative aspect-square bg-[#FAF7F2] overflow-hidden mb-4">
         {product.images.length > 0 ? (
           <Image
-            src={product.images[0] || '/images/placeholder.jpg'}
+            src={product.images[0]}
             alt={product.name}
             fill
             sizes="(max-width: 768px) 50vw, 25vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-            onError={(e) => {
-              e.currentTarget.src = '/images/placeholder.jpg'
-            }}
+            className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#F5E9D6] to-[#EAD9BE]">
-            <motion.span
-              className="text-5xl"
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              💎
-            </motion.span>
+          <div className="w-full h-full flex items-center justify-center text-4xl text-[#C9A45F]/30">
+            ✦
           </div>
         )}
 
-        {/* Image au survol */}
-        {product.images.length > 1 && (
-          <Image
-            src={product.images[1]}
-            alt={product.name}
-            fill
-            sizes="(max-width: 768px) 50vw, 25vw"
-            className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 absolute inset-0"
-            onError={() => {}}
-          />
-        )}
-
-        {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
-          {product.newArrival && <Badge variant="new">Nouveau</Badge>}
-          {discount && <Badge variant="promo">-{discount}%</Badge>}
-          {!product.inStock && <Badge variant="soldout">Épuisé</Badge>}
+        {/* Badges en haut à gauche */}
+        <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+          {product.newArrival && (
+            <span className="bg-white/95 text-[#1A1A1A] text-[9px] tracking-[0.2em] uppercase font-medium px-2.5 py-1">
+              Nouveau
+            </span>
+          )}
+          {discount && (
+            <span className="bg-[#1A1A1A] text-white text-[9px] tracking-[0.2em] uppercase font-medium px-2.5 py-1">
+              -{discount}%
+            </span>
+          )}
+          {!product.inStock && (
+            <span className="bg-[#6B6B6B] text-white text-[9px] tracking-[0.2em] uppercase font-medium px-2.5 py-1">
+              Épuisé
+            </span>
+          )}
         </div>
 
         {/* Favoris */}
-        <motion.button
+        <button
           onClick={(e) => {
             e.preventDefault()
             toggle(product.id)
           }}
-          whileTap={{ scale: 0.8 }}
-          className={`absolute top-3 right-3 w-9 h-9 backdrop-blur rounded-full flex items-center justify-center transition-all duration-200 hover:bg-white z-10 ${
-            wished
-              ? 'opacity-100 bg-white shadow-sm'
-              : 'opacity-0 group-hover:opacity-100 bg-white/90'
-          }`}
           aria-label={wished ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+          className={`absolute top-3 right-3 w-8 h-8 bg-white flex items-center justify-center transition-all duration-300 ${
+            wished ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+          }`}
         >
-          <motion.span
-            animate={wished ? { scale: [1, 1.4, 1] } : {}}
-            transition={{ duration: 0.3 }}
-          >
-            <Heart
-              className={`w-4 h-4 transition-colors ${
-                wished ? 'fill-[#FF7A45] text-[#FF7A45]' : 'text-gray-500'
-              }`}
-            />
-          </motion.span>
-        </motion.button>
+          <Heart
+            className={`w-[14px] h-[14px] transition-colors ${
+              wished ? 'fill-[#C9A45F] text-[#C9A45F]' : 'text-[#1A1A1A]'
+            }`}
+            strokeWidth={1.5}
+          />
+        </button>
 
-        {/* Ajout rapide */}
+        {/* Bouton ajout rapide — bottom slide */}
         {product.inStock && (
           <button
-            onClick={handleAddToCart}
-            className="absolute bottom-3 left-3 right-3 bg-[#1F3A56] text-white text-xs font-semibold py-3 rounded-xl flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-300 hover:bg-[#D4AF37] z-10"
+            onClick={onAdd}
+            className="absolute bottom-0 left-0 right-0 bg-[#1A1A1A] text-white py-3 text-[10px] tracking-[0.25em] uppercase font-medium flex items-center justify-center gap-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"
           >
-            <ShoppingBag className="w-3.5 h-3.5" />
-            Ajouter au panier
+            <Plus className="w-3 h-3" strokeWidth={2} />
+            Ajouter
           </button>
         )}
-      </motion.div>
+      </div>
 
       {/* Infos */}
-      <div className="px-1">
-        <h3 className="text-sm font-medium text-[#1F3A56] group-hover:text-[#D4AF37] transition-colors line-clamp-2 mb-1">
+      <div className="space-y-1.5">
+        <p className="eyebrow">Acier inoxydable</p>
+        <h3 className="text-sm text-[#1A1A1A] group-hover:text-[#C9A45F] transition-colors leading-snug">
           {product.name}
         </h3>
         <div className="flex items-center gap-2">
-          <span className="text-[#D4AF37] font-semibold">{formatPrice(product.price)}</span>
+          <span className="text-sm text-[#1A1A1A] font-medium">
+            {formatPrice(product.price)}
+          </span>
           {product.compareAt && (
-            <span className="text-gray-400 text-sm line-through">
+            <span className="text-xs text-[#6B6B6B] line-through">
               {formatPrice(product.compareAt)}
             </span>
           )}
         </div>
+
+        {/* Sélecteur de couleur */}
+        {colors.length > 0 && (
+          <div className="flex items-center gap-1.5 pt-1">
+            {colors.map((c) => (
+              <motion.span
+                key={c}
+                whileHover={{ scale: 1.15 }}
+                className="w-3 h-3 rounded-full ring-1 ring-[#E8E2D5] ring-offset-1"
+                style={{ background: COLOR_MAP[c] || '#999' }}
+                title={c}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </Link>
   )

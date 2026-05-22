@@ -1,76 +1,61 @@
 'use client'
 
 import { TESTIMONIALS } from '@/lib/data'
-import { StarRating } from '@/components/ui/StarRating'
-import { motion, Reveal } from '@/components/ui/motion'
+import { Star } from 'lucide-react'
+import { Reveal } from '@/components/ui/motion'
+import { motion } from 'framer-motion'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
 export function Testimonials() {
   return (
-    <section className="py-20 sm:py-28 px-4 bg-[#1F3A56] relative overflow-hidden">
-      {/* Halo décoratif */}
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            'radial-gradient(ellipse at 80% 10%, rgba(77,184,212,0.25), transparent 50%), radial-gradient(ellipse at 10% 90%, rgba(201,168,76,0.18), transparent 50%)',
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto relative z-10">
-        <Reveal className="text-center mb-14">
-          <p className="text-[#D4AF37] text-sm tracking-[0.25em] uppercase font-medium mb-3">
-            Avis clients
-          </p>
-          <h2
-            className="text-3xl sm:text-4xl text-white font-light"
-            style={{ fontFamily: 'var(--font-playfair)' }}
-          >
-            Elles adorent Marine ✨
+    <section className="py-16 sm:py-24 bg-white">
+      <div className="container-x">
+        <Reveal className="text-center mb-12">
+          <p className="eyebrow mb-3">Avis vérifiés</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A]">
+            Elles parlent de nous
           </h2>
+          <div className="flex items-center justify-center gap-2 mt-4">
+            <div className="flex gap-0.5">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <Star key={i} className="w-4 h-4 fill-[#C9A45F] text-[#C9A45F]" />
+              ))}
+            </div>
+            <span className="text-sm text-[#6B6B6B]">4.9 / 5 — 124 avis</span>
+          </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {TESTIMONIALS.map((review, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+          {TESTIMONIALS.map((t, i) => (
             <motion.div
-              key={review.id}
-              initial={{ opacity: 0, y: 40 }}
+              key={t.id}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.7, delay: i * 0.12, ease: EASE }}
-              whileHover={{ y: -6 }}
-              className="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-colors duration-300"
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease: EASE }}
+              className="border border-[#E8E2D5] p-7 hover:border-[#C9A45F] transition-colors duration-300"
             >
-              <StarRating rating={review.rating} size="md" className="mb-4" />
-              <p className="text-white/80 text-sm leading-relaxed italic mb-4">
-                "{review.comment}"
+              <div className="flex gap-0.5 mb-4">
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <Star
+                    key={s}
+                    className={`w-3.5 h-3.5 ${s <= t.rating ? 'fill-[#C9A45F] text-[#C9A45F]' : 'text-[#E8E2D5]'}`}
+                  />
+                ))}
+              </div>
+              <p className="text-[#1A1A1A] leading-relaxed text-sm mb-6 italic">
+                "{t.comment}"
               </p>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-white font-medium text-sm">{review.name}</p>
-                  <p className="text-[#D4AF37] text-xs">{review.product}</p>
-                </div>
-                <p className="text-white/40 text-xs">{review.date}</p>
+              <div className="border-t border-[#E8E2D5] pt-4">
+                <p className="text-sm font-medium text-[#1A1A1A]">{t.name}</p>
+                <p className="text-[10px] tracking-[0.2em] uppercase text-[#6B6B6B] mt-1">
+                  {t.product}
+                </p>
               </div>
             </motion.div>
           ))}
         </div>
-
-        <Reveal delay={0.2} className="mt-14 text-center">
-          <motion.p
-            initial={{ scale: 0.7, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}
-            className="text-5xl font-bold text-white"
-            style={{ fontFamily: 'var(--font-playfair)' }}
-          >
-            4.9<span className="text-2xl text-white/50">/5</span>
-          </motion.p>
-          <StarRating rating={5} count={87} size="md" className="justify-center mt-2" />
-          <p className="text-white/50 text-sm mt-1">Basé sur 87 avis vérifiés</p>
-        </Reveal>
       </div>
     </section>
   )

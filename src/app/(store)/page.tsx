@@ -1,30 +1,51 @@
-// Hero coucher de soleil mis de côté — pour le réactiver, décommenter les
-// 2 lignes "HeroSection" ci-dessous. Le composant est conservé dans
-// src/components/home/HeroSection.tsx
-// import { HeroSection } from '@/components/home/HeroSection'
-import { FullWidthBanner } from '@/components/home/FullWidthBanner'
-import { CollectionGrid } from '@/components/home/CollectionGrid'
-import { FeaturedProducts } from '@/components/home/FeaturedProducts'
+import { Hero } from '@/components/home/Hero'
+import { CategoryShowcase } from '@/components/home/CategoryShowcase'
+import { ReassuranceBar } from '@/components/home/ReassuranceBar'
+import { ProductRow } from '@/components/product/ProductRow'
 import { BrandStory } from '@/components/home/BrandStory'
 import { Testimonials } from '@/components/home/Testimonials'
 import { NewsletterBanner } from '@/components/home/NewsletterBanner'
+import { PRODUCTS } from '@/lib/data'
 
 export default function HomePage() {
+  const bestsellers = PRODUCTS.filter((p) => p.featured).slice(0, 8)
+  const newArrivals = PRODUCTS.filter((p) => p.newArrival).slice(0, 8)
+  const lumiereDete = PRODUCTS.filter((p) => p.collection === 'lumiere-dete')
+
   return (
     <>
-      {/* 1. Hero coucher de soleil — désactivé (sauvegardé) */}
-      {/* <HeroSection /> */}
-      {/* 2. Bannière photo pleine largeur */}
-      <FullWidthBanner />
-      {/* 3. Tuiles catégories — style mainajewels */}
-      <CollectionGrid />
-      {/* 4. Meilleures ventes + bandeau réassurance + Nouveautés */}
-      <FeaturedProducts />
-      {/* 5. Histoire de marque */}
+      <Hero />
+
+      <CategoryShowcase />
+
+      <ProductRow
+        eyebrow="Meilleures ventes"
+        title="L'essentiel"
+        products={bestsellers}
+        href="/collections/all"
+      />
+
+      <ReassuranceBar />
+
+      <ProductRow
+        eyebrow="Lumière d'été"
+        title="La collection"
+        products={lumiereDete}
+        href="/collections/lumiere-dete"
+        hrefLabel="Voir la collection"
+      />
+
       <BrandStory />
-      {/* 6. Avis clients */}
+
+      <ProductRow
+        eyebrow="Dernières arrivées"
+        title="Nouveautés"
+        products={newArrivals}
+        href="/collections/all"
+      />
+
       <Testimonials />
-      {/* 7. Newsletter */}
+
       <NewsletterBanner />
     </>
   )
