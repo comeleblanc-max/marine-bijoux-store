@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
@@ -10,11 +10,21 @@ export function CustomCursor() {
   const [clicking, setClicking] = useState(false)
   const [hovering, setHovering] = useState(false)
 
-  const rawX = useMotionValue(-100)
-  const rawY = useMotionValue(-100)
+  const rawX = useMotionValue(-200)
+  const rawY = useMotionValue(-200)
 
   const x = useSpring(rawX, { stiffness: 500, damping: 35, mass: 0.3 })
   const y = useSpring(rawY, { stiffness: 500, damping: 35, mass: 0.3 })
+
+  // Injecter cursor:none sur TOUS les éléments via une balise <style>
+  useEffect(() => {
+    if (isMobile) return
+    const style = document.createElement('style')
+    style.id = 'custom-cursor-style'
+    style.textContent = `*, *::before, *::after { cursor: none !important; }`
+    document.head.appendChild(style)
+    return () => document.getElementById('custom-cursor-style')?.remove()
+  }, [isMobile])
 
   useEffect(() => {
     if (isMobile) return
@@ -23,6 +33,11 @@ export function CustomCursor() {
       rawX.set(e.clientX)
       rawY.set(e.clientY)
       setVisible(true)
+
+      // Détecter si on survole un élément interactif
+      const el = document.elementFromPoint(e.clientX, e.clientY)
+      const interactive = el?.closest('a, button, input, select, textarea, label, [role="button"]')
+      setHovering(!!interactive)
     }
 
     const onLeave = () => setVisible(false)
@@ -30,20 +45,11 @@ export function CustomCursor() {
     const onDown = () => setClicking(true)
     const onUp = () => setClicking(false)
 
-    const onHoverStart = () => {
-      const els = document.querySelectorAll('a, button, [role="button"], input, select, textarea, label')
-      els.forEach(el => {
-        el.addEventListener('mouseenter', () => setHovering(true))
-        el.addEventListener('mouseleave', () => setHovering(false))
-      })
-    }
-
     document.addEventListener('mousemove', onMove)
     document.addEventListener('mouseleave', onLeave)
     document.addEventListener('mouseenter', onEnter)
     document.addEventListener('mousedown', onDown)
     document.addEventListener('mouseup', onUp)
-    onHoverStart()
 
     return () => {
       document.removeEventListener('mousemove', onMove)
@@ -54,40 +60,26 @@ export function CustomCursor() {
     }
   }, [isMobile, rawX, rawY])
 
-  // Masquer le curseur natif via CSS
-  useEffect(() => {
-    if (isMobile) return
-    document.body.style.cursor = 'none'
-    const links = document.querySelectorAll('a, button')
-    links.forEach(el => ((el as HTMLElement).style.cursor = 'none'))
-    return () => {
-      document.body.style.cursor = ''
-    }
-  }, [isMobile])
-
   if (isMobile) return null
 
   return (
-    <>
-      {/* Curseur principal — coquillage */}
-      <motion.div
-        style={{ x, y }}
-        animate={{
-          opacity: visible ? 1 : 0,
-          scale: clicking ? 0.75 : hovering ? 1.4 : 1,
-          rotate: clicking ? 20 : 0,
-        }}
-        transition={{ opacity: { duration: 0.2 }, scale: { type: 'spring', stiffness: 400, damping: 20 } }}
-        className="fixed top-0 left-0 z-[9999] pointer-events-none -translate-x-1/2 -translate-y-1/2 select-none"
-      >
-        <span
-          className="block text-2xl drop-shadow-md"
-          style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' }}
-        >
-          🐚
-        </span>
-      </motion.div>
-
-    </>
+    <motion.div
+      style={{ x, y }}
+      animate={{
+        opacity: visible ? 1 : 0,
+        scale: clicking ? 0.7 : hovering ? 1.5 : 1,
+        rotate: clicking ? 25 : 0,
+      }}
+      transition={{
+        opacity: { duration: 0.15 },
+        scale: { type: 'spring', stiffness: 400, damping: 20 },
+        rotate: { type: 'spring', stiffness: 400, damping: 20 },
+      }}
+      className="fixed top-0 left-0 z-[9999] pointer-events-none -translate-x-1/2 -translate-y-1/2 select-none"
+    >
+      <span className="block text-2xl" style={{ filter: 'drop-shadow(0 2px 6px rgba(0,0,0,0.25))' }}>
+        🐚
+      </span>
+    </motion.div>
   )
 }
