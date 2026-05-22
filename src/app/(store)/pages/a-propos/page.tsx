@@ -18,7 +18,7 @@ export default function AProposPage() {
         className="py-24 sm:py-32 px-4 text-center relative overflow-hidden"
         style={{
           background:
-            'linear-gradient(180deg, #A7D5E6 0%, #C9DCDA 30%, #F0DCB8 60%, #FAF7F2 100%)',
+            'linear-gradient(180deg, #A7D5E6 0%, #C9DCDA 30%, #F0DCB8 60%, #FAF5EA 100%)',
         }}
       >
         <Reveal>
@@ -31,7 +31,7 @@ export default function AProposPage() {
           >
             Bonjour et bienvenue
             <br />
-            <span className="italic text-[#C9A45F]">dans mon univers</span>
+            <span className="italic text-[#D4AF37]">dans mon univers</span>
           </h1>
           <p className="text-[#1A1A1A]/70 max-w-xl mx-auto leading-relaxed italic">
             « Des bijoux qui sentent bon le soleil et la mer. »
@@ -68,7 +68,7 @@ export default function AProposPage() {
 
         {/* Bloc citation — origine du nom */}
         <Reveal delay={0.1}>
-          <div className="my-12 rounded-3xl bg-gradient-to-br from-[#FAF7F2] to-[#F0E6D8] overflow-hidden">
+          <div className="my-12 rounded-3xl bg-gradient-to-br from-[#FAF5EA] to-[#F2E5CC] overflow-hidden">
             {/* Image tatouage */}
             <div className="relative w-full aspect-square sm:aspect-[16/9]">
               <Image
@@ -115,7 +115,7 @@ export default function AProposPage() {
         <Reveal delay={0.1}>
           <div className="border-t border-gray-100 pt-8 text-center">
             <p
-              className="text-2xl text-[#C9A45F] italic mb-1"
+              className="text-2xl text-[#D4AF37] italic mb-1"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
               Marine et la douceur de l'été
@@ -126,10 +126,10 @@ export default function AProposPage() {
       </div>
 
       {/* ── Valeurs ── */}
-      <div className="bg-[#FAF7F2]/50 py-20 px-4">
+      <div className="bg-[#FAF5EA]/50 py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <Reveal className="text-center mb-12">
-            <p className="text-[#C9A45F] text-xs tracking-[0.3em] uppercase font-medium mb-3">
+            <p className="text-[#D4AF37] text-xs tracking-[0.3em] uppercase font-medium mb-3">
               Mes engagements
             </p>
             <h2
@@ -176,7 +176,7 @@ export default function AProposPage() {
           <Reveal delay={0.2} className="text-center mt-12">
             <Link
               href="/collections/all"
-              className="inline-flex items-center gap-2 bg-[#1A1A1A] hover:bg-[#C9A45F] text-white transition-colors duration-300 px-8 py-3.5 rounded-full font-medium group"
+              className="inline-flex items-center gap-2 bg-[#1A1A1A] hover:bg-[#D4AF37] text-white transition-colors duration-300 px-8 py-3.5 rounded-full font-medium group"
             >
               Découvrir mes bijoux
               <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>

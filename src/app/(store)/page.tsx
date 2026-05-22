@@ -19,7 +19,7 @@ export default function HomePage() {
       <CategoryShowcase />
 
       <ProductRow
-        eyebrow="Meilleures ventes"
+        eyebrow="✨ Meilleures ventes"
         title="L'essentiel"
         products={bestsellers}
         href="/collections/all"
@@ -28,7 +28,7 @@ export default function HomePage() {
       <ReassuranceBar />
 
       <ProductRow
-        eyebrow="Lumière d'été"
+        eyebrow="☀️ Lumière d'été"
         title="La collection"
         products={lumiereDete}
         href="/collections/lumiere-dete"
@@ -38,7 +38,7 @@ export default function HomePage() {
       <BrandStory />
 
       <ProductRow
-        eyebrow="Dernières arrivées"
+        eyebrow="🐚 Dernières arrivées"
         title="Nouveautés"
         products={newArrivals}
         href="/collections/all"

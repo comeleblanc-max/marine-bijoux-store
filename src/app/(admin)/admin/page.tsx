@@ -4,7 +4,7 @@ import { formatPrice } from '@/utils/format'
 
 const STATS = [
   { label: 'Revenus ce mois', value: '2 847 €', change: '+12%', icon: TrendingUp, color: 'bg-[#A7D5E6]/10 text-[#A7D5E6]' },
-  { label: 'Commandes', value: '47', change: '+8%', icon: ShoppingBag, color: 'bg-[#C9A45F]/10 text-[#C9A45F]' },
+  { label: 'Commandes', value: '47', change: '+8%', icon: ShoppingBag, color: 'bg-[#D4AF37]/10 text-[#D4AF37]' },
   { label: 'Produits actifs', value: String(PRODUCTS.length), change: '', icon: Package, color: 'bg-[#E89B6F]/10 text-[#E89B6F]' },
   { label: 'Clients', value: '312', change: '+23%', icon: Users, color: 'bg-green-100 text-green-600' },
 ]
@@ -57,7 +57,7 @@ export default function AdminDashboard() {
       <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
           <h2 className="font-semibold text-gray-900">Commandes récentes</h2>
-          <a href="/admin/orders" className="text-sm text-[#C9A45F] hover:underline">Voir tout →</a>
+          <a href="/admin/orders" className="text-sm text-[#D4AF37] hover:underline">Voir tout →</a>
         </div>
         <div className="divide-y divide-gray-50">
           {RECENT_ORDERS.map(order => (
@@ -90,7 +90,7 @@ export default function AdminDashboard() {
                 <p className="text-xs text-gray-400 capitalize">{product.category}</p>
               </div>
               <div className="flex items-center gap-4">
-                <span className="text-sm font-semibold text-[#C9A45F]">{formatPrice(product.price)}</span>
+                <span className="text-sm font-semibold text-[#D4AF37]">{formatPrice(product.price)}</span>
                 <span className={`text-xs px-2.5 py-1 rounded-full ${product.inStock ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
                   {product.inStock ? 'En stock' : 'Rupture'}
                 </span>

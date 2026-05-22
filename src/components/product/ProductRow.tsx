@@ -68,7 +68,7 @@ export function ProductRow({ eyebrow, title, products, href, hrefLabel = 'Voir t
             {href && (
               <Link
                 href={href}
-                className="hidden sm:inline text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B] hover:text-[#C9A45F] underline-offset-4 hover:underline transition-colors"
+                className="hidden sm:inline text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B] hover:text-[#D4AF37] underline-offset-4 hover:underline transition-colors"
               >
                 {hrefLabel}
               </Link>

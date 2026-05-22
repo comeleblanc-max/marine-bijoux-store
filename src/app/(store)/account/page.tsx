@@ -40,7 +40,7 @@ export default function AccountPage() {
   /* ---------------- Tableau de bord ---------------- */
   if (loggedIn) {
     return (
-      <div className="min-h-screen bg-[#FAF7F2] py-12 px-4">
+      <div className="min-h-screen bg-[#FAF5EA] py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="flex items-center justify-between mb-8">
@@ -68,7 +68,7 @@ export default function AccountPage() {
             <Reveal className="lg:col-span-2">
               <div className="bg-white rounded-2xl p-6">
                 <div className="flex items-center gap-2 mb-5">
-                  <Package className="w-5 h-5 text-[#C9A45F]" />
+                  <Package className="w-5 h-5 text-[#D4AF37]" />
                   <h2
                     className="text-lg font-medium text-[#1A1A1A]"
                     style={{ fontFamily: 'var(--font-playfair)' }}
@@ -80,7 +80,7 @@ export default function AccountPage() {
                   {DEMO_ORDERS.map((order) => (
                     <div
                       key={order.id}
-                      className="flex items-center justify-between p-4 bg-[#FAF7F2] rounded-xl"
+                      className="flex items-center justify-between p-4 bg-[#FAF5EA] rounded-xl"
                     >
                       <div>
                         <p className="font-medium text-[#1A1A1A] text-sm">{order.id}</p>
@@ -92,7 +92,7 @@ export default function AccountPage() {
                         <span className="inline-block text-xs px-2.5 py-0.5 rounded-full bg-[#A7D5E6]/15 text-[#2a8fa8] font-medium">
                           {order.status}
                         </span>
-                        <p className="text-[#C9A45F] font-semibold text-sm mt-1">
+                        <p className="text-[#D4AF37] font-semibold text-sm mt-1">
                           {order.total}
                         </p>
                       </div>
@@ -114,7 +114,7 @@ export default function AccountPage() {
                 </p>
                 <Link
                   href="/collections/all"
-                  className="text-sm text-[#C9A45F] hover:text-[#b8963e] font-medium inline-flex items-center gap-1"
+                  className="text-sm text-[#D4AF37] hover:text-[#b8963e] font-medium inline-flex items-center gap-1"
                 >
                   Explorer la boutique <ChevronRight className="w-4 h-4" />
                 </Link>
@@ -138,7 +138,7 @@ export default function AccountPage() {
 
   /* ---------------- Connexion / Inscription ---------------- */
   return (
-    <div className="min-h-screen bg-[#FAF7F2] py-16 px-4 flex items-center justify-center">
+    <div className="min-h-screen bg-[#FAF5EA] py-16 px-4 flex items-center justify-center">
       <Reveal className="w-full max-w-md">
         <div className="bg-white rounded-3xl p-8 shadow-sm">
           {/* Icône */}
@@ -147,7 +147,7 @@ export default function AccountPage() {
           </div>
 
           {/* Onglets */}
-          <div className="flex bg-[#FAF7F2] rounded-full p-1 mb-6">
+          <div className="flex bg-[#FAF5EA] rounded-full p-1 mb-6">
             {(['login', 'register'] as Tab[]).map((t) => (
               <button
                 key={t}
@@ -224,7 +224,7 @@ export default function AccountPage() {
               <div className="text-right">
                 <button
                   type="button"
-                  className="text-xs text-gray-400 hover:text-[#C9A45F] transition-colors"
+                  className="text-xs text-gray-400 hover:text-[#D4AF37] transition-colors"
                 >
                   Mot de passe oublié ?
                 </button>
@@ -238,7 +238,7 @@ export default function AccountPage() {
 
           <p className="text-center text-xs text-gray-400 mt-6">
             En continuant, vous acceptez nos{' '}
-            <Link href="/pages/cgv" className="text-[#C9A45F] hover:underline">
+            <Link href="/pages/cgv" className="text-[#D4AF37] hover:underline">
               conditions générales de vente
             </Link>
             .

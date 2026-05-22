@@ -5,10 +5,14 @@ import { CartDrawer } from '@/components/cart/CartDrawer'
 import { CookieConsent } from '@/components/layout/CookieConsent'
 import { PageTransition } from '@/components/ui/motion'
 import { ToastContainer } from '@/components/ui/Toast'
+import { CustomCursor } from '@/components/ui/CustomCursor'
+import { FloatingParticles } from '@/components/ui/FloatingParticles'
 
 export default function StoreLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <CustomCursor />
+      <FloatingParticles count={12} />
       <AnnouncementBar />
       <Header />
       <main className="flex-1">

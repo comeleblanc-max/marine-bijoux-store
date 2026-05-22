@@ -91,25 +91,25 @@ export function Header() {
               <button
                 onClick={() => setSearchOpen(true)}
                 aria-label="Rechercher"
-                className="text-[#1A1A1A] hover:text-[#C9A45F] transition-colors"
+                className="text-[#1A1A1A] hover:text-[#D4AF37] transition-colors"
               >
                 <Search className="w-[18px] h-[18px]" strokeWidth={1.5} />
               </button>
               <Link
                 href="/account"
                 aria-label="Compte"
-                className="text-[#1A1A1A] hover:text-[#C9A45F] transition-colors hidden sm:block"
+                className="text-[#1A1A1A] hover:text-[#D4AF37] transition-colors hidden sm:block"
               >
                 <User className="w-[18px] h-[18px]" strokeWidth={1.5} />
               </Link>
               <Link
                 href="/wishlist"
                 aria-label="Favoris"
-                className="relative text-[#1A1A1A] hover:text-[#C9A45F] transition-colors"
+                className="relative text-[#1A1A1A] hover:text-[#D4AF37] transition-colors"
               >
                 <Heart className="w-[18px] h-[18px]" strokeWidth={1.5} />
                 {wishlistCount > 0 && (
-                  <span className="absolute -top-1.5 -right-2 text-[9px] bg-[#C9A45F] text-white rounded-full min-w-[15px] h-[15px] flex items-center justify-center px-1 font-medium">
+                  <span className="absolute -top-1.5 -right-2 text-[9px] bg-[#D4AF37] text-white rounded-full min-w-[15px] h-[15px] flex items-center justify-center px-1 font-medium">
                     {wishlistCount}
                   </span>
                 )}
@@ -117,7 +117,7 @@ export function Header() {
               <button
                 onClick={openCart}
                 aria-label="Panier"
-                className="relative text-[#1A1A1A] hover:text-[#C9A45F] transition-colors"
+                className="relative text-[#1A1A1A] hover:text-[#D4AF37] transition-colors"
               >
                 <ShoppingBag className="w-[18px] h-[18px]" strokeWidth={1.5} />
                 <AnimatePresence>
@@ -147,17 +147,17 @@ export function Header() {
                 className={cn(
                   'relative text-[11px] tracking-[0.18em] uppercase font-medium transition-colors',
                   isActive(link.href)
-                    ? 'text-[#C9A45F]'
+                    ? 'text-[#D4AF37]'
                     : link.accent
-                    ? 'text-[#C9A45F] hover:text-[#A78340]'
-                    : 'text-[#1A1A1A] hover:text-[#C9A45F]'
+                    ? 'text-[#D4AF37] hover:text-[#B8923D]'
+                    : 'text-[#1A1A1A] hover:text-[#D4AF37]'
                 )}
               >
                 {link.label}
                 {isActive(link.href) && (
                   <motion.span
                     layoutId="nav-active"
-                    className="absolute -bottom-1 left-0 right-0 h-px bg-[#C9A45F]"
+                    className="absolute -bottom-1 left-0 right-0 h-px bg-[#D4AF37]"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -188,8 +188,8 @@ export function Header() {
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
                       className={cn(
-                        'block text-sm tracking-wide py-3 border-b border-[#F0E6D8]',
-                        link.accent ? 'text-[#C9A45F] font-medium' : 'text-[#1A1A1A]'
+                        'block text-sm tracking-wide py-3 border-b border-[#F2E5CC]',
+                        link.accent ? 'text-[#D4AF37] font-medium' : 'text-[#1A1A1A]'
                       )}
                     >
                       {link.label}

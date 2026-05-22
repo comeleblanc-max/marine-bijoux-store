@@ -38,8 +38,8 @@ export function HeroSection() {
             #A7D5E6 0%,
             #C9DCDA 22%,
             #F0DCB8 48%,
-            #FAF7F2 68%,
-            #F0E6D8 100%)`,
+            #FAF5EA 68%,
+            #F2E5CC 100%)`,
         }}
       />
 
@@ -98,7 +98,7 @@ export function HeroSection() {
         <span>✨</span>
       </FloatingShape>
       <FloatingShape
-        className="absolute bottom-[30%] right-[20%] w-3 h-3 rounded-full bg-[#C9A45F]/50"
+        className="absolute bottom-[30%] right-[20%] w-3 h-3 rounded-full bg-[#D4AF37]/50"
         duration={6}
         delay={1.4}
         distance={24}
@@ -135,7 +135,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
             className="block italic"
-            style={{ color: '#C9A45F' }}
+            style={{ color: '#D4AF37' }}
           >
             de l&apos;été
           </motion.span>
@@ -162,7 +162,7 @@ export function HeroSection() {
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              className="inline-flex bg-[#1A1A1A] hover:bg-[#C9A45F] text-white px-10 py-4 rounded-full font-semibold tracking-wide shadow-xl shadow-[#1A1A1A]/20 text-base transition-colors"
+              className="inline-flex bg-[#1A1A1A] hover:bg-[#D4AF37] text-white px-10 py-4 rounded-full font-semibold tracking-wide shadow-xl shadow-[#1A1A1A]/20 text-base transition-colors"
             >
               Découvrir la collection
             </motion.span>
@@ -172,7 +172,7 @@ export function HeroSection() {
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              className="inline-flex text-[#1A1A1A] border border-[#1A1A1A]/30 hover:border-[#C9A45F] hover:text-[#C9A45F] rounded-full px-10 py-4 text-base font-medium transition-colors"
+              className="inline-flex text-[#1A1A1A] border border-[#1A1A1A]/30 hover:border-[#D4AF37] hover:text-[#D4AF37] rounded-full px-10 py-4 text-base font-medium transition-colors"
             >
               Notre histoire
             </motion.span>

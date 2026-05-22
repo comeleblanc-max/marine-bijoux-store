@@ -36,7 +36,7 @@ export function FullWidthBanner() {
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              className="inline-flex bg-white text-[#1A1A1A] hover:bg-[#C9A45F] hover:text-white px-9 py-4 rounded-full font-semibold tracking-wide shadow-xl text-sm sm:text-base transition-colors"
+              className="inline-flex bg-white text-[#1A1A1A] hover:bg-[#D4AF37] hover:text-white px-9 py-4 rounded-full font-semibold tracking-wide shadow-xl text-sm sm:text-base transition-colors"
             >
               Découvrir la collection
             </motion.span>

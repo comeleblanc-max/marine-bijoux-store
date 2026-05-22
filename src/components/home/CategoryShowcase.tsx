@@ -42,7 +42,7 @@ export function CategoryShowcase() {
           transition={{ duration: 0.6, ease: EASE }}
           className="text-center mb-10 sm:mb-14"
         >
-          <p className="eyebrow mb-3">Explorer</p>
+          <p className="eyebrow mb-3">✨ Explorer</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A]">
             Nos univers
           </h2>
@@ -63,7 +63,7 @@ export function CategoryShowcase() {
               >
                 <Link
                   href={`/collections/${tile.slug}`}
-                  className="group relative block w-full h-full overflow-hidden bg-[#FAF7F2]"
+                  className="group relative block w-full h-full overflow-hidden bg-[#FAF5EA]"
                 >
                   {img ? (
                     <Image
@@ -74,7 +74,7 @@ export function CategoryShowcase() {
                       className="object-cover transition-transform duration-[900ms] ease-out group-hover:scale-105"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-5xl text-[#C9A45F]/30">✦</div>
+                    <div className="w-full h-full flex items-center justify-center text-5xl text-[#D4AF37]/30">✦</div>
                   )}
 
                   {/* Voile dégradé */}

@@ -43,15 +43,15 @@ export default function CartPage() {
           {/* Items */}
           <div className="lg:col-span-2 space-y-4">
             {items.map((item) => (
-              <div key={item.id} className="flex gap-4 sm:gap-5 border border-[#E8E2D5] p-4 sm:p-5 hover:border-[#C9A45F] transition-colors">
-                <div className="relative w-24 h-24 sm:w-28 sm:h-28 bg-[#FAF7F2] flex-shrink-0 overflow-hidden">
+              <div key={item.id} className="flex gap-4 sm:gap-5 border border-[#E8E2D5] p-4 sm:p-5 hover:border-[#D4AF37] transition-colors">
+                <div className="relative w-24 h-24 sm:w-28 sm:h-28 bg-[#FAF5EA] flex-shrink-0 overflow-hidden">
                   <Image src={item.image} alt={item.name} fill className="object-cover" sizes="112px" />
                 </div>
                 <div className="flex-1 min-w-0 flex flex-col">
                   <p className="eyebrow text-[9px] mb-1">Acier inoxydable</p>
                   <Link
                     href={`/products/${item.slug}`}
-                    className="text-sm sm:text-base text-[#1A1A1A] hover:text-[#C9A45F] transition-colors"
+                    className="text-sm sm:text-base text-[#1A1A1A] hover:text-[#D4AF37] transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -101,12 +101,12 @@ export default function CartPage() {
               </div>
               <div className="flex justify-between text-[#6B6B6B]">
                 <span>Livraison</span>
-                <span className={shipping === 0 ? 'text-[#C9A45F] font-medium' : ''}>
+                <span className={shipping === 0 ? 'text-[#D4AF37] font-medium' : ''}>
                   {shipping === 0 ? 'Offerte' : formatPrice(shipping)}
                 </span>
               </div>
               {shipping > 0 && (
-                <p className="text-[10px] text-[#C9A45F] tracking-wide">
+                <p className="text-[10px] text-[#D4AF37] tracking-wide">
                   Plus {formatPrice(60 - cartTotal)} pour la livraison offerte
                 </p>
               )}

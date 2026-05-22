@@ -43,14 +43,14 @@ export default function CheckoutPage() {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: 'spring', stiffness: 220, damping: 16 }}
-            className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#C9A45F]/10 flex items-center justify-center"
+            className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#D4AF37]/10 flex items-center justify-center"
           >
-            <CheckCircle2 className="w-8 h-8 text-[#C9A45F]" strokeWidth={1.5} />
+            <CheckCircle2 className="w-8 h-8 text-[#D4AF37]" strokeWidth={1.5} />
           </motion.div>
           <p className="eyebrow mb-3">Confirmation</p>
           <h1 className="text-3xl sm:text-4xl text-[#1A1A1A] mb-4">Merci pour votre commande</h1>
           <p className="text-sm text-[#6B6B6B] mb-2">
-            Numéro <strong className="text-[#C9A45F]">{orderId}</strong>
+            Numéro <strong className="text-[#D4AF37]">{orderId}</strong>
           </p>
           <p className="text-sm text-[#6B6B6B] mb-10">
             Un email de confirmation vous a été envoyé. Vous recevrez le suivi dès l'expédition.
@@ -132,7 +132,7 @@ export default function CheckoutPage() {
 
             <div>
               <div className="flex items-center gap-2 mb-5">
-                <Lock className="w-4 h-4 text-[#C9A45F]" strokeWidth={1.5} />
+                <Lock className="w-4 h-4 text-[#D4AF37]" strokeWidth={1.5} />
                 <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#1A1A1A]">
                   Paiement sécurisé
                 </h2>
@@ -158,7 +158,7 @@ export default function CheckoutPage() {
             <div className="space-y-3 mb-5 max-h-72 overflow-y-auto">
               {items.map((item) => (
                 <div key={item.id} className="flex gap-3 items-center">
-                  <div className="relative w-12 h-12 bg-[#FAF7F2] flex-shrink-0 overflow-hidden">
+                  <div className="relative w-12 h-12 bg-[#FAF5EA] flex-shrink-0 overflow-hidden">
                     <Image src={item.image} alt={item.name} fill sizes="48px" className="object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -178,7 +178,7 @@ export default function CheckoutPage() {
               </div>
               <div className="flex justify-between text-[#6B6B6B]">
                 <span>Livraison</span>
-                <span className={shipping === 0 ? 'text-[#C9A45F] font-medium' : ''}>
+                <span className={shipping === 0 ? 'text-[#D4AF37] font-medium' : ''}>
                   {shipping === 0 ? 'Offerte' : formatPrice(shipping)}
                 </span>
               </div>
@@ -205,7 +205,7 @@ function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
       {...props}
-      className={`w-full border border-[#E8E2D5] px-4 py-3.5 text-sm placeholder:text-[#6B6B6B] focus:border-[#C9A45F] focus:outline-none transition-colors ${props.className ?? ''}`}
+      className={`w-full border border-[#E8E2D5] px-4 py-3.5 text-sm placeholder:text-[#6B6B6B] focus:border-[#D4AF37] focus:outline-none transition-colors ${props.className ?? ''}`}
     />
   )
 }

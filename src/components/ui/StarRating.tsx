@@ -16,7 +16,7 @@ export function StarRating({ rating, count, size = 'sm', className }: StarRating
           key={i}
           className={cn(
             'fill-current',
-            i < rating ? 'text-[#C9A45F]' : 'text-gray-200',
+            i < rating ? 'text-[#D4AF37]' : 'text-gray-200',
             size === 'sm' ? 'w-3.5 h-3.5' : 'w-5 h-5'
           )}
         />

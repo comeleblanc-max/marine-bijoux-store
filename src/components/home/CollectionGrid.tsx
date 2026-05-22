@@ -3,7 +3,7 @@ import { COLLECTIONS } from '@/lib/data'
 import { Reveal } from '@/components/ui/motion'
 
 const TILES: Record<string, { emoji: string; bg: string }> = {
-  'lumiere-dete': { emoji: '☀️', bg: 'bg-gradient-to-br from-[#FAF7F2] to-[#F0E6D8]' },
+  'lumiere-dete': { emoji: '☀️', bg: 'bg-gradient-to-br from-[#FAF5EA] to-[#F2E5CC]' },
   colliers:        { emoji: '📿', bg: 'bg-gradient-to-br from-[#E8F4F8] to-[#c9e8f2]' },
   bracelets:       { emoji: '✨', bg: 'bg-gradient-to-br from-[#F5F0FF] to-[#e8dcff]' },
   'boucles-doreilles': { emoji: '🌟', bg: 'bg-gradient-to-br from-[#FFF5E6] to-[#fde8c8]' },
@@ -18,7 +18,7 @@ export function CollectionGrid() {
       <div className="max-w-7xl mx-auto">
 
         <Reveal className="text-center mb-12">
-          <p className="text-[#C9A45F] text-xs tracking-[0.3em] uppercase font-medium mb-3">
+          <p className="text-[#D4AF37] text-xs tracking-[0.3em] uppercase font-medium mb-3">
             Collections
           </p>
           <h2
@@ -32,7 +32,7 @@ export function CollectionGrid() {
         {/* Tuiles catégories — style mainajewels */}
         <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 sm:pb-0 sm:grid sm:grid-cols-5 scrollbar-hide">
           {collections.map((col, i) => {
-            const tile = TILES[col.slug] ?? { emoji: '💎', bg: 'bg-[#FAF7F2]' }
+            const tile = TILES[col.slug] ?? { emoji: '💎', bg: 'bg-[#FAF5EA]' }
             return (
               <Link
                 key={col.id}
@@ -47,7 +47,7 @@ export function CollectionGrid() {
                   <span className="text-4xl sm:text-5xl">{tile.emoji}</span>
                 </div>
                 {/* Nom */}
-                <span className="text-sm font-medium text-[#1A1A1A] group-hover:text-[#C9A45F] transition-colors">
+                <span className="text-sm font-medium text-[#1A1A1A] group-hover:text-[#D4AF37] transition-colors">
                   {col.name}
                 </span>
               </Link>

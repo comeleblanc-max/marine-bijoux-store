@@ -88,17 +88,17 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       <Link
                         href={`/products/${product.slug}`}
                         onClick={onClose}
-                        className="flex items-center gap-4 px-5 py-3 hover:bg-[#FAF7F2] transition-colors group"
+                        className="flex items-center gap-4 px-5 py-3 hover:bg-[#FAF5EA] transition-colors group"
                       >
                         <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
                           <Image src={product.images[0]} alt={product.name} fill sizes="48px" className="object-cover" onError={e => { (e.currentTarget as HTMLImageElement).src = '/images/placeholder.jpg' }} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-[#1A1A1A] group-hover:text-[#C9A45F] transition-colors text-sm">{product.name}</p>
+                          <p className="font-medium text-[#1A1A1A] group-hover:text-[#D4AF37] transition-colors text-sm">{product.name}</p>
                           <p className="text-xs text-gray-400 capitalize">{product.category}</p>
                         </div>
-                        <span className="text-sm font-semibold text-[#C9A45F]">{formatPrice(product.price)}</span>
-                        <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-[#C9A45F] transition-colors" />
+                        <span className="text-sm font-semibold text-[#D4AF37]">{formatPrice(product.price)}</span>
+                        <ArrowRight className="w-4 h-4 text-gray-300 group-hover:text-[#D4AF37] transition-colors" />
                       </Link>
                     </li>
                   ))}
@@ -114,7 +114,7 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
                         href={`/collections/${cat.toLowerCase().replace(/'/g, '-').replace(/ /g, '-')}`}
                         onClick={onClose}
                         className={cn(
-                          'px-3 py-1.5 rounded-full bg-[#FAF7F2] text-sm text-[#1A1A1A] hover:bg-[#C9A45F] hover:text-white transition-colors'
+                          'px-3 py-1.5 rounded-full bg-[#FAF5EA] text-sm text-[#1A1A1A] hover:bg-[#D4AF37] hover:text-white transition-colors'
                         )}
                       >
                         {cat}

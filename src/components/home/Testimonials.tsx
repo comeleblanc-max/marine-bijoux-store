@@ -12,14 +12,14 @@ export function Testimonials() {
     <section className="py-16 sm:py-24 bg-white">
       <div className="container-x">
         <Reveal className="text-center mb-12">
-          <p className="eyebrow mb-3">Avis vérifiés</p>
+          <p className="eyebrow mb-3">⭐ Avis vérifiés</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A]">
             Elles parlent de nous
           </h2>
           <div className="flex items-center justify-center gap-2 mt-4">
             <div className="flex gap-0.5">
               {[1, 2, 3, 4, 5].map((i) => (
-                <Star key={i} className="w-4 h-4 fill-[#C9A45F] text-[#C9A45F]" />
+                <Star key={i} className="w-4 h-4 fill-[#D4AF37] text-[#D4AF37]" />
               ))}
             </div>
             <span className="text-sm text-[#6B6B6B]">4.9 / 5 — 124 avis</span>
@@ -34,13 +34,13 @@ export function Testimonials() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: EASE }}
-              className="border border-[#E8E2D5] p-7 hover:border-[#C9A45F] transition-colors duration-300"
+              className="border border-[#E8E2D5] p-7 hover:border-[#D4AF37] transition-colors duration-300"
             >
               <div className="flex gap-0.5 mb-4">
                 {[1, 2, 3, 4, 5].map((s) => (
                   <Star
                     key={s}
-                    className={`w-3.5 h-3.5 ${s <= t.rating ? 'fill-[#C9A45F] text-[#C9A45F]' : 'text-[#E8E2D5]'}`}
+                    className={`w-3.5 h-3.5 ${s <= t.rating ? 'fill-[#D4AF37] text-[#D4AF37]' : 'text-[#E8E2D5]'}`}
                   />
                 ))}
               </div>

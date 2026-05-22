@@ -11,10 +11,10 @@
   --color-ink-soft:   #6B6B6B;
   --color-line:       #E8E2D5;
   --color-paper:      #FFFFFF;
-  --color-cream:      #FAF7F2;
-  --color-sand:       #F0E6D8;
-  --color-gold:       #C9A45F;
-  --color-gold-deep:  #A78340;
+  --color-cream:      #FAF5EA;
+  --color-sand:       #F2E5CC;
+  --color-gold:       #D4AF37;
+  --color-gold-deep:  #B8923D;
   --color-navy:       #1A1A1A;
   --color-coral:      #E89B6F;
   --color-ocean:      #A7D5E6;
@@ -42,10 +42,10 @@
   }
 
   input, textarea, select {
-    @apply outline-none focus:ring-1 focus:ring-[#C9A45F]/40 focus:border-[#C9A45F];
+    @apply outline-none focus:ring-1 focus:ring-[#D4AF37]/40 focus:border-[#D4AF37];
   }
 
-  ::selection { background: #C9A45F; color: white; }
+  ::selection { background: #D4AF37; color: white; }
 }
 
 @layer components {
@@ -58,7 +58,7 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-[#1A1A1A] text-white px-7 py-3.5 text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-[#C9A45F] hover:gap-3;
+    @apply inline-flex items-center justify-center gap-2 bg-[#1A1A1A] text-white px-7 py-3.5 text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-[#D4AF37] hover:gap-3;
   }
 
   .btn-ghost {
@@ -66,7 +66,7 @@
   }
 
   .btn-gold {
-    @apply inline-flex items-center justify-center gap-2 bg-[#C9A45F] text-white px-7 py-3.5 text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-[#A78340];
+    @apply inline-flex items-center justify-center gap-2 bg-[#D4AF37] text-white px-7 py-3.5 text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-[#B8923D];
   }
 }
 
@@ -75,4 +75,9 @@
   .text-pretty    { text-wrap: pretty; }
   .scrollbar-hide { scrollbar-width: none; }
   .scrollbar-hide::-webkit-scrollbar { display: none; }
+}
+
+/* Curseur coquillage — masquer le curseur natif sur desktop */
+@media (pointer: fine) and (min-width: 769px) {
+  *, *::before, *::after { cursor: none !important; }
 }

@@ -14,7 +14,7 @@ export function ReassuranceBar() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4">
           {ITEMS.map(({ icon: Icon, label, sub }) => (
             <div key={label} className="flex flex-col items-center text-center gap-2">
-              <Icon className="w-6 h-6 text-[#C9A45F]" strokeWidth={1.3} />
+              <Icon className="w-6 h-6 text-[#D4AF37]" strokeWidth={1.3} />
               <p className="text-[11px] tracking-[0.2em] uppercase font-medium text-[#1A1A1A]">
                 {label}
               </p>

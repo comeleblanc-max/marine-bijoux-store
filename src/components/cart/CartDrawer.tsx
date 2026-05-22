@@ -56,7 +56,7 @@ export function CartDrawer() {
 
             {/* Barre livraison */}
             {cartTotal > 0 && (
-              <div className="px-6 py-4 bg-[#FAF7F2] border-b border-[#E8E2D5]">
+              <div className="px-6 py-4 bg-[#FAF5EA] border-b border-[#E8E2D5]">
                 {remaining > 0 ? (
                   <>
                     <p className="text-xs text-[#1A1A1A] mb-2">
@@ -64,7 +64,7 @@ export function CartDrawer() {
                     </p>
                     <div className="h-px bg-[#E8E2D5] relative overflow-hidden">
                       <motion.div
-                        className="absolute left-0 top-0 bottom-0 bg-[#C9A45F]"
+                        className="absolute left-0 top-0 bottom-0 bg-[#D4AF37]"
                         initial={{ width: 0 }}
                         animate={{ width: `${progress}%` }}
                         transition={{ duration: 0.6, ease: EASE }}
@@ -72,7 +72,7 @@ export function CartDrawer() {
                     </div>
                   </>
                 ) : (
-                  <p className="text-xs text-[#C9A45F] font-medium tracking-wide">
+                  <p className="text-xs text-[#D4AF37] font-medium tracking-wide">
                     ✦ Livraison offerte
                   </p>
                 )}
@@ -102,7 +102,7 @@ export function CartDrawer() {
                         transition={{ duration: 0.3, ease: EASE }}
                         className="flex gap-4"
                       >
-                        <div className="relative w-20 h-20 bg-[#FAF7F2] flex-shrink-0 overflow-hidden">
+                        <div className="relative w-20 h-20 bg-[#FAF5EA] flex-shrink-0 overflow-hidden">
                           <Image
                             src={item.image}
                             alt={item.name}
@@ -115,7 +115,7 @@ export function CartDrawer() {
                           <Link
                             href={`/products/${item.slug}`}
                             onClick={closeCart}
-                            className="text-sm text-[#1A1A1A] hover:text-[#C9A45F] transition-colors line-clamp-2"
+                            className="text-sm text-[#1A1A1A] hover:text-[#D4AF37] transition-colors line-clamp-2"
                           >
                             {item.name}
                           </Link>

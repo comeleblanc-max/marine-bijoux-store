@@ -40,7 +40,7 @@ export function CookieConsent() {
           className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-sm z-[55] bg-white rounded-2xl shadow-2xl border border-gray-100 p-5"
         >
           <div className="flex items-center gap-2 mb-2">
-            <Cookie className="w-5 h-5 text-[#C9A45F]" />
+            <Cookie className="w-5 h-5 text-[#D4AF37]" />
             <h3 className="font-semibold text-[#1A1A1A] text-sm">
               Préférences cookies
             </h3>
@@ -51,7 +51,7 @@ export function CookieConsent() {
             limiter aux cookies essentiels.{' '}
             <Link
               href="/pages/cookies"
-              className="text-[#C9A45F] hover:underline"
+              className="text-[#D4AF37] hover:underline"
               onClick={() => setVisible(false)}
             >
               En savoir plus
@@ -60,13 +60,13 @@ export function CookieConsent() {
           <div className="flex gap-2">
             <button
               onClick={() => choose('essential')}
-              className="flex-1 py-2.5 text-xs font-medium text-[#1A1A1A] border border-gray-200 rounded-lg hover:bg-[#FAF7F2] transition-colors"
+              className="flex-1 py-2.5 text-xs font-medium text-[#1A1A1A] border border-gray-200 rounded-lg hover:bg-[#FAF5EA] transition-colors"
             >
               Essentiels uniquement
             </button>
             <button
               onClick={() => choose('all')}
-              className="flex-1 py-2.5 text-xs font-semibold text-white bg-[#C9A45F] rounded-lg hover:bg-[#b8963e] transition-colors"
+              className="flex-1 py-2.5 text-xs font-semibold text-white bg-[#D4AF37] rounded-lg hover:bg-[#b8963e] transition-colors"
             >
               Tout accepter
             </button>

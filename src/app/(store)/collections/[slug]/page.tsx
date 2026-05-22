@@ -43,7 +43,7 @@ export default async function CollectionPage({ params }: PageProps) {
   return (
     <div className="bg-white">
       {/* En-tête de collection */}
-      <section className="border-b border-[#E8E2D5] py-14 sm:py-20 bg-[#FAF7F2]">
+      <section className="border-b border-[#E8E2D5] py-14 sm:py-20 bg-[#FAF5EA]">
         <div className="container-x text-center">
           {/* Fil d'Ariane */}
           <nav className="flex items-center justify-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#6B6B6B] mb-5">
@@ -57,7 +57,7 @@ export default async function CollectionPage({ params }: PageProps) {
           {description && (
             <p className="text-[#6B6B6B] max-w-lg mx-auto leading-relaxed">{description}</p>
           )}
-          <p className="text-[11px] tracking-[0.2em] uppercase text-[#C9A45F] mt-6">
+          <p className="text-[11px] tracking-[0.2em] uppercase text-[#D4AF37] mt-6">
             {products.length} bijou{products.length > 1 ? 'x' : ''}
           </p>
         </div>

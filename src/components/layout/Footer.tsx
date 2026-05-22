@@ -65,7 +65,7 @@ export function Footer() {
                   target={href.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 border border-white/20 flex items-center justify-center hover:border-[#C9A45F] hover:text-[#C9A45F] transition-colors"
+                  className="w-9 h-9 border border-white/20 flex items-center justify-center hover:border-[#D4AF37] hover:text-[#D4AF37] transition-colors"
                 >
                   <Icon className="w-4 h-4" strokeWidth={1.3} />
                 </a>
@@ -111,7 +111,7 @@ export function Footer() {
 function FooterColumn({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
-      <h4 className="text-[10px] tracking-[0.25em] uppercase font-medium text-[#C9A45F] mb-4">
+      <h4 className="text-[10px] tracking-[0.25em] uppercase font-medium text-[#D4AF37] mb-4">
         {title}
       </h4>
       <ul className="space-y-2.5">

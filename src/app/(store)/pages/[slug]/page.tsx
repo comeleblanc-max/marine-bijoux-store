@@ -29,7 +29,7 @@ export default async function ContentPage({ params }: Props) {
       {/* En-tête */}
       <div className="bg-gradient-to-br from-[#1A1A1A] to-[#A7D5E6] py-20 px-4 text-center text-white">
         <Reveal>
-          <p className="text-[#C9A45F] text-sm tracking-widest uppercase mb-4">
+          <p className="text-[#D4AF37] text-sm tracking-widest uppercase mb-4">
             Informations
           </p>
           <h1
@@ -69,7 +69,7 @@ export default async function ContentPage({ params }: Props) {
                   <ul className="space-y-2 mt-2">
                     {section.list.map((item, j) => (
                       <li key={j} className="flex gap-3 text-gray-600 leading-relaxed">
-                        <span className="text-[#C9A45F] flex-shrink-0 mt-1">◆</span>
+                        <span className="text-[#D4AF37] flex-shrink-0 mt-1">◆</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -82,14 +82,14 @@ export default async function ContentPage({ params }: Props) {
 
         {/* Aide */}
         <Reveal delay={0.1}>
-          <div className="mt-16 p-6 bg-[#FAF7F2] rounded-2xl text-center">
+          <div className="mt-16 p-6 bg-[#FAF5EA] rounded-2xl text-center">
             <p className="text-[#1A1A1A] font-medium mb-1">Une question ?</p>
             <p className="text-gray-500 text-sm mb-4">
               Notre équipe vous répond avec plaisir sous 24 h.
             </p>
             <Link
               href="/pages/contact"
-              className="inline-flex items-center gap-2 bg-[#C9A45F] hover:bg-[#b8963e] text-white px-6 py-3 rounded-full font-medium transition-colors"
+              className="inline-flex items-center gap-2 bg-[#D4AF37] hover:bg-[#b8963e] text-white px-6 py-3 rounded-full font-medium transition-colors"
             >
               Nous contacter
             </Link>

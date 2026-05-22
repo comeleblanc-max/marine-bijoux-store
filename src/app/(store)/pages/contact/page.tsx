@@ -16,7 +16,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2]">
+    <div className="min-h-screen bg-[#FAF5EA]">
       <div className="bg-[#1A1A1A] py-20 px-4 text-center text-white">
         <h1 className="text-4xl font-light" style={{ fontFamily: 'var(--font-playfair)' }}>
           Nous contacter
@@ -33,7 +33,7 @@ export default function ContactPage() {
             { icon: Share2, title: 'Instagram', desc: '@marineetladouceurdelete', sub: 'Suivez-nous !' },
           ].map(({ icon: Icon, title, desc, sub }) => (
             <div key={title} className="bg-white rounded-2xl p-5 flex gap-4 items-start">
-              <div className="w-10 h-10 bg-[#FAF7F2] rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 bg-[#FAF5EA] rounded-full flex items-center justify-center flex-shrink-0">
                 <Icon className="w-5 h-5 text-[#A7D5E6]" />
               </div>
               <div>

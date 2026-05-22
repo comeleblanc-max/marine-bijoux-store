@@ -8,7 +8,7 @@ const EASE = [0.22, 1, 0.36, 1] as const
 
 export function Hero() {
   return (
-    <section className="relative w-full h-[75vh] min-h-[520px] max-h-[820px] overflow-hidden bg-[#FAF7F2]">
+    <section className="relative w-full h-[75vh] min-h-[520px] max-h-[820px] overflow-hidden bg-[#FAF5EA]">
       {/* Image pleine largeur */}
       <Image
         src="/banniere-test.webp"
@@ -31,10 +31,10 @@ export function Hero() {
             transition={{ duration: 0.9, ease: EASE }}
             className="max-w-xl"
           >
-            <p className="eyebrow text-white/85 mb-4">Collection — Été 2026</p>
+            <p className="eyebrow text-white/85 mb-4">🐚 Collection — Été 2026</p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.05] mb-6 text-balance">
               La douceur de l'été<br />
-              <span className="italic text-[#FAF7F2]">au creux de la peau.</span>
+              <span className="italic text-[#FAF5EA]">au creux de la peau.</span>
             </h1>
             <p className="text-white/90 text-sm sm:text-base max-w-md mb-8 leading-relaxed">
               Bijoux en acier inoxydable, conçus pour durer. Inspirés par le soleil,

@@ -14,7 +14,7 @@ interface Props {
 }
 
 const COLOR_MAP: Record<string, string> = {
-  'doré': '#C9A45F',
+  'doré': '#D4AF37',
   'argenté': '#C0C0C0',
   'nacre': '#F8F0DA',
 }
@@ -51,7 +51,7 @@ export function ProductCard({ product }: Props) {
   return (
     <Link href={`/products/${product.slug}`} className="group block">
       {/* Image */}
-      <div className="relative aspect-square bg-[#FAF7F2] overflow-hidden mb-4">
+      <div className="relative aspect-square bg-[#FAF5EA] overflow-hidden mb-4">
         {product.images.length > 0 ? (
           <Image
             src={product.images[0]}
@@ -61,7 +61,7 @@ export function ProductCard({ product }: Props) {
             className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-4xl text-[#C9A45F]/30">
+          <div className="w-full h-full flex items-center justify-center text-4xl text-[#D4AF37]/30">
             ✦
           </div>
         )}
@@ -98,7 +98,7 @@ export function ProductCard({ product }: Props) {
         >
           <Heart
             className={`w-[14px] h-[14px] transition-colors ${
-              wished ? 'fill-[#C9A45F] text-[#C9A45F]' : 'text-[#1A1A1A]'
+              wished ? 'fill-[#D4AF37] text-[#D4AF37]' : 'text-[#1A1A1A]'
             }`}
             strokeWidth={1.5}
           />
@@ -119,7 +119,7 @@ export function ProductCard({ product }: Props) {
       {/* Infos */}
       <div className="space-y-1.5">
         <p className="eyebrow">Acier inoxydable</p>
-        <h3 className="text-sm text-[#1A1A1A] group-hover:text-[#C9A45F] transition-colors leading-snug">
+        <h3 className="text-sm text-[#1A1A1A] group-hover:text-[#D4AF37] transition-colors leading-snug">
           {product.name}
         </h3>
         <div className="flex items-center gap-2">

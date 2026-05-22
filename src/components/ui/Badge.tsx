@@ -15,7 +15,7 @@ export function Badge({ variant = 'new', children, className }: BadgeProps) {
           'bg-[#A7D5E6] text-white': variant === 'new',
           'bg-[#E89B6F] text-white': variant === 'promo',
           'bg-gray-400 text-white': variant === 'soldout',
-          'bg-[#C9A45F] text-white': variant === 'featured',
+          'bg-[#D4AF37] text-white': variant === 'featured',
         },
         className
       )}

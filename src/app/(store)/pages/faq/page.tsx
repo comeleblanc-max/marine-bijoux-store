@@ -35,7 +35,7 @@ export default function FaqPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="bg-[#FAF7F2] py-20 px-4 text-center">
+      <div className="bg-[#FAF5EA] py-20 px-4 text-center">
         <h1 className="text-4xl font-light text-[#1A1A1A]" style={{ fontFamily: 'var(--font-playfair)' }}>
           Questions fréquentes
         </h1>
@@ -45,7 +45,7 @@ export default function FaqPage() {
       <div className="max-w-2xl mx-auto px-4 py-16 space-y-10">
         {FAQS.map((section) => (
           <div key={section.category}>
-            <h2 className="text-sm font-semibold text-[#C9A45F] uppercase tracking-widest mb-4">
+            <h2 className="text-sm font-semibold text-[#D4AF37] uppercase tracking-widest mb-4">
               {section.category}
             </h2>
             <div className="space-y-2">
@@ -53,10 +53,10 @@ export default function FaqPage() {
                 <div key={item.q} className="border border-gray-100 rounded-2xl overflow-hidden">
                   <button
                     onClick={() => setOpen(open === item.q ? null : item.q)}
-                    className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-[#FAF7F2] transition-colors"
+                    className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-[#FAF5EA] transition-colors"
                   >
                     <span className="font-medium text-[#1A1A1A] text-sm pr-4">{item.q}</span>
-                    <ChevronDown className={`w-4 h-4 text-[#C9A45F] flex-shrink-0 transition-transform ${open === item.q ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-4 h-4 text-[#D4AF37] flex-shrink-0 transition-transform ${open === item.q ? 'rotate-180' : ''}`} />
                   </button>
                   {open === item.q && (
                     <div className="px-5 pb-4 text-sm text-gray-600 leading-relaxed border-t border-gray-50">

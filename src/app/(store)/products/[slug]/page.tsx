@@ -65,7 +65,7 @@ export default function ProductPage({ params }: PageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
             {/* Galerie */}
             <div className="relative">
-              <div className="relative aspect-square bg-[#FAF7F2] overflow-hidden">
+              <div className="relative aspect-square bg-[#FAF5EA] overflow-hidden">
                 {product.images[0] ? (
                   <Image
                     src={product.images[0]}
@@ -76,7 +76,7 @@ export default function ProductPage({ params }: PageProps) {
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-7xl text-[#C9A45F]/30">✦</div>
+                  <div className="w-full h-full flex items-center justify-center text-7xl text-[#D4AF37]/30">✦</div>
                 )}
 
                 {/* Badges */}
@@ -98,7 +98,7 @@ export default function ProductPage({ params }: PageProps) {
               {product.images.length > 1 && (
                 <div className="grid grid-cols-4 gap-2 mt-3">
                   {product.images.map((img, i) => (
-                    <div key={i} className="relative aspect-square bg-[#FAF7F2]">
+                    <div key={i} className="relative aspect-square bg-[#FAF5EA]">
                       <Image src={img} alt="" fill className="object-cover" sizes="120px" />
                     </div>
                   ))}
@@ -117,7 +117,7 @@ export default function ProductPage({ params }: PageProps) {
               <div className="flex items-center gap-2 mb-5">
                 <div className="flex gap-0.5">
                   {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-3.5 h-3.5 fill-[#C9A45F] text-[#C9A45F]" />
+                    <Star key={s} className="w-3.5 h-3.5 fill-[#D4AF37] text-[#D4AF37]" />
                   ))}
                 </div>
                 <span className="text-xs text-[#6B6B6B]">(24 avis)</span>
@@ -165,10 +165,10 @@ export default function ProductPage({ params }: PageProps) {
 
               <button
                 onClick={() => toggle(product.id)}
-                className="flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B] hover:text-[#C9A45F] transition-colors mb-8"
+                className="flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B] hover:text-[#D4AF37] transition-colors mb-8"
               >
                 <Heart
-                  className={`w-4 h-4 ${wished ? 'fill-[#C9A45F] text-[#C9A45F]' : ''}`}
+                  className={`w-4 h-4 ${wished ? 'fill-[#D4AF37] text-[#D4AF37]' : ''}`}
                   strokeWidth={1.5}
                 />
                 {wished ? 'Retirer des favoris' : 'Ajouter aux favoris'}
@@ -182,7 +182,7 @@ export default function ProductPage({ params }: PageProps) {
                   { icon: RefreshCw, label: 'Retours\nsous 14j' },
                 ].map(({ icon: Icon, label }) => (
                   <div key={label} className="flex flex-col items-center text-center gap-2">
-                    <Icon className="w-5 h-5 text-[#C9A45F]" strokeWidth={1.3} />
+                    <Icon className="w-5 h-5 text-[#D4AF37]" strokeWidth={1.3} />
                     <p className="text-[10px] tracking-wide text-[#6B6B6B] whitespace-pre-line">{label}</p>
                   </div>
                 ))}
@@ -219,7 +219,7 @@ export default function ProductPage({ params }: PageProps) {
 
       {/* Produits liés */}
       {related.length > 0 && (
-        <div className="bg-[#FAF7F2]">
+        <div className="bg-[#FAF5EA]">
           <ProductRow
             eyebrow="Vous aimerez aussi"
             title="Dans le même esprit"
