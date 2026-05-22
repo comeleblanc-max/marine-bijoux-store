@@ -91,9 +91,11 @@ export default function CartPage() {
                 <span>Total</span>
                 <span className="text-xl">{formatPrice(cartTotal + shipping)}</span>
               </div>
-              <Button size="lg" className="w-full rounded-xl">
-                Passer commande →
-              </Button>
+              <Link href="/checkout">
+                <Button size="lg" className="w-full rounded-xl">
+                  Passer commande →
+                </Button>
+              </Link>
               <Link href="/collections/all" className="block text-center text-sm text-gray-400 hover:text-[#1A3A52] transition-colors">
                 Continuer mes achats
               </Link>

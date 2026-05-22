@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { Button } from '@/components/ui/Button'
-import { Mail, Clock, Instagram } from 'lucide-react'
+import { Mail, Clock, Share2 } from 'lucide-react'
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
@@ -30,7 +30,7 @@ export default function ContactPage() {
           {[
             { icon: Mail, title: 'Email', desc: 'contact@marineetladouceurdelete.com', sub: 'Réponse sous 24h' },
             { icon: Clock, title: 'Horaires', desc: 'Lun — Ven', sub: '9h à 18h' },
-            { icon: Instagram, title: 'Instagram', desc: '@marineetladouceurdelete', sub: 'Suivez-nous !' },
+            { icon: Share2, title: 'Instagram', desc: '@marineetladouceurdelete', sub: 'Suivez-nous !' },
           ].map(({ icon: Icon, title, desc, sub }) => (
             <div key={title} className="bg-white rounded-2xl p-5 flex gap-4 items-start">
               <div className="w-10 h-10 bg-[#F5F1ED] rounded-full flex items-center justify-center flex-shrink-0">

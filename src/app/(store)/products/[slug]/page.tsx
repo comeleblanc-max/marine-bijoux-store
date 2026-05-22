@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/Badge'
 import { StarRating } from '@/components/ui/StarRating'
 import { ProductCard } from '@/components/product/ProductCard'
 import { useCart } from '@/store/cart'
+import { motion, Reveal, Stagger, StaggerItem } from '@/components/ui/motion'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -70,7 +71,12 @@ export default function ProductPage({ params }: Props) {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Gallery */}
-          <div className="space-y-3">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="space-y-3"
+          >
             <div className="relative aspect-square bg-[#F5F1ED] rounded-3xl overflow-hidden">
               {product.images.length > 0 ? (
                 <Image
@@ -108,10 +114,14 @@ export default function ProductPage({ params }: Props) {
                 ))}
               </div>
             )}
-          </div>
+          </motion.div>
 
           {/* Info */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          >
             <h1
               className="text-3xl sm:text-4xl text-[#1A3A52] font-light mb-3 leading-tight"
               style={{ fontFamily: 'var(--font-playfair)' }}
@@ -212,21 +222,27 @@ export default function ProductPage({ params }: Props) {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Related products */}
         {related.length > 0 && (
           <div className="mt-20">
-            <h2
-              className="text-2xl text-[#1A3A52] font-light mb-8 text-center"
-              style={{ fontFamily: 'var(--font-playfair)' }}
-            >
-              Vous aimerez aussi
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-              {related.map((p) => <ProductCard key={p.id} product={p} />)}
-            </div>
+            <Reveal>
+              <h2
+                className="text-2xl text-[#1A3A52] font-light mb-8 text-center"
+                style={{ fontFamily: 'var(--font-playfair)' }}
+              >
+                Vous aimerez aussi
+              </h2>
+            </Reveal>
+            <Stagger className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+              {related.map((p) => (
+                <StaggerItem key={p.id}>
+                  <ProductCard product={p} />
+                </StaggerItem>
+              ))}
+            </Stagger>
           </div>
         )}
       </div>

@@ -24,3 +24,6 @@ export function slugify(text: string): string {
 export function truncate(text: string, length: number): string {
   return text.length > length ? text.slice(0, length) + '...' : text
 }
+
+// Backward-compat re-exports — existing code importing from @/lib/utils still works
+export { formatDate } from '@/utils/format'

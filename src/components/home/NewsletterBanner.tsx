@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/Button'
 import { Send } from 'lucide-react'
+import { motion, Reveal, FloatingShape } from '@/components/ui/motion'
 
 export function NewsletterBanner() {
   const [email, setEmail] = useState('')
@@ -26,8 +26,20 @@ export function NewsletterBanner() {
   }
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-[#4DB8D4] to-[#2a8fa8]">
-      <div className="max-w-2xl mx-auto text-center">
+    <section className="py-20 sm:py-28 px-4 bg-gradient-to-br from-[#4DB8D4] to-[#2a8fa8] relative overflow-hidden">
+      <FloatingShape
+        className="absolute top-10 left-[8%] w-32 h-32 rounded-full border border-white/15"
+        duration={8}
+        distance={22}
+      />
+      <FloatingShape
+        className="absolute bottom-8 right-[10%] w-20 h-20 rounded-full bg-white/5"
+        duration={6}
+        delay={1}
+        distance={18}
+      />
+
+      <Reveal className="max-w-2xl mx-auto text-center relative z-10">
         <p className="text-white/70 text-sm tracking-widest uppercase mb-3">Rejoins la famille</p>
         <h2
           className="text-3xl sm:text-4xl text-white font-light mb-4"
@@ -41,9 +53,14 @@ export function NewsletterBanner() {
         </p>
 
         {status === 'success' ? (
-          <div className="bg-white/20 rounded-2xl px-8 py-6 text-white font-medium">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: 'spring', stiffness: 250, damping: 18 }}
+            className="bg-white/20 rounded-2xl px-8 py-6 text-white font-medium"
+          >
             ✨ Merci ! Vérifie ta boîte mail pour ton code de réduction.
-          </div>
+          </motion.div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <input
@@ -54,21 +71,26 @@ export function NewsletterBanner() {
               required
               className="flex-1 px-5 py-3.5 rounded-xl bg-white/20 backdrop-blur text-white placeholder-white/60 border border-white/30 focus:outline-none focus:border-white focus:bg-white/30 transition-all"
             />
-            <Button
+            <motion.button
               type="submit"
-              loading={status === 'loading'}
-              className="bg-[#C9A84C] hover:bg-[#b8963e] text-white px-6 py-3.5 rounded-xl font-semibold whitespace-nowrap"
+              disabled={status === 'loading'}
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+              className="inline-flex items-center justify-center gap-1.5 bg-[#C9A84C] hover:bg-[#b8963e] text-white px-6 py-3.5 rounded-xl font-semibold whitespace-nowrap disabled:opacity-60"
             >
-              <Send className="w-4 h-4 mr-1" />
+              {status === 'loading' ? (
+                <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <Send className="w-4 h-4" />
+              )}
               S'inscrire
-            </Button>
+            </motion.button>
           </form>
         )}
 
-        <p className="text-white/50 text-xs mt-4">
-          Aucun spam. Désabonnement en un clic.
-        </p>
-      </div>
+        <p className="text-white/50 text-xs mt-4">Aucun spam. Désabonnement en un clic.</p>
+      </Reveal>
     </section>
   )
 }
