@@ -1,4 +1,5 @@
 import { HeroSection } from '@/components/home/HeroSection'
+import { FullWidthBanner } from '@/components/home/FullWidthBanner'
 import { CollectionGrid } from '@/components/home/CollectionGrid'
 import { FeaturedProducts } from '@/components/home/FeaturedProducts'
 import { BrandStory } from '@/components/home/BrandStory'
@@ -10,15 +11,17 @@ export default function HomePage() {
     <>
       {/* 1. Hero plein écran — coucher de soleil */}
       <HeroSection />
-      {/* 2. Tuiles catégories — style mainajewels */}
+      {/* 2. Bannière photo pleine largeur */}
+      <FullWidthBanner />
+      {/* 3. Tuiles catégories — style mainajewels */}
       <CollectionGrid />
-      {/* 3. Meilleures ventes + bandeau réassurance + Nouveautés */}
+      {/* 4. Meilleures ventes + bandeau réassurance + Nouveautés */}
       <FeaturedProducts />
-      {/* 4. Histoire de marque */}
+      {/* 5. Histoire de marque */}
       <BrandStory />
-      {/* 5. Avis clients */}
+      {/* 6. Avis clients */}
       <Testimonials />
-      {/* 6. Newsletter */}
+      {/* 7. Newsletter */}
       <NewsletterBanner />
     </>
   )
