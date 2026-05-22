@@ -77,7 +77,7 @@ export function NewsletterBanner() {
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.96 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              className="inline-flex items-center justify-center gap-1.5 bg-[#C9A84C] hover:bg-[#b8963e] text-white px-6 py-3.5 rounded-xl font-semibold whitespace-nowrap disabled:opacity-60"
+              className="inline-flex items-center justify-center gap-1.5 bg-[#D4AF37] hover:bg-[#b8963e] text-white px-6 py-3.5 rounded-xl font-semibold whitespace-nowrap disabled:opacity-60"
             >
               {status === 'loading' ? (
                 <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />

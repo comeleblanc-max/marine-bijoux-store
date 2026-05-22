@@ -77,7 +77,7 @@ export function Header() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="lg:hidden text-[#1A3A52] hover:text-[#C9A84C] transition-colors"
+                className="lg:hidden text-[#1F3A56] hover:text-[#D4AF37] transition-colors"
                 aria-label="Menu"
               >
                 {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -90,12 +90,12 @@ export function Header() {
                   className="flex flex-col leading-none"
                 >
                   <span
-                    className="text-xl lg:text-2xl font-bold text-[#1A3A52]"
+                    className="text-xl lg:text-2xl font-bold text-[#1F3A56]"
                     style={{ fontFamily: 'var(--font-playfair)' }}
                   >
                     Marine
                   </span>
-                  <span className="text-[9px] lg:text-[10px] text-[#C9A84C] tracking-[0.18em] uppercase font-medium mt-0.5">
+                  <span className="text-[9px] lg:text-[10px] text-[#D4AF37] tracking-[0.18em] uppercase font-medium mt-0.5">
                     et la douceur de l&apos;été
                   </span>
                 </motion.div>
@@ -114,8 +114,8 @@ export function Header() {
                   className={cn(
                     'flex items-center gap-1 text-sm font-medium transition-colors py-2',
                     isActive('/collections')
-                      ? 'text-[#C9A84C]'
-                      : 'text-[#1A3A52] hover:text-[#C9A84C]'
+                      ? 'text-[#D4AF37]'
+                      : 'text-[#1F3A56] hover:text-[#D4AF37]'
                   )}
                 >
                   Bijoux
@@ -144,8 +144,8 @@ export function Header() {
                             className={cn(
                               'block px-3 py-2 rounded-xl text-sm transition-colors',
                               isActive(cat.href)
-                                ? 'bg-[#F5F1ED] text-[#C9A84C] font-medium'
-                                : 'text-[#1A3A52] hover:bg-[#F5F1ED] hover:text-[#C9A84C]'
+                                ? 'bg-[#F5E9D6] text-[#D4AF37] font-medium'
+                                : 'text-[#1F3A56] hover:bg-[#F5E9D6] hover:text-[#D4AF37]'
                             )}
                           >
                             {cat.label}
@@ -163,11 +163,11 @@ export function Header() {
                 className={cn(
                   'flex items-center gap-1.5 text-sm font-medium transition-colors',
                   isActive('/collections/lumiere-dete')
-                    ? 'text-[#C9A84C]'
-                    : 'text-[#1A3A52] hover:text-[#C9A84C]'
+                    ? 'text-[#D4AF37]'
+                    : 'text-[#1F3A56] hover:text-[#D4AF37]'
                 )}
               >
-                <Sparkles className="w-3.5 h-3.5 text-[#C9A84C]" />
+                <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
                 Lumière d&apos;été
               </Link>
 
@@ -177,10 +177,10 @@ export function Header() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    'relative text-sm font-medium transition-colors after:absolute after:left-0 after:-bottom-1 after:h-px after:bg-[#C9A84C] after:transition-all',
+                    'relative text-sm font-medium transition-colors after:absolute after:left-0 after:-bottom-1 after:h-px after:bg-[#D4AF37] after:transition-all',
                     isActive(link.href)
-                      ? 'text-[#C9A84C] after:w-full'
-                      : 'text-[#1A3A52] hover:text-[#C9A84C] after:w-0 hover:after:w-full'
+                      ? 'text-[#D4AF37] after:w-full'
+                      : 'text-[#1F3A56] hover:text-[#D4AF37] after:w-0 hover:after:w-full'
                   )}
                 >
                   {link.label}
@@ -192,21 +192,21 @@ export function Header() {
             <div className="flex items-center gap-3 lg:gap-4">
               <button
                 onClick={() => setSearchOpen(true)}
-                className="text-[#1A3A52] hover:text-[#C9A84C] transition-colors"
+                className="text-[#1F3A56] hover:text-[#D4AF37] transition-colors"
                 aria-label="Rechercher"
               >
                 <Search className="w-5 h-5" />
               </button>
               <Link
                 href="/account"
-                className="text-[#1A3A52] hover:text-[#C9A84C] transition-colors hidden sm:block"
+                className="text-[#1F3A56] hover:text-[#D4AF37] transition-colors hidden sm:block"
                 aria-label="Mon compte"
               >
                 <User className="w-5 h-5" />
               </Link>
               <Link
                 href="/wishlist"
-                className="relative text-[#1A3A52] hover:text-[#C9A84C] transition-colors hidden sm:block"
+                className="relative text-[#1F3A56] hover:text-[#D4AF37] transition-colors hidden sm:block"
                 aria-label="Liste de souhaits"
               >
                 <Heart className="w-5 h-5" />
@@ -218,7 +218,7 @@ export function Header() {
                       animate={{ scale: 1 }}
                       exit={{ scale: 0 }}
                       transition={{ type: 'spring', stiffness: 500, damping: 18 }}
-                      className="absolute -top-2 -right-2 w-4 h-4 bg-[#F08080] text-white text-[10px] font-bold rounded-full flex items-center justify-center"
+                      className="absolute -top-2 -right-2 w-4 h-4 bg-[#FF7A45] text-white text-[10px] font-bold rounded-full flex items-center justify-center"
                     >
                       {wishlistCount}
                     </motion.span>
@@ -229,7 +229,7 @@ export function Header() {
                 onClick={openCart}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="relative text-[#1A3A52] hover:text-[#C9A84C] transition-colors"
+                className="relative text-[#1F3A56] hover:text-[#D4AF37] transition-colors"
                 aria-label="Panier"
               >
                 <ShoppingBag className="w-5 h-5" />
@@ -241,7 +241,7 @@ export function Header() {
                       animate={{ scale: 1 }}
                       exit={{ scale: 0 }}
                       transition={{ type: 'spring', stiffness: 500, damping: 18 }}
-                      className="absolute -top-2 -right-2 w-4 h-4 bg-[#F08080] text-white text-[10px] font-bold rounded-full flex items-center justify-center"
+                      className="absolute -top-2 -right-2 w-4 h-4 bg-[#FF7A45] text-white text-[10px] font-bold rounded-full flex items-center justify-center"
                     >
                       {count}
                     </motion.span>
@@ -267,7 +267,7 @@ export function Header() {
                 <Link
                   href="/collections/lumiere-dete"
                   onClick={() => setMenuOpen(false)}
-                  className="flex items-center gap-2 text-base font-medium text-[#C9A84C] py-2.5 border-b border-gray-50"
+                  className="flex items-center gap-2 text-base font-medium text-[#D4AF37] py-2.5 border-b border-gray-50"
                 >
                   <Sparkles className="w-4 h-4" />
                   Collection Lumière d&apos;été
@@ -287,7 +287,7 @@ export function Header() {
                     <Link
                       href={cat.href}
                       onClick={() => setMenuOpen(false)}
-                      className="block text-base text-[#1A3A52] hover:text-[#C9A84C] transition-colors py-2.5 border-b border-gray-50"
+                      className="block text-base text-[#1F3A56] hover:text-[#D4AF37] transition-colors py-2.5 border-b border-gray-50"
                     >
                       {cat.label}
                     </Link>
@@ -308,7 +308,7 @@ export function Header() {
                     <Link
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className="block text-base text-[#1A3A52] hover:text-[#C9A84C] transition-colors py-2.5 border-b border-gray-50"
+                      className="block text-base text-[#1F3A56] hover:text-[#D4AF37] transition-colors py-2.5 border-b border-gray-50"
                     >
                       {link.label}
                     </Link>
@@ -320,14 +320,14 @@ export function Header() {
                   <Link
                     href="/account"
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2 text-sm text-[#1A3A52] hover:text-[#C9A84C] transition-colors"
+                    className="flex items-center gap-2 text-sm text-[#1F3A56] hover:text-[#D4AF37] transition-colors"
                   >
                     <User className="w-4 h-4" /> Mon compte
                   </Link>
                   <Link
                     href="/wishlist"
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2 text-sm text-[#1A3A52] hover:text-[#C9A84C] transition-colors"
+                    className="flex items-center gap-2 text-sm text-[#1F3A56] hover:text-[#D4AF37] transition-colors"
                   >
                     <Heart className="w-4 h-4" /> Favoris
                   </Link>

@@ -9,8 +9,8 @@ export default function AProposPage() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-[#1A3A52] to-[#4DB8D4] py-24 px-4 text-center text-white">
-        <p className="text-[#C9A84C] text-sm tracking-widest uppercase mb-4">Notre histoire</p>
+      <div className="bg-gradient-to-br from-[#1F3A56] to-[#4DB8D4] py-24 px-4 text-center text-white">
+        <p className="text-[#D4AF37] text-sm tracking-widest uppercase mb-4">Notre histoire</p>
         <h1 className="text-4xl sm:text-6xl font-light mb-6" style={{ fontFamily: 'var(--font-playfair)' }}>
           Née d'une passion
           <br />
@@ -47,8 +47,8 @@ export default function AProposPage() {
               { title: 'Qualité artisanale', text: 'Des matériaux choisis avec soin : acier inoxydable, argent 925, nacre naturelle.' },
               { title: 'Made with love', text: 'Chaque pièce est conçue avec passion pour sublimer votre beauté naturelle.' },
             ].map((v) => (
-              <div key={v.title} className="text-center p-6 bg-[#F5F1ED] rounded-2xl">
-                <h3 className="font-semibold text-[#1A3A52] mb-2" style={{ fontFamily: 'var(--font-playfair)' }}>
+              <div key={v.title} className="text-center p-6 bg-[#F5E9D6] rounded-2xl">
+                <h3 className="font-semibold text-[#1F3A56] mb-2" style={{ fontFamily: 'var(--font-playfair)' }}>
                   {v.title}
                 </h3>
                 <p className="text-gray-500 text-sm leading-relaxed">{v.text}</p>

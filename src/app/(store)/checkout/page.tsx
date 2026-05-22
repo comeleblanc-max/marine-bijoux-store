@@ -33,7 +33,7 @@ export default function CheckoutPage() {
   /* ---------------- Confirmation ---------------- */
   if (done) {
     return (
-      <div className="min-h-screen bg-[#F5F1ED] flex items-center justify-center px-4 py-16">
+      <div className="min-h-screen bg-[#F5E9D6] flex items-center justify-center px-4 py-16">
         <Reveal className="w-full max-w-md">
           <div className="bg-white rounded-3xl p-10 text-center">
             <motion.div
@@ -45,13 +45,13 @@ export default function CheckoutPage() {
               <CheckCircle2 className="w-10 h-10 text-[#4DB8D4]" />
             </motion.div>
             <h1
-              className="text-2xl text-[#1A3A52] font-light mb-2"
+              className="text-2xl text-[#1F3A56] font-light mb-2"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
               Merci pour votre commande ✨
             </h1>
             <p className="text-gray-500 text-sm mb-1">
-              Votre commande <strong className="text-[#C9A84C]">{orderId}</strong> est confirmée.
+              Votre commande <strong className="text-[#D4AF37]">{orderId}</strong> est confirmée.
             </p>
             <p className="text-gray-400 text-sm mb-8">
               Un email de confirmation vous a été envoyé. Vous recevrez le suivi
@@ -78,7 +78,7 @@ export default function CheckoutPage() {
   /* ---------------- Panier vide ---------------- */
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-[#F5F1ED] flex items-center justify-center px-4 py-16">
+      <div className="min-h-screen bg-[#F5E9D6] flex items-center justify-center px-4 py-16">
         <div className="bg-white rounded-3xl p-12 text-center max-w-md">
           <ShoppingBag className="w-14 h-14 text-gray-200 mx-auto mb-4" />
           <p className="text-gray-400 mb-6">
@@ -94,16 +94,16 @@ export default function CheckoutPage() {
 
   /* ---------------- Formulaire de commande ---------------- */
   return (
-    <div className="min-h-screen bg-[#F5F1ED] py-12 px-4">
+    <div className="min-h-screen bg-[#F5E9D6] py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <button
           onClick={() => router.back()}
-          className="text-sm text-gray-400 hover:text-[#1A3A52] transition-colors mb-6"
+          className="text-sm text-gray-400 hover:text-[#1F3A56] transition-colors mb-6"
         >
           ← Retour
         </button>
         <h1
-          className="text-3xl sm:text-4xl text-[#1A3A52] font-light mb-8"
+          className="text-3xl sm:text-4xl text-[#1F3A56] font-light mb-8"
           style={{ fontFamily: 'var(--font-playfair)' }}
         >
           Finaliser ma commande
@@ -115,7 +115,7 @@ export default function CheckoutPage() {
             {/* Coordonnées */}
             <div className="bg-white rounded-2xl p-6">
               <h2
-                className="font-medium text-[#1A3A52] mb-4"
+                className="font-medium text-[#1F3A56] mb-4"
                 style={{ fontFamily: 'var(--font-playfair)' }}
               >
                 Coordonnées
@@ -147,7 +147,7 @@ export default function CheckoutPage() {
             {/* Livraison */}
             <div className="bg-white rounded-2xl p-6">
               <h2
-                className="font-medium text-[#1A3A52] mb-4"
+                className="font-medium text-[#1F3A56] mb-4"
                 style={{ fontFamily: 'var(--font-playfair)' }}
               >
                 Adresse de livraison
@@ -181,7 +181,7 @@ export default function CheckoutPage() {
               <div className="flex items-center gap-2 mb-4">
                 <Lock className="w-4 h-4 text-[#4DB8D4]" />
                 <h2
-                  className="font-medium text-[#1A3A52]"
+                  className="font-medium text-[#1F3A56]"
                   style={{ fontFamily: 'var(--font-playfair)' }}
                 >
                   Paiement sécurisé
@@ -220,7 +220,7 @@ export default function CheckoutPage() {
           {/* Récapitulatif */}
           <div className="bg-white rounded-2xl p-6 h-fit lg:sticky lg:top-24">
             <h2
-              className="font-medium text-[#1A3A52] mb-4"
+              className="font-medium text-[#1F3A56] mb-4"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
               Ma commande
@@ -228,7 +228,7 @@ export default function CheckoutPage() {
             <div className="space-y-3 mb-4 max-h-64 overflow-y-auto">
               {items.map((item) => (
                 <div key={item.id} className="flex gap-3 items-center">
-                  <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-[#F5F1ED] flex-shrink-0">
+                  <div className="relative w-12 h-12 rounded-lg overflow-hidden bg-[#F5E9D6] flex-shrink-0">
                     <Image
                       src={item.image}
                       alt={item.name}
@@ -238,12 +238,12 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-[#1A3A52] truncate">
+                    <p className="text-xs font-medium text-[#1F3A56] truncate">
                       {item.name}
                     </p>
                     <p className="text-xs text-gray-400">Qté {item.quantity}</p>
                   </div>
-                  <span className="text-xs font-semibold text-[#C9A84C]">
+                  <span className="text-xs font-semibold text-[#D4AF37]">
                     {formatPrice(item.price * item.quantity)}
                   </span>
                 </div>
@@ -260,7 +260,7 @@ export default function CheckoutPage() {
                   {shipping === 0 ? 'Offerte' : formatPrice(shipping)}
                 </span>
               </div>
-              <div className="flex justify-between font-bold text-[#1A3A52] pt-2 border-t">
+              <div className="flex justify-between font-bold text-[#1F3A56] pt-2 border-t">
                 <span>Total</span>
                 <span className="text-lg">{formatPrice(cartTotal + shipping)}</span>
               </div>

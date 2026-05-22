@@ -43,9 +43,9 @@ export function CartDrawer() {
             {/* En-tête */}
             <div className="flex items-center justify-between p-5 border-b border-gray-100">
               <div className="flex items-center gap-2">
-                <ShoppingBag className="w-5 h-5 text-[#C9A84C]" />
+                <ShoppingBag className="w-5 h-5 text-[#D4AF37]" />
                 <h2
-                  className="font-semibold text-lg text-[#1A3A52]"
+                  className="font-semibold text-lg text-[#1F3A56]"
                   style={{ fontFamily: 'var(--font-playfair)' }}
                 >
                   Mon panier
@@ -68,10 +68,10 @@ export function CartDrawer() {
 
             {/* Progression livraison gratuite */}
             {cartTotal > 0 && (
-              <div className="px-5 py-3 bg-[#F5F1ED]">
+              <div className="px-5 py-3 bg-[#F5E9D6]">
                 {remaining > 0 ? (
                   <>
-                    <p className="text-xs text-[#1A3A52] mb-1.5">
+                    <p className="text-xs text-[#1F3A56] mb-1.5">
                       Plus que <strong>{formatPrice(remaining)}</strong> pour la livraison gratuite !
                     </p>
                     <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
@@ -118,7 +118,7 @@ export function CartDrawer() {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: 30, height: 0 }}
                       transition={{ duration: 0.3, ease: EASE }}
-                      className="flex gap-4 bg-[#F5F1ED] rounded-xl p-3"
+                      className="flex gap-4 bg-[#F5E9D6] rounded-xl p-3"
                     >
                       <div className="relative w-20 h-20 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
                         <Image
@@ -136,20 +136,20 @@ export function CartDrawer() {
                         <Link
                           href={`/products/${item.slug}`}
                           onClick={closeCart}
-                          className="font-medium text-sm text-[#1A3A52] hover:text-[#C9A84C] transition-colors line-clamp-2"
+                          className="font-medium text-sm text-[#1F3A56] hover:text-[#D4AF37] transition-colors line-clamp-2"
                         >
                           {item.name}
                         </Link>
                         {item.variantName && (
                           <p className="text-xs text-gray-500 mt-0.5">{item.variantName}</p>
                         )}
-                        <p className="text-[#C9A84C] font-semibold text-sm mt-1">
+                        <p className="text-[#D4AF37] font-semibold text-sm mt-1">
                           {formatPrice(item.price)}
                         </p>
                         <div className="flex items-center gap-2 mt-2">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#C9A84C] transition-colors"
+                            className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D4AF37] transition-colors"
                           >
                             <Minus className="w-3 h-3" />
                           </button>
@@ -158,7 +158,7 @@ export function CartDrawer() {
                           </span>
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#C9A84C] transition-colors"
+                            className="w-6 h-6 rounded-full border border-gray-300 flex items-center justify-center hover:border-[#D4AF37] transition-colors"
                           >
                             <Plus className="w-3 h-3" />
                           </button>
@@ -182,7 +182,7 @@ export function CartDrawer() {
                 <div className="flex items-center justify-between">
                   <span className="text-gray-600 font-medium">Sous-total</span>
                   <span
-                    className="text-xl font-bold text-[#1A3A52]"
+                    className="text-xl font-bold text-[#1F3A56]"
                     style={{ fontFamily: 'var(--font-playfair)' }}
                   >
                     {formatPrice(cartTotal)}
@@ -196,13 +196,13 @@ export function CartDrawer() {
                 <Link
                   href="/cart"
                   onClick={closeCart}
-                  className="block text-center text-sm text-[#1A3A52] hover:text-[#C9A84C] transition-colors"
+                  className="block text-center text-sm text-[#1F3A56] hover:text-[#D4AF37] transition-colors"
                 >
                   Voir le panier
                 </Link>
                 <button
                   onClick={closeCart}
-                  className="w-full text-center text-sm text-gray-500 hover:text-[#1A3A52] transition-colors py-1"
+                  className="w-full text-center text-sm text-gray-500 hover:text-[#1F3A56] transition-colors py-1"
                 >
                   Continuer mes achats
                 </button>

@@ -16,14 +16,14 @@ export default function WishlistPage() {
   const wishlistProducts = PRODUCTS.filter((p) => items.includes(p.id))
 
   return (
-    <div className="min-h-screen bg-[#F5F1ED] py-12 px-4">
+    <div className="min-h-screen bg-[#F5E9D6] py-12 px-4">
       <div className="max-w-6xl mx-auto">
 
         {/* En-tête */}
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1
-              className="text-3xl sm:text-4xl text-[#1A3A52] font-light"
+              className="text-3xl sm:text-4xl text-[#1F3A56] font-light"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
               Mes favoris
@@ -53,7 +53,7 @@ export default function WishlistPage() {
               transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
               className="inline-block mb-6"
             >
-              <div className="w-20 h-20 rounded-full bg-[#F5F1ED] flex items-center justify-center mx-auto">
+              <div className="w-20 h-20 rounded-full bg-[#F5E9D6] flex items-center justify-center mx-auto">
                 <Heart className="w-10 h-10 text-gray-300" />
               </div>
             </motion.div>

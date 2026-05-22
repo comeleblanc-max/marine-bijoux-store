@@ -9,7 +9,7 @@ export function BrandStory() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Visuel */}
           <Reveal className="relative" y={40} duration={0.9}>
-            <div className="aspect-square max-w-lg mx-auto lg:mx-0 bg-gradient-to-br from-[#F5F1ED] to-[#e8e0d5] rounded-3xl flex items-center justify-center relative overflow-hidden">
+            <div className="aspect-square max-w-lg mx-auto lg:mx-0 bg-gradient-to-br from-[#F5E9D6] to-[#EAD9BE] rounded-3xl flex items-center justify-center relative overflow-hidden">
               <div
                 className="absolute inset-0 opacity-50"
                 style={{
@@ -19,25 +19,25 @@ export function BrandStory() {
               />
               <div className="text-center p-12 relative z-10">
                 <FloatingShape
-                  className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-[#4DB8D4] to-[#1A3A52] rounded-full flex items-center justify-center shadow-xl"
+                  className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-[#4DB8D4] to-[#1F3A56] rounded-full flex items-center justify-center shadow-xl"
                   duration={6}
                   distance={12}
                 >
                   <span className="text-5xl">🌊</span>
                 </FloatingShape>
                 <p
-                  className="text-3xl text-[#1A3A52] font-light"
+                  className="text-3xl text-[#1F3A56] font-light"
                   style={{ fontFamily: 'var(--font-playfair)' }}
                 >
                   Marine
                 </p>
-                <p className="text-[#C9A84C] text-xs tracking-[0.3em] uppercase mt-1">
+                <p className="text-[#D4AF37] text-xs tracking-[0.3em] uppercase mt-1">
                   et la douceur de l'été
                 </p>
               </div>
             </div>
 
-            <div className="absolute -top-4 -right-4 bg-[#C9A84C] text-white rounded-2xl px-4 py-2 text-sm font-semibold shadow-lg">
+            <div className="absolute -top-4 -right-4 bg-[#D4AF37] text-white rounded-2xl px-4 py-2 text-sm font-semibold shadow-lg">
               ✨ Collection Lumière d'été
             </div>
             <div className="absolute -bottom-4 -left-4 bg-[#4DB8D4] text-white rounded-2xl px-4 py-2 text-sm font-semibold shadow-lg">
@@ -48,11 +48,11 @@ export function BrandStory() {
           {/* Texte */}
           <div>
             <Reveal>
-              <p className="text-[#C9A84C] text-sm tracking-[0.25em] uppercase font-medium mb-4">
+              <p className="text-[#D4AF37] text-sm tracking-[0.25em] uppercase font-medium mb-4">
                 Notre histoire
               </p>
               <h2
-                className="text-3xl sm:text-4xl lg:text-5xl text-[#1A3A52] font-light leading-tight mb-6"
+                className="text-3xl sm:text-4xl lg:text-5xl text-[#1F3A56] font-light leading-tight mb-6"
                 style={{ fontFamily: 'var(--font-playfair)' }}
               >
                 Née d'une passion
@@ -76,13 +76,13 @@ export function BrandStory() {
             <Reveal delay={0.2}>
               <div className="grid grid-cols-3 gap-4 mb-8">
                 {[
-                  { icon: Sun, label: "Inspiré par l'été", color: '#C9A84C' },
+                  { icon: Sun, label: "Inspiré par l'été", color: '#D4AF37' },
                   { icon: Waves, label: 'Esprit marin', color: '#4DB8D4' },
-                  { icon: Shell, label: 'Fait avec soin', color: '#D4A574' },
+                  { icon: Shell, label: 'Fait avec soin', color: '#D8B98C' },
                 ].map(({ icon: Icon, label, color }) => (
                   <div
                     key={label}
-                    className="text-center p-4 rounded-xl bg-[#F5F1ED] hover:bg-[#ede6db] transition-colors duration-300"
+                    className="text-center p-4 rounded-xl bg-[#F5E9D6] hover:bg-[#ede6db] transition-colors duration-300"
                   >
                     <Icon className="w-6 h-6 mx-auto mb-2" style={{ color }} />
                     <p className="text-xs text-gray-600 font-medium">{label}</p>
@@ -92,7 +92,7 @@ export function BrandStory() {
 
               <Link
                 href="/pages/a-propos"
-                className="inline-flex items-center gap-2 border border-[#1A3A52] text-[#1A3A52] hover:bg-[#1A3A52] hover:text-white transition-colors duration-300 px-7 py-3 rounded-full font-medium group"
+                className="inline-flex items-center gap-2 border border-[#1F3A56] text-[#1F3A56] hover:bg-[#1F3A56] hover:text-white transition-colors duration-300 px-7 py-3 rounded-full font-medium group"
               >
                 Découvrir notre histoire
                 <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>

@@ -11,11 +11,11 @@ export function FeaturedProducts() {
       <div className="max-w-7xl mx-auto">
         {/* En-tête */}
         <Reveal className="text-center mb-14">
-          <p className="text-[#C9A84C] text-sm tracking-[0.25em] uppercase font-medium mb-3">
+          <p className="text-[#D4AF37] text-sm tracking-[0.25em] uppercase font-medium mb-3">
             Nos coups de cœur
           </p>
           <h2
-            className="text-3xl sm:text-4xl lg:text-5xl text-[#1A3A52] font-light"
+            className="text-3xl sm:text-4xl lg:text-5xl text-[#1F3A56] font-light"
             style={{ fontFamily: 'var(--font-playfair)' }}
           >
             L'été au bout des doigts ✨
@@ -38,7 +38,7 @@ export function FeaturedProducts() {
         <Reveal delay={0.15} className="text-center mt-12">
           <Link
             href="/collections/all"
-            className="inline-flex items-center gap-2 border border-[#1A3A52] text-[#1A3A52] hover:bg-[#1A3A52] hover:text-white transition-colors duration-300 px-8 py-3.5 rounded-full font-medium group"
+            className="inline-flex items-center gap-2 border border-[#1F3A56] text-[#1F3A56] hover:bg-[#1F3A56] hover:text-white transition-colors duration-300 px-8 py-3.5 rounded-full font-medium group"
           >
             Voir tous les bijoux
             <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>

@@ -4,8 +4,8 @@ import { formatPrice } from '@/utils/format'
 
 const STATS = [
   { label: 'Revenus ce mois', value: '2 847 €', change: '+12%', icon: TrendingUp, color: 'bg-[#4DB8D4]/10 text-[#4DB8D4]' },
-  { label: 'Commandes', value: '47', change: '+8%', icon: ShoppingBag, color: 'bg-[#C9A84C]/10 text-[#C9A84C]' },
-  { label: 'Produits actifs', value: String(PRODUCTS.length), change: '', icon: Package, color: 'bg-[#F08080]/10 text-[#F08080]' },
+  { label: 'Commandes', value: '47', change: '+8%', icon: ShoppingBag, color: 'bg-[#D4AF37]/10 text-[#D4AF37]' },
+  { label: 'Produits actifs', value: String(PRODUCTS.length), change: '', icon: Package, color: 'bg-[#FF7A45]/10 text-[#FF7A45]' },
   { label: 'Clients', value: '312', change: '+23%', icon: Users, color: 'bg-green-100 text-green-600' },
 ]
 
@@ -57,7 +57,7 @@ export default function AdminDashboard() {
       <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
           <h2 className="font-semibold text-gray-900">Commandes récentes</h2>
-          <a href="/admin/orders" className="text-sm text-[#C9A84C] hover:underline">Voir tout →</a>
+          <a href="/admin/orders" className="text-sm text-[#D4AF37] hover:underline">Voir tout →</a>
         </div>
         <div className="divide-y divide-gray-50">
           {RECENT_ORDERS.map(order => (
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
                 <p className="text-xs text-gray-400">{order.customer} · {order.date}</p>
               </div>
               <div className="flex items-center gap-4">
-                <span className="font-semibold text-sm text-[#1A3A52]">{formatPrice(order.total)}</span>
+                <span className="font-semibold text-sm text-[#1F3A56]">{formatPrice(order.total)}</span>
                 <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${STATUS_COLORS[order.status] || 'bg-gray-100 text-gray-700'}`}>
                   {order.status}
                 </span>
@@ -90,7 +90,7 @@ export default function AdminDashboard() {
                 <p className="text-xs text-gray-400 capitalize">{product.category}</p>
               </div>
               <div className="flex items-center gap-4">
-                <span className="text-sm font-semibold text-[#C9A84C]">{formatPrice(product.price)}</span>
+                <span className="text-sm font-semibold text-[#D4AF37]">{formatPrice(product.price)}</span>
                 <span className={`text-xs px-2.5 py-1 rounded-full ${product.inStock ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
                   {product.inStock ? 'En stock' : 'Rupture'}
                 </span>

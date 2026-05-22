@@ -47,10 +47,10 @@ export default async function CollectionPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-white">
       {/* En-tête */}
-      <div className="bg-gradient-to-br from-[#F5F1ED] to-[#ede6db] py-16 sm:py-20 px-4 text-center">
+      <div className="bg-gradient-to-br from-[#F5E9D6] to-[#ede6db] py-16 sm:py-20 px-4 text-center">
         <Reveal>
           <h1
-            className="text-3xl sm:text-5xl text-[#1A3A52] font-light mb-3"
+            className="text-3xl sm:text-5xl text-[#1F3A56] font-light mb-3"
             style={{ fontFamily: 'var(--font-playfair)' }}
           >
             {collection.name}
@@ -58,7 +58,7 @@ export default async function CollectionPage({ params }: Props) {
           {collection.description && (
             <p className="text-gray-500 max-w-md mx-auto">{collection.description}</p>
           )}
-          <p className="text-[#C9A84C] text-sm mt-3 font-medium">
+          <p className="text-[#D4AF37] text-sm mt-3 font-medium">
             {products.length} bijou{products.length > 1 ? 'x' : ''}
           </p>
         </Reveal>

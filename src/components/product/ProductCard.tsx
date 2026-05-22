@@ -42,7 +42,7 @@ export function ProductCard({ product }: ProductCardProps) {
       <motion.div
         whileHover={{ y: -8 }}
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-        className="relative aspect-square bg-[#F5F1ED] rounded-2xl overflow-hidden mb-3"
+        className="relative aspect-square bg-[#F5E9D6] rounded-2xl overflow-hidden mb-3"
       >
         {/* Image principale */}
         {product.images.length > 0 ? (
@@ -57,7 +57,7 @@ export function ProductCard({ product }: ProductCardProps) {
             }}
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#F5F1ED] to-[#e8e0d5]">
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#F5E9D6] to-[#EAD9BE]">
             <motion.span
               className="text-5xl"
               animate={{ y: [0, -6, 0] }}
@@ -107,7 +107,7 @@ export function ProductCard({ product }: ProductCardProps) {
           >
             <Heart
               className={`w-4 h-4 transition-colors ${
-                wished ? 'fill-[#F08080] text-[#F08080]' : 'text-gray-500'
+                wished ? 'fill-[#FF7A45] text-[#FF7A45]' : 'text-gray-500'
               }`}
             />
           </motion.span>
@@ -117,7 +117,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {product.inStock && (
           <button
             onClick={handleAddToCart}
-            className="absolute bottom-3 left-3 right-3 bg-[#1A3A52] text-white text-xs font-semibold py-3 rounded-xl flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-300 hover:bg-[#C9A84C] z-10"
+            className="absolute bottom-3 left-3 right-3 bg-[#1F3A56] text-white text-xs font-semibold py-3 rounded-xl flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 translate-y-3 group-hover:translate-y-0 transition-all duration-300 hover:bg-[#D4AF37] z-10"
           >
             <ShoppingBag className="w-3.5 h-3.5" />
             Ajouter au panier
@@ -127,11 +127,11 @@ export function ProductCard({ product }: ProductCardProps) {
 
       {/* Infos */}
       <div className="px-1">
-        <h3 className="text-sm font-medium text-[#1A3A52] group-hover:text-[#C9A84C] transition-colors line-clamp-2 mb-1">
+        <h3 className="text-sm font-medium text-[#1F3A56] group-hover:text-[#D4AF37] transition-colors line-clamp-2 mb-1">
           {product.name}
         </h3>
         <div className="flex items-center gap-2">
-          <span className="text-[#C9A84C] font-semibold">{formatPrice(product.price)}</span>
+          <span className="text-[#D4AF37] font-semibold">{formatPrice(product.price)}</span>
           {product.compareAt && (
             <span className="text-gray-400 text-sm line-through">
               {formatPrice(product.compareAt)}

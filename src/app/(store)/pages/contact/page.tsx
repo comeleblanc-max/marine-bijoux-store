@@ -16,8 +16,8 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F1ED]">
-      <div className="bg-[#1A3A52] py-20 px-4 text-center text-white">
+    <div className="min-h-screen bg-[#F5E9D6]">
+      <div className="bg-[#1F3A56] py-20 px-4 text-center text-white">
         <h1 className="text-4xl font-light" style={{ fontFamily: 'var(--font-playfair)' }}>
           Nous contacter
         </h1>
@@ -33,11 +33,11 @@ export default function ContactPage() {
             { icon: Share2, title: 'Instagram', desc: '@marineetladouceurdelete', sub: 'Suivez-nous !' },
           ].map(({ icon: Icon, title, desc, sub }) => (
             <div key={title} className="bg-white rounded-2xl p-5 flex gap-4 items-start">
-              <div className="w-10 h-10 bg-[#F5F1ED] rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 bg-[#F5E9D6] rounded-full flex items-center justify-center flex-shrink-0">
                 <Icon className="w-5 h-5 text-[#4DB8D4]" />
               </div>
               <div>
-                <p className="font-semibold text-[#1A3A52] text-sm">{title}</p>
+                <p className="font-semibold text-[#1F3A56] text-sm">{title}</p>
                 <p className="text-gray-700 text-sm">{desc}</p>
                 <p className="text-gray-400 text-xs">{sub}</p>
               </div>
@@ -50,7 +50,7 @@ export default function ContactPage() {
           {status === 'success' ? (
             <div className="text-center py-12">
               <p className="text-4xl mb-4">✉️</p>
-              <h2 className="text-xl font-semibold text-[#1A3A52] mb-2" style={{ fontFamily: 'var(--font-playfair)' }}>
+              <h2 className="text-xl font-semibold text-[#1F3A56] mb-2" style={{ fontFamily: 'var(--font-playfair)' }}>
                 Message envoyé !
               </h2>
               <p className="text-gray-500">Nous vous répondons sous 24h.</p>
@@ -59,7 +59,7 @@ export default function ContactPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#1A3A52] mb-1.5">Nom</label>
+                  <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">Nom</label>
                   <input
                     type="text"
                     required
@@ -70,7 +70,7 @@ export default function ContactPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-[#1A3A52] mb-1.5">Email</label>
+                  <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">Email</label>
                   <input
                     type="email"
                     required
@@ -82,7 +82,7 @@ export default function ContactPage() {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#1A3A52] mb-1.5">Sujet</label>
+                <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">Sujet</label>
                 <select
                   value={form.subject}
                   onChange={(e) => setForm({ ...form, subject: e.target.value })}
@@ -96,7 +96,7 @@ export default function ContactPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-[#1A3A52] mb-1.5">Message</label>
+                <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">Message</label>
                 <textarea
                   required
                   rows={5}

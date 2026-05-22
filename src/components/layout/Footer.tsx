@@ -46,7 +46,7 @@ function LinkColumn({
 }) {
   return (
     <div>
-      <h4 className="text-sm font-semibold uppercase tracking-wider text-[#D4A574] mb-4">
+      <h4 className="text-sm font-semibold uppercase tracking-wider text-[#D8B98C] mb-4">
         {title}
       </h4>
       <ul className="space-y-2.5">
@@ -67,7 +67,7 @@ function LinkColumn({
 
 export function Footer() {
   return (
-    <footer className="bg-[#1A3A52] text-white mt-auto">
+    <footer className="bg-[#1F3A56] text-white mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Colonnes principales */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
@@ -91,7 +91,7 @@ export function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#C9A84C] transition-colors"
+                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#D4AF37] transition-colors"
                 aria-label="Instagram"
               >
                 <ExternalLink className="w-4 h-4" />
@@ -100,14 +100,14 @@ export function Footer() {
                 href="https://tiktok.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#C9A84C] transition-colors"
+                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#D4AF37] transition-colors"
                 aria-label="TikTok"
               >
                 <Share2 className="w-4 h-4" />
               </a>
               <a
                 href="mailto:contact@marineetladouceurdelete.com"
-                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#C9A84C] transition-colors"
+                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#D4AF37] transition-colors"
                 aria-label="Email"
               >
                 <Mail className="w-4 h-4" />

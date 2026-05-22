@@ -2,11 +2,11 @@
 
 @theme inline {
   --color-ocean:  #4DB8D4;
-  --color-sand:   #D4A574;
-  --color-gold:   #C9A84C;
-  --color-coral:  #F08080;
-  --color-navy:   #1A3A52;
-  --color-cream:  #F5F1ED;
+  --color-sand:   #D8B98C;
+  --color-gold:   #D4AF37;
+  --color-coral:  #FF7A45;
+  --color-navy:   #1F3A56;
+  --color-cream:  #F5E9D6;
   --font-sans: var(--font-inter);
   --font-heading: var(--font-playfair);
 }
@@ -15,7 +15,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    @apply antialiased bg-white text-[#1A3A52];
+    @apply antialiased bg-white text-[#1F3A56];
     font-family: var(--font-inter), system-ui, sans-serif;
   }
 

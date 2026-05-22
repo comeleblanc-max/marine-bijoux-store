@@ -38,13 +38,13 @@ src/
 └── types/            # TypeScript types
 ```
 
-## Brand Colors
-- Navy: `#1A3A52`
-- Gold: `#C9A84C`
-- Ocean: `#4DB8D4`
-- Coral: `#F08080`
-- Sand: `#D4A574`
-- Cream: `#F5F1ED`
+## Brand Colors (moodboard "douceur de l'été")
+- Bleu marin: `#1F3A56`
+- Doré: `#D4AF37`
+- Bleu océan: `#4DB8D4` / soft `#A7D5E6`
+- Corail: `#FF7A45`
+- Sable accent: `#D8B98C`
+- Sable fond: `#F5E9D6`
 
 ## Fonts
 - Headings: Playfair Display (`var(--font-playfair)`)

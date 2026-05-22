@@ -19,14 +19,14 @@ export function CollectionGrid() {
   const collections = COLLECTIONS.filter((c) => c.featured).slice(0, 4)
 
   return (
-    <section className="py-20 sm:py-28 px-4 bg-[#F5F1ED]">
+    <section className="py-20 sm:py-28 px-4 bg-[#F5E9D6]">
       <div className="max-w-7xl mx-auto">
         <Reveal className="text-center mb-14">
-          <p className="text-[#C9A84C] text-sm tracking-[0.25em] uppercase font-medium mb-3">
+          <p className="text-[#D4AF37] text-sm tracking-[0.25em] uppercase font-medium mb-3">
             Explorer
           </p>
           <h2
-            className="text-3xl sm:text-4xl text-[#1A3A52] font-light"
+            className="text-3xl sm:text-4xl text-[#1F3A56] font-light"
             style={{ fontFamily: 'var(--font-playfair)' }}
           >
             Nos collections
@@ -47,12 +47,12 @@ export function CollectionGrid() {
                 href={`/collections/${collection.slug}`}
                 className={`group relative block rounded-2xl overflow-hidden bg-gradient-to-br ${
                   i === 0
-                    ? 'from-[#4DB8D4] to-[#1A3A52] md:min-h-[400px] h-full aspect-[3/4] md:aspect-auto'
+                    ? 'from-[#4DB8D4] to-[#1F3A56] md:min-h-[400px] h-full aspect-[3/4] md:aspect-auto'
                     : i === 1
-                    ? 'from-[#C9A84C] to-[#D4A574] aspect-[3/4]'
+                    ? 'from-[#D4AF37] to-[#D8B98C] aspect-[3/4]'
                     : i === 2
-                    ? 'from-[#F08080] to-[#c96060] aspect-[3/4]'
-                    : 'from-[#1A3A52] to-[#2a5472] aspect-[3/4]'
+                    ? 'from-[#FF7A45] to-[#c96060] aspect-[3/4]'
+                    : 'from-[#1F3A56] to-[#2a5472] aspect-[3/4]'
                 }`}
               >
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-colors duration-500" />

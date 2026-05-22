@@ -27,7 +27,7 @@ export function AnnouncementBar() {
 
   return (
     <div
-      className="bg-gradient-to-r from-[#1A3A52] via-[#2C5A7A] to-[#1A3A52] text-white"
+      className="bg-gradient-to-r from-[#1F3A56] via-[#2C5A7A] to-[#1F3A56] text-white"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >

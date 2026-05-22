@@ -8,7 +8,7 @@ const EASE = [0.22, 1, 0.36, 1] as const
 
 export function Testimonials() {
   return (
-    <section className="py-20 sm:py-28 px-4 bg-[#1A3A52] relative overflow-hidden">
+    <section className="py-20 sm:py-28 px-4 bg-[#1F3A56] relative overflow-hidden">
       {/* Halo décoratif */}
       <div
         className="absolute inset-0 opacity-40"
@@ -20,7 +20,7 @@ export function Testimonials() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <Reveal className="text-center mb-14">
-          <p className="text-[#C9A84C] text-sm tracking-[0.25em] uppercase font-medium mb-3">
+          <p className="text-[#D4AF37] text-sm tracking-[0.25em] uppercase font-medium mb-3">
             Avis clients
           </p>
           <h2
@@ -49,7 +49,7 @@ export function Testimonials() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-white font-medium text-sm">{review.name}</p>
-                  <p className="text-[#C9A84C] text-xs">{review.product}</p>
+                  <p className="text-[#D4AF37] text-xs">{review.product}</p>
                 </div>
                 <p className="text-white/40 text-xs">{review.date}</p>
               </div>

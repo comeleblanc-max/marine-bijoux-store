@@ -40,13 +40,13 @@ export default function AccountPage() {
   /* ---------------- Tableau de bord ---------------- */
   if (loggedIn) {
     return (
-      <div className="min-h-screen bg-[#F5F1ED] py-12 px-4">
+      <div className="min-h-screen bg-[#F5E9D6] py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1
-                  className="text-3xl sm:text-4xl text-[#1A3A52] font-light"
+                  className="text-3xl sm:text-4xl text-[#1F3A56] font-light"
                   style={{ fontFamily: 'var(--font-playfair)' }}
                 >
                   Bonjour {name || 'Marine'} 👋
@@ -55,7 +55,7 @@ export default function AccountPage() {
               </div>
               <button
                 onClick={() => setLoggedIn(false)}
-                className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#F08080] transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#FF7A45] transition-colors"
               >
                 <LogOut className="w-4 h-4" />
                 Déconnexion
@@ -68,9 +68,9 @@ export default function AccountPage() {
             <Reveal className="lg:col-span-2">
               <div className="bg-white rounded-2xl p-6">
                 <div className="flex items-center gap-2 mb-5">
-                  <Package className="w-5 h-5 text-[#C9A84C]" />
+                  <Package className="w-5 h-5 text-[#D4AF37]" />
                   <h2
-                    className="text-lg font-medium text-[#1A3A52]"
+                    className="text-lg font-medium text-[#1F3A56]"
                     style={{ fontFamily: 'var(--font-playfair)' }}
                   >
                     Mes commandes
@@ -80,10 +80,10 @@ export default function AccountPage() {
                   {DEMO_ORDERS.map((order) => (
                     <div
                       key={order.id}
-                      className="flex items-center justify-between p-4 bg-[#F5F1ED] rounded-xl"
+                      className="flex items-center justify-between p-4 bg-[#F5E9D6] rounded-xl"
                     >
                       <div>
-                        <p className="font-medium text-[#1A3A52] text-sm">{order.id}</p>
+                        <p className="font-medium text-[#1F3A56] text-sm">{order.id}</p>
                         <p className="text-gray-400 text-xs">
                           {order.date} · {order.items} article{order.items > 1 ? 's' : ''}
                         </p>
@@ -92,7 +92,7 @@ export default function AccountPage() {
                         <span className="inline-block text-xs px-2.5 py-0.5 rounded-full bg-[#4DB8D4]/15 text-[#2a8fa8] font-medium">
                           {order.status}
                         </span>
-                        <p className="text-[#C9A84C] font-semibold text-sm mt-1">
+                        <p className="text-[#D4AF37] font-semibold text-sm mt-1">
                           {order.total}
                         </p>
                       </div>
@@ -106,15 +106,15 @@ export default function AccountPage() {
             <Reveal delay={0.1} className="space-y-6">
               <div className="bg-white rounded-2xl p-6">
                 <div className="flex items-center gap-2 mb-3">
-                  <Heart className="w-5 h-5 text-[#F08080]" />
-                  <h3 className="font-medium text-[#1A3A52]">Mes favoris</h3>
+                  <Heart className="w-5 h-5 text-[#FF7A45]" />
+                  <h3 className="font-medium text-[#1F3A56]">Mes favoris</h3>
                 </div>
                 <p className="text-gray-400 text-sm mb-4">
                   Retrouvez ici les bijoux que vous avez aimés.
                 </p>
                 <Link
                   href="/collections/all"
-                  className="text-sm text-[#C9A84C] hover:text-[#b8963e] font-medium inline-flex items-center gap-1"
+                  className="text-sm text-[#D4AF37] hover:text-[#b8963e] font-medium inline-flex items-center gap-1"
                 >
                   Explorer la boutique <ChevronRight className="w-4 h-4" />
                 </Link>
@@ -123,7 +123,7 @@ export default function AccountPage() {
               <div className="bg-white rounded-2xl p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <MapPin className="w-5 h-5 text-[#4DB8D4]" />
-                  <h3 className="font-medium text-[#1A3A52]">Mes adresses</h3>
+                  <h3 className="font-medium text-[#1F3A56]">Mes adresses</h3>
                 </div>
                 <p className="text-gray-400 text-sm">
                   Aucune adresse enregistrée pour le moment.
@@ -138,16 +138,16 @@ export default function AccountPage() {
 
   /* ---------------- Connexion / Inscription ---------------- */
   return (
-    <div className="min-h-screen bg-[#F5F1ED] py-16 px-4 flex items-center justify-center">
+    <div className="min-h-screen bg-[#F5E9D6] py-16 px-4 flex items-center justify-center">
       <Reveal className="w-full max-w-md">
         <div className="bg-white rounded-3xl p-8 shadow-sm">
           {/* Icône */}
-          <div className="w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-[#4DB8D4] to-[#1A3A52] rounded-full flex items-center justify-center">
+          <div className="w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-[#4DB8D4] to-[#1F3A56] rounded-full flex items-center justify-center">
             <User className="w-6 h-6 text-white" />
           </div>
 
           {/* Onglets */}
-          <div className="flex bg-[#F5F1ED] rounded-full p-1 mb-6">
+          <div className="flex bg-[#F5E9D6] rounded-full p-1 mb-6">
             {(['login', 'register'] as Tab[]).map((t) => (
               <button
                 key={t}
@@ -163,7 +163,7 @@ export default function AccountPage() {
                 )}
                 <span
                   className={`relative z-10 ${
-                    tab === t ? 'text-[#1A3A52]' : 'text-gray-400'
+                    tab === t ? 'text-[#1F3A56]' : 'text-gray-400'
                   }`}
                 >
                   {t === 'login' ? 'Connexion' : 'Inscription'}
@@ -175,7 +175,7 @@ export default function AccountPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {tab === 'register' && (
               <div>
-                <label className="block text-sm font-medium text-[#1A3A52] mb-1.5">
+                <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">
                   Prénom
                 </label>
                 <input
@@ -189,7 +189,7 @@ export default function AccountPage() {
               </div>
             )}
             <div>
-              <label className="block text-sm font-medium text-[#1A3A52] mb-1.5">
+              <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">
                 Email
               </label>
               <div className="relative">
@@ -205,7 +205,7 @@ export default function AccountPage() {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#1A3A52] mb-1.5">
+              <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">
                 Mot de passe
               </label>
               <div className="relative">
@@ -224,7 +224,7 @@ export default function AccountPage() {
               <div className="text-right">
                 <button
                   type="button"
-                  className="text-xs text-gray-400 hover:text-[#C9A84C] transition-colors"
+                  className="text-xs text-gray-400 hover:text-[#D4AF37] transition-colors"
                 >
                   Mot de passe oublié ?
                 </button>
@@ -238,7 +238,7 @@ export default function AccountPage() {
 
           <p className="text-center text-xs text-gray-400 mt-6">
             En continuant, vous acceptez nos{' '}
-            <Link href="/pages/cgv" className="text-[#C9A84C] hover:underline">
+            <Link href="/pages/cgv" className="text-[#D4AF37] hover:underline">
               conditions générales de vente
             </Link>
             .

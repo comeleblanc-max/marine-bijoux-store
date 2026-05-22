@@ -23,79 +23,103 @@ export function HeroSection() {
 
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 120])
   const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0])
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15])
+  const sunY = useTransform(scrollYProgress, [0, 1], [0, 80])
 
   return (
     <section
       ref={ref}
       className="relative min-h-[100svh] flex items-center justify-center overflow-hidden"
     >
-      {/* Fond animé */}
+      {/* Ciel — dégradé coucher de soleil */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(180deg,
+            #A7D5E6 0%,
+            #C9DCDA 22%,
+            #F0DCB8 48%,
+            #F5E9D6 68%,
+            #EAD9BE 100%)`,
+        }}
+      />
+
+      {/* Soleil radieux */}
       <motion.div
-        style={{ scale: reduce ? 1 : bgScale }}
-        className="absolute inset-0 bg-gradient-to-br from-[#1A3A52] via-[#2a5472] to-[#4DB8D4]"
+        style={{ y: reduce ? 0 : sunY }}
+        className="absolute left-1/2 top-[28%] -translate-x-1/2 -translate-y-1/2"
       >
-        <div
-          className="absolute inset-0"
+        <motion.div
+          animate={{ scale: [1, 1.06, 1], opacity: [0.9, 1, 0.9] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          className="w-[clamp(220px,40vw,440px)] h-[clamp(220px,40vw,440px)] rounded-full"
           style={{
-            backgroundImage: `
-              radial-gradient(ellipse at 20% 50%, rgba(77,184,212,0.35) 0%, transparent 60%),
-              radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.25) 0%, transparent 50%),
-              radial-gradient(ellipse at 60% 85%, rgba(240,128,128,0.2) 0%, transparent 45%)
-            `,
+            background: `radial-gradient(circle,
+              rgba(255,232,170,0.95) 0%,
+              rgba(212,175,55,0.55) 35%,
+              rgba(255,122,69,0.25) 62%,
+              transparent 78%)`,
           }}
         />
       </motion.div>
 
-      {/* Formes flottantes décoratives */}
-      <FloatingShape
-        className="absolute top-[12%] right-[10%] w-56 h-56 rounded-full border border-white/10"
-        duration={9}
-        distance={26}
+      {/* Reflets / scintillements sur l'eau */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-[35%]"
+        style={{
+          backgroundImage: `
+            radial-gradient(ellipse at 30% 100%, rgba(255,255,255,0.4) 0%, transparent 40%),
+            radial-gradient(ellipse at 70% 100%, rgba(212,175,55,0.3) 0%, transparent 45%)`,
+        }}
       />
+
+      {/* Formes décoratives flottantes */}
       <FloatingShape
-        className="absolute bottom-[16%] left-[8%] w-36 h-36 rounded-full border border-[#C9A84C]/20"
-        duration={7}
-        delay={1}
-        distance={20}
-      />
-      <FloatingShape
-        className="absolute top-[30%] left-[22%] w-4 h-4 rounded-full bg-[#C9A84C]/40"
-        duration={5}
-        delay={0.5}
-        distance={30}
-      />
-      <FloatingShape
-        className="absolute bottom-[30%] right-[26%] w-3 h-3 rounded-full bg-white/40"
-        duration={6}
-        delay={1.5}
-        distance={24}
-      />
-      <FloatingShape
-        className="absolute top-[20%] left-[12%] text-3xl opacity-40"
+        className="absolute top-[14%] right-[12%] text-4xl opacity-50"
         duration={8}
-        delay={0.8}
+        delay={0.4}
+        distance={22}
+      >
+        <span>🐚</span>
+      </FloatingShape>
+      <FloatingShape
+        className="absolute bottom-[24%] left-[10%] text-3xl opacity-45"
+        duration={9}
+        delay={1}
+        distance={26}
+      >
+        <span>⭐</span>
+      </FloatingShape>
+      <FloatingShape
+        className="absolute top-[24%] left-[16%] text-2xl opacity-40"
+        duration={7}
+        delay={0.7}
         distance={18}
       >
         <span>✨</span>
       </FloatingShape>
+      <FloatingShape
+        className="absolute bottom-[30%] right-[20%] w-3 h-3 rounded-full bg-[#D4AF37]/50"
+        duration={6}
+        delay={1.4}
+        distance={24}
+      />
 
       {/* Contenu */}
       <motion.div
         style={{ y: reduce ? 0 : contentY, opacity: reduce ? 1 : contentOpacity }}
-        className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto"
+        className="relative z-10 text-center px-4 max-w-4xl mx-auto"
       >
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: EASE }}
-          className="text-[#C9A84C] text-sm tracking-[0.3em] uppercase font-medium mb-6"
+          className="text-[#1F3A56]/70 text-xs sm:text-sm tracking-[0.35em] uppercase font-medium mb-6"
         >
-          ✨ Première Collection
+          Bijoux en ligne
         </motion.p>
 
         <h1
-          className="text-5xl sm:text-6xl lg:text-8xl font-light leading-[1.05] mb-6"
+          className="text-5xl sm:text-6xl lg:text-8xl font-light leading-[1.05] mb-6 text-[#1F3A56]"
           style={{ fontFamily: 'var(--font-playfair)' }}
         >
           <motion.span
@@ -104,15 +128,16 @@ export function HeroSection() {
             transition={{ duration: 0.9, delay: 0.1, ease: EASE }}
             className="block"
           >
-            La Lumière
+            La douceur
           </motion.span>
           <motion.span
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.25, ease: EASE }}
-            className="block text-[#C9A84C] italic"
+            className="block italic"
+            style={{ color: '#D4AF37' }}
           >
-            d'été
+            de l&apos;été
           </motion.span>
         </h1>
 
@@ -120,11 +145,10 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: EASE }}
-          className="text-lg sm:text-xl text-white/80 mb-10 max-w-xl mx-auto leading-relaxed"
+          className="text-base sm:text-xl text-[#1F3A56]/75 mb-10 max-w-xl mx-auto leading-relaxed italic"
+          style={{ fontFamily: 'var(--font-playfair)' }}
         >
-          Des bijoux artisanaux inspirés par la douceur de la mer.
-          <br className="hidden sm:block" />
-          Porter l'été toujours avec soi.
+          Des bijoux qui sentent bon le soleil et la mer.
         </motion.p>
 
         <motion.div
@@ -138,7 +162,7 @@ export function HeroSection() {
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              className="inline-flex bg-[#C9A84C] hover:bg-[#b8963e] text-white px-10 py-4 rounded-full font-semibold tracking-wide shadow-lg shadow-[#C9A84C]/30 text-base"
+              className="inline-flex bg-[#1F3A56] hover:bg-[#D4AF37] text-white px-10 py-4 rounded-full font-semibold tracking-wide shadow-xl shadow-[#1F3A56]/20 text-base transition-colors"
             >
               Découvrir la collection
             </motion.span>
@@ -148,7 +172,7 @@ export function HeroSection() {
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              className="inline-flex text-white border border-white/30 hover:border-[#C9A84C] hover:text-[#C9A84C] rounded-full px-10 py-4 text-base font-medium transition-colors"
+              className="inline-flex text-[#1F3A56] border border-[#1F3A56]/30 hover:border-[#D4AF37] hover:text-[#D4AF37] rounded-full px-10 py-4 text-base font-medium transition-colors"
             >
               Notre histoire
             </motion.span>
@@ -159,9 +183,9 @@ export function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-12 text-white/60 text-xs"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-12 text-[#1F3A56]/55 text-xs"
         >
-          <span>🚚 Livraison gratuite dès 60€</span>
+          <span>🚚 Livraison offerte dès 60€</span>
           <span className="hidden sm:inline">·</span>
           <span>🔒 Paiement sécurisé</span>
           <span className="hidden sm:inline">·</span>
@@ -177,7 +201,7 @@ export function HeroSection() {
           opacity: { delay: 1.2, duration: 0.6 },
           y: { delay: 1.2, duration: 1.8, repeat: Infinity, ease: 'easeInOut' },
         }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#1F3A56]/40"
       >
         <ChevronDown className="w-6 h-6" />
       </motion.div>

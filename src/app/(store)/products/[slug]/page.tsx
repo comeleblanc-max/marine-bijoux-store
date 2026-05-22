@@ -60,13 +60,13 @@ export default function ProductPage({ params }: Props) {
       <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12">
         {/* Breadcrumb */}
         <nav className="text-sm text-gray-400 mb-8 flex items-center gap-2">
-          <a href="/" className="hover:text-[#C9A84C] transition-colors">Accueil</a>
+          <a href="/" className="hover:text-[#D4AF37] transition-colors">Accueil</a>
           <span>/</span>
-          <a href={`/collections/${product.category}`} className="hover:text-[#C9A84C] transition-colors capitalize">
+          <a href={`/collections/${product.category}`} className="hover:text-[#D4AF37] transition-colors capitalize">
             {product.category}
           </a>
           <span>/</span>
-          <span className="text-[#1A3A52]">{product.name}</span>
+          <span className="text-[#1F3A56]">{product.name}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -77,7 +77,7 @@ export default function ProductPage({ params }: Props) {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="space-y-3"
           >
-            <div className="relative aspect-square bg-[#F5F1ED] rounded-3xl overflow-hidden">
+            <div className="relative aspect-square bg-[#F5E9D6] rounded-3xl overflow-hidden">
               {product.images.length > 0 ? (
                 <Image
                   src={product.images[imgIndex] || '/images/placeholder.jpg'}
@@ -106,7 +106,7 @@ export default function ProductPage({ params }: Props) {
                     key={i}
                     onClick={() => setImgIndex(i)}
                     className={`relative w-20 h-20 rounded-xl overflow-hidden border-2 transition-colors ${
-                      i === imgIndex ? 'border-[#C9A84C]' : 'border-transparent'
+                      i === imgIndex ? 'border-[#D4AF37]' : 'border-transparent'
                     }`}
                   >
                     <Image src={img} alt="" fill className="object-cover" />
@@ -123,7 +123,7 @@ export default function ProductPage({ params }: Props) {
             transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           >
             <h1
-              className="text-3xl sm:text-4xl text-[#1A3A52] font-light mb-3 leading-tight"
+              className="text-3xl sm:text-4xl text-[#1F3A56] font-light mb-3 leading-tight"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
               {product.name}
@@ -132,7 +132,7 @@ export default function ProductPage({ params }: Props) {
             <StarRating rating={4.8} count={24} size="md" className="mb-4" />
 
             <div className="flex items-center gap-3 mb-6">
-              <span className="text-3xl font-bold text-[#C9A84C]">{formatPrice(price)}</span>
+              <span className="text-3xl font-bold text-[#D4AF37]">{formatPrice(price)}</span>
               {product.compareAt && (
                 <span className="text-gray-400 text-lg line-through">{formatPrice(product.compareAt)}</span>
               )}
@@ -144,8 +144,8 @@ export default function ProductPage({ params }: Props) {
             {/* Variants */}
             {product.variants.length > 0 && (
               <div className="mb-6">
-                <p className="text-sm font-medium text-[#1A3A52] mb-2">
-                  Longueur : <span className="text-[#C9A84C]">{selectedVariant?.name}</span>
+                <p className="text-sm font-medium text-[#1F3A56] mb-2">
+                  Longueur : <span className="text-[#D4AF37]">{selectedVariant?.name}</span>
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {product.variants.map((v) => (
@@ -155,8 +155,8 @@ export default function ProductPage({ params }: Props) {
                       disabled={v.stock === 0}
                       className={`px-4 py-2 rounded-full border text-sm font-medium transition-all ${
                         selectedVariant?.id === v.id
-                          ? 'border-[#C9A84C] bg-[#C9A84C] text-white'
-                          : 'border-gray-200 text-[#1A3A52] hover:border-[#C9A84C]'
+                          ? 'border-[#D4AF37] bg-[#D4AF37] text-white'
+                          : 'border-gray-200 text-[#1F3A56] hover:border-[#D4AF37]'
                       } disabled:opacity-40 disabled:cursor-not-allowed`}
                     >
                       {v.name}
@@ -179,10 +179,10 @@ export default function ProductPage({ params }: Props) {
               </Button>
               <button
                 onClick={() => setWished(!wished)}
-                className="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:border-[#F08080] transition-colors"
+                className="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center hover:border-[#FF7A45] transition-colors"
                 aria-label="Favoris"
               >
-                <Heart className={`w-5 h-5 ${wished ? 'fill-[#F08080] text-[#F08080]' : 'text-gray-400'}`} />
+                <Heart className={`w-5 h-5 ${wished ? 'fill-[#FF7A45] text-[#FF7A45]' : 'text-gray-400'}`} />
               </button>
             </div>
 
@@ -193,9 +193,9 @@ export default function ProductPage({ params }: Props) {
                 { icon: RotateCcw, label: 'Retours', sub: '14 jours' },
                 { icon: Shield, label: 'Paiement', sub: '100% sécurisé' },
               ].map(({ icon: Icon, label, sub }) => (
-                <div key={label} className="text-center p-3 rounded-xl bg-[#F5F1ED]">
+                <div key={label} className="text-center p-3 rounded-xl bg-[#F5E9D6]">
                   <Icon className="w-5 h-5 mx-auto mb-1 text-[#4DB8D4]" />
-                  <p className="text-xs font-medium text-[#1A3A52]">{label}</p>
+                  <p className="text-xs font-medium text-[#1F3A56]">{label}</p>
                   <p className="text-xs text-gray-500">{sub}</p>
                 </div>
               ))}
@@ -207,7 +207,7 @@ export default function ProductPage({ params }: Props) {
                 <div key={acc.id} className="border-b border-gray-100">
                   <button
                     onClick={() => setOpenAccordion(openAccordion === acc.id ? null : acc.id)}
-                    className="w-full flex items-center justify-between py-4 text-left text-sm font-medium text-[#1A3A52] hover:text-[#C9A84C] transition-colors"
+                    className="w-full flex items-center justify-between py-4 text-left text-sm font-medium text-[#1F3A56] hover:text-[#D4AF37] transition-colors"
                   >
                     {acc.label}
                     <ChevronDown
@@ -230,7 +230,7 @@ export default function ProductPage({ params }: Props) {
           <div className="mt-20">
             <Reveal>
               <h2
-                className="text-2xl text-[#1A3A52] font-light mb-8 text-center"
+                className="text-2xl text-[#1F3A56] font-light mb-8 text-center"
                 style={{ fontFamily: 'var(--font-playfair)' }}
               >
                 Vous aimerez aussi
