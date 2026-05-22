@@ -73,9 +73,9 @@ export function Header() {
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 lg:h-24 gap-4">
-            {/* ───── Gauche : burger (mobile) + logo ───── */}
-            <div className="flex items-center gap-3">
+          <div className="relative flex items-center justify-between h-24 lg:h-28 gap-4">
+            {/* ───── Gauche : burger (mobile) + navigation (desktop) ───── */}
+            <div className="flex items-center">
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
                 className="lg:hidden text-[#1F3A56] hover:text-[#D4AF37] transition-colors"
@@ -84,25 +84,8 @@ export function Header() {
                 {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
 
-              <Link href="/" className="flex-shrink-0" aria-label="Accueil">
-                <motion.div
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                >
-                  <Image
-                    src="/logo-marine.png"
-                    alt="Marine et la douceur de l'été"
-                    width={200}
-                    height={100}
-                    className="h-14 lg:h-[72px] w-auto object-contain"
-                    priority
-                  />
-                </motion.div>
-              </Link>
-            </div>
-
-            {/* ───── Centre : navigation desktop ───── */}
-            <nav className="hidden lg:flex items-center gap-7">
+              {/* ───── Navigation desktop ───── */}
+              <nav className="hidden lg:flex items-center gap-7">
               {/* Menu déroulant "Bijoux" */}
               <div
                 className="relative"
@@ -185,7 +168,29 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-            </nav>
+              </nav>
+            </div>
+
+            {/* ───── Centre : logo ───── */}
+            <Link
+              href="/"
+              aria-label="Accueil"
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            >
+              <motion.div
+                whileHover={{ scale: 1.04 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+              >
+                <Image
+                  src="/logo-marine.png"
+                  alt="Marine et la douceur de l'été"
+                  width={240}
+                  height={120}
+                  className="h-16 lg:h-[88px] w-auto object-contain"
+                  priority
+                />
+              </motion.div>
+            </Link>
 
             {/* ───── Droite : icônes ───── */}
             <div className="flex items-center gap-3 lg:gap-4">
