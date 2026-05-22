@@ -29,3 +29,10 @@
   .scrollbar-hide { scrollbar-width: none; }
   .scrollbar-hide::-webkit-scrollbar { display: none; }
 }
+
+/* Curseur personnalisé — masquer le curseur natif sur desktop */
+@media (pointer: fine) and (min-width: 769px) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+}

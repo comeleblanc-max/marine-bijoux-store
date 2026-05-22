@@ -2,10 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
-import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 export function CustomCursor() {
-  const isMobile = useMediaQuery('(max-width: 768px)')
   const [visible, setVisible] = useState(false)
   const [clicking, setClicking] = useState(false)
   const [hovering, setHovering] = useState(false)
@@ -16,34 +14,23 @@ export function CustomCursor() {
   const x = useSpring(rawX, { stiffness: 500, damping: 35, mass: 0.3 })
   const y = useSpring(rawY, { stiffness: 500, damping: 35, mass: 0.3 })
 
-  // Injecter cursor:none sur TOUS les éléments via une balise <style>
   useEffect(() => {
-    if (isMobile) return
-    const style = document.createElement('style')
-    style.id = 'custom-cursor-style'
-    style.textContent = `*, *::before, *::after { cursor: none !important; }`
-    document.head.appendChild(style)
-    return () => document.getElementById('custom-cursor-style')?.remove()
-  }, [isMobile])
-
-  useEffect(() => {
-    if (isMobile) return
+    // Ne s'active que sur les appareils avec une souris fine (pas tactile)
+    if (!window.matchMedia('(pointer: fine)').matches) return
 
     const onMove = (e: MouseEvent) => {
       rawX.set(e.clientX)
       rawY.set(e.clientY)
       setVisible(true)
 
-      // Détecter si on survole un élément interactif
       const el = document.elementFromPoint(e.clientX, e.clientY)
-      const interactive = el?.closest('a, button, input, select, textarea, label, [role="button"]')
-      setHovering(!!interactive)
+      setHovering(!!el?.closest('a, button, input, select, textarea, label, [role="button"]'))
     }
 
     const onLeave = () => setVisible(false)
     const onEnter = () => setVisible(true)
-    const onDown = () => setClicking(true)
-    const onUp = () => setClicking(false)
+    const onDown  = () => setClicking(true)
+    const onUp    = () => setClicking(false)
 
     document.addEventListener('mousemove', onMove)
     document.addEventListener('mouseleave', onLeave)
@@ -58,9 +45,7 @@ export function CustomCursor() {
       document.removeEventListener('mousedown', onDown)
       document.removeEventListener('mouseup', onUp)
     }
-  }, [isMobile, rawX, rawY])
-
-  if (isMobile) return null
+  }, [rawX, rawY])
 
   return (
     <motion.div
