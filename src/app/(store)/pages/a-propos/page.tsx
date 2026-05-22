@@ -72,7 +72,7 @@ export default function AProposPage() {
             {/* Image tatouage */}
             <div className="relative w-full aspect-square sm:aspect-[16/9]">
               <Image
-                src="/tatouage.png"
+                src="/KMW7J.jpg"
                 alt="Le tatouage de Marine — palmier, oiseaux et soleil avec la douceur de l'été"
                 fill
                 className="object-cover object-center"
