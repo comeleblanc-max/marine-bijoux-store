@@ -73,7 +73,7 @@ export function Header() {
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20 gap-4">
+          <div className="flex items-center justify-between h-20 lg:h-24 gap-4">
             {/* ───── Gauche : burger (mobile) + logo ───── */}
             <div className="flex items-center gap-3">
               <button
@@ -92,9 +92,9 @@ export function Header() {
                   <Image
                     src="/logo-marine.png"
                     alt="Marine et la douceur de l'été"
-                    width={130}
-                    height={65}
-                    className="h-10 lg:h-12 w-auto object-contain"
+                    width={200}
+                    height={100}
+                    className="h-14 lg:h-[72px] w-auto object-contain"
                     priority
                   />
                 </motion.div>
