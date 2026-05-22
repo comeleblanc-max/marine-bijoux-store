@@ -6,10 +6,14 @@ import { CookieConsent } from '@/components/layout/CookieConsent'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { PageTransition } from '@/components/ui/motion'
 import { ToastContainer } from '@/components/ui/Toast'
+import { CustomCursor } from '@/components/ui/CustomCursor'
+import { FloatingParticles } from '@/components/ui/FloatingParticles'
 
 export default function StoreLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <CustomCursor />
+      <FloatingParticles count={18} />
       <ScrollProgress />
       <AnnouncementBar />
       <Header />
