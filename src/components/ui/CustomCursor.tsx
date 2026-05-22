@@ -88,18 +88,6 @@ export function CustomCursor() {
         </span>
       </motion.div>
 
-      {/* Halo autour du curseur */}
-      <motion.div
-        style={{ x, y }}
-        animate={{
-          opacity: visible ? (hovering ? 0.5 : 0.25) : 0,
-          scale: hovering ? 1.8 : 1,
-        }}
-        transition={{ opacity: { duration: 0.3 }, scale: { type: 'spring', stiffness: 200, damping: 25 } }}
-        className="fixed top-0 left-0 z-[9998] pointer-events-none -translate-x-1/2 -translate-y-1/2"
-      >
-        <div className="w-10 h-10 rounded-full border border-[#C9A84C]/60 bg-[#C9A84C]/10 backdrop-blur-sm" />
-      </motion.div>
     </>
   )
 }
