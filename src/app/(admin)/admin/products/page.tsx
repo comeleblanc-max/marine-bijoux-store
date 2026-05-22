@@ -8,7 +8,7 @@ export default function AdminProductsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-playfair)' }}>Produits</h1>
-        <button className="flex items-center gap-2 bg-[#1F3A56] text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-[#1F3A56]/90 transition-colors">
+        <button className="flex items-center gap-2 bg-[#1A1A1A] text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-[#1A1A1A]/90 transition-colors">
           <Plus className="w-4 h-4" />
           Ajouter un produit
         </button>
@@ -20,7 +20,7 @@ export default function AdminProductsPage() {
         <input
           type="search"
           placeholder="Rechercher un produit…"
-          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-[#4DB8D4]"
+          className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:border-[#A7D5E6]"
         />
       </div>
 
@@ -54,7 +54,7 @@ export default function AdminProductsPage() {
                   <span className="text-sm text-gray-600 capitalize">{product.category}</span>
                 </td>
                 <td className="px-6 py-4">
-                  <span className="text-sm font-semibold text-[#1F3A56]">{formatPrice(product.price)}</span>
+                  <span className="text-sm font-semibold text-[#1A1A1A]">{formatPrice(product.price)}</span>
                   {product.compareAt && (
                     <span className="text-xs text-gray-400 line-through ml-2">{formatPrice(product.compareAt)}</span>
                   )}
@@ -66,7 +66,7 @@ export default function AdminProductsPage() {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center gap-2 justify-end">
-                    <button className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-[#1F3A56] transition-colors">
+                    <button className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-[#1A1A1A] transition-colors">
                       <Edit className="w-4 h-4" />
                     </button>
                     <button className="p-1.5 rounded-lg hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors">

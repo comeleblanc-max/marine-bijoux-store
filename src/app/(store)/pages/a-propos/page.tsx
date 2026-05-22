@@ -18,22 +18,22 @@ export default function AProposPage() {
         className="py-24 sm:py-32 px-4 text-center relative overflow-hidden"
         style={{
           background:
-            'linear-gradient(180deg, #A7D5E6 0%, #C9DCDA 30%, #F0DCB8 60%, #F5E9D6 100%)',
+            'linear-gradient(180deg, #A7D5E6 0%, #C9DCDA 30%, #F0DCB8 60%, #FAF7F2 100%)',
         }}
       >
         <Reveal>
-          <p className="text-[#1F3A56]/60 text-xs tracking-[0.35em] uppercase mb-5">
+          <p className="text-[#1A1A1A]/60 text-xs tracking-[0.35em] uppercase mb-5">
             Notre histoire
           </p>
           <h1
-            className="text-4xl sm:text-6xl font-light mb-6 text-[#1F3A56]"
+            className="text-4xl sm:text-6xl font-light mb-6 text-[#1A1A1A]"
             style={{ fontFamily: 'var(--font-playfair)' }}
           >
             Bonjour et bienvenue
             <br />
-            <span className="italic text-[#D4AF37]">dans mon univers</span>
+            <span className="italic text-[#C9A45F]">dans mon univers</span>
           </h1>
-          <p className="text-[#1F3A56]/70 max-w-xl mx-auto leading-relaxed italic">
+          <p className="text-[#1A1A1A]/70 max-w-xl mx-auto leading-relaxed italic">
             « Des bijoux qui sentent bon le soleil et la mer. »
           </p>
         </Reveal>
@@ -44,7 +44,7 @@ export default function AProposPage() {
 
         <Reveal>
           <p className="text-gray-700 leading-loose mb-6 text-lg">
-            Je m'appelle <strong className="text-[#1F3A56]">Marine</strong>, j'ai 21 ans,
+            Je m'appelle <strong className="text-[#1A1A1A]">Marine</strong>, j'ai 21 ans,
             et la création de cette boutique en ligne est pour moi la concrétisation
             d'une passion de toujours.
           </p>
@@ -68,7 +68,7 @@ export default function AProposPage() {
 
         {/* Bloc citation — origine du nom */}
         <Reveal delay={0.1}>
-          <div className="my-12 rounded-3xl bg-gradient-to-br from-[#F5E9D6] to-[#EAD9BE] overflow-hidden">
+          <div className="my-12 rounded-3xl bg-gradient-to-br from-[#FAF7F2] to-[#F0E6D8] overflow-hidden">
             {/* Image tatouage */}
             <div className="relative w-full aspect-square sm:aspect-[16/9]">
               <Image
@@ -83,7 +83,7 @@ export default function AProposPage() {
             <div className="p-8 sm:p-10 text-center">
               <p className="text-3xl mb-4">𓆉 𓇼</p>
               <p
-                className="text-2xl sm:text-3xl text-[#1F3A56] font-light italic leading-snug mb-4"
+                className="text-2xl sm:text-3xl text-[#1A1A1A] font-light italic leading-snug mb-4"
                 style={{ fontFamily: 'var(--font-playfair)' }}
               >
                 « la douceur de l'été »
@@ -99,7 +99,7 @@ export default function AProposPage() {
 
         <Reveal delay={0.1}>
           <p className="text-gray-600 leading-loose mb-6">
-            À travers ma sélection de bijoux en <strong className="text-[#1F3A56]">acier
+            À travers ma sélection de bijoux en <strong className="text-[#1A1A1A]">acier
             inoxydable</strong>, mon objectif est de vous partager un peu de cette
             légèreté et de cette douceur ensoleillée, tout au long de l'été.
           </p>
@@ -115,7 +115,7 @@ export default function AProposPage() {
         <Reveal delay={0.1}>
           <div className="border-t border-gray-100 pt-8 text-center">
             <p
-              className="text-2xl text-[#D4AF37] italic mb-1"
+              className="text-2xl text-[#C9A45F] italic mb-1"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
               Marine et la douceur de l'été
@@ -126,14 +126,14 @@ export default function AProposPage() {
       </div>
 
       {/* ── Valeurs ── */}
-      <div className="bg-[#F5E9D6]/50 py-20 px-4">
+      <div className="bg-[#FAF7F2]/50 py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <Reveal className="text-center mb-12">
-            <p className="text-[#D4AF37] text-xs tracking-[0.3em] uppercase font-medium mb-3">
+            <p className="text-[#C9A45F] text-xs tracking-[0.3em] uppercase font-medium mb-3">
               Mes engagements
             </p>
             <h2
-              className="text-2xl sm:text-3xl text-[#1F3A56] font-light"
+              className="text-2xl sm:text-3xl text-[#1A1A1A] font-light"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
               Ce qui me tient à cœur
@@ -162,7 +162,7 @@ export default function AProposPage() {
                 <div className="text-center p-8 bg-white rounded-2xl h-full">
                   <p className="text-4xl mb-4">{v.emoji}</p>
                   <h3
-                    className="font-semibold text-[#1F3A56] mb-2"
+                    className="font-semibold text-[#1A1A1A] mb-2"
                     style={{ fontFamily: 'var(--font-playfair)' }}
                   >
                     {v.title}
@@ -176,7 +176,7 @@ export default function AProposPage() {
           <Reveal delay={0.2} className="text-center mt-12">
             <Link
               href="/collections/all"
-              className="inline-flex items-center gap-2 bg-[#1F3A56] hover:bg-[#D4AF37] text-white transition-colors duration-300 px-8 py-3.5 rounded-full font-medium group"
+              className="inline-flex items-center gap-2 bg-[#1A1A1A] hover:bg-[#C9A45F] text-white transition-colors duration-300 px-8 py-3.5 rounded-full font-medium group"
             >
               Découvrir mes bijoux
               <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
