@@ -70,13 +70,13 @@ export default function AProposPage() {
         <Reveal delay={0.1}>
           <div className="my-12 rounded-3xl bg-gradient-to-br from-[#F5E9D6] to-[#EAD9BE] overflow-hidden">
             {/* Image tatouage */}
-            <div className="relative w-full aspect-square sm:aspect-[16/9]">
+            <div className="relative w-full aspect-[3/4] sm:aspect-square max-w-sm mx-auto">
               <Image
                 src="/tatouage.png"
                 alt="Le tatouage de Marine — palmier, oiseaux et soleil avec la douceur de l'été"
                 fill
                 className="object-cover object-center"
-                sizes="(max-width: 640px) 100vw, 672px"
+                sizes="(max-width: 640px) 100vw, 400px"
               />
             </div>
             {/* Légende */}
