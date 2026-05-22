@@ -8,10 +8,10 @@ const EASE = [0.22, 1, 0.36, 1] as const
 
 export function FullWidthBanner() {
   return (
-    <section className="relative w-full h-[60vh] sm:h-[75vh] min-h-[420px] overflow-hidden">
+    <section className="relative w-full h-[calc(100svh-100px)] min-h-[480px] overflow-hidden">
       {/* Photo pleine largeur */}
       <Image
-        src="/banniere-accueil.jpg"
+        src="/banniere-test.webp"
         alt="Marine et la douceur de l'été — bijoux inspirés du soleil et de la mer"
         fill
         priority
