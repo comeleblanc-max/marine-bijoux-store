@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Reveal } from '@/components/ui/motion'
 
 export const metadata: Metadata = {
@@ -67,19 +68,32 @@ export default function AProposPage() {
 
         {/* Bloc citation — origine du nom */}
         <Reveal delay={0.1}>
-          <div className="my-12 p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-[#F5E9D6] to-[#EAD9BE] text-center">
-            <p className="text-3xl mb-4">𓆉 𓇼</p>
-            <p
-              className="text-2xl sm:text-3xl text-[#1F3A56] font-light italic leading-snug mb-4"
-              style={{ fontFamily: 'var(--font-playfair)' }}
-            >
-              « la douceur de l'été »
-            </p>
-            <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
-              Ce nom a une histoire très personnelle. Il est inspiré de l'un de mes
-              tatouages — un palmier, des oiseaux et un soleil — accompagné de cette
-              phrase gravée sur ma peau.
-            </p>
+          <div className="my-12 rounded-3xl bg-gradient-to-br from-[#F5E9D6] to-[#EAD9BE] overflow-hidden">
+            {/* Image tatouage */}
+            <div className="relative w-full aspect-square sm:aspect-[16/9]">
+              <Image
+                src="/tatouage.png"
+                alt="Le tatouage de Marine — palmier, oiseaux et soleil avec la douceur de l'été"
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 640px) 100vw, 672px"
+              />
+            </div>
+            {/* Légende */}
+            <div className="p-8 sm:p-10 text-center">
+              <p className="text-3xl mb-4">𓆉 𓇼</p>
+              <p
+                className="text-2xl sm:text-3xl text-[#1F3A56] font-light italic leading-snug mb-4"
+                style={{ fontFamily: 'var(--font-playfair)' }}
+              >
+                « la douceur de l'été »
+              </p>
+              <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
+                Ce nom a une histoire très personnelle. Il est inspiré de l'un de mes
+                tatouages — un palmier, des oiseaux et un soleil — accompagné de cette
+                phrase gravée sur ma peau.
+              </p>
+            </div>
           </div>
         </Reveal>
 
