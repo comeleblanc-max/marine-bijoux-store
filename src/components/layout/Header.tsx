@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import {
   Search,
@@ -87,17 +88,15 @@ export function Header() {
                 <motion.div
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-                  className="flex flex-col leading-none"
                 >
-                  <span
-                    className="text-xl lg:text-2xl font-bold text-[#1F3A56]"
-                    style={{ fontFamily: 'var(--font-playfair)' }}
-                  >
-                    Marine
-                  </span>
-                  <span className="text-[9px] lg:text-[10px] text-[#D4AF37] tracking-[0.18em] uppercase font-medium mt-0.5">
-                    et la douceur de l&apos;été
-                  </span>
+                  <Image
+                    src="/logo-marine.png"
+                    alt="Marine et la douceur de l'été"
+                    width={130}
+                    height={65}
+                    className="h-10 lg:h-12 w-auto object-contain"
+                    priority
+                  />
                 </motion.div>
               </Link>
             </div>

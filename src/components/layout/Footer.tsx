@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { ExternalLink, Share2, Mail } from 'lucide-react'
 import { PaymentBadges } from '@/components/ui/PaymentBadges'
 import { CookiePreferencesButton } from '@/components/layout/CookiePreferencesButton'
@@ -73,15 +74,15 @@ export function Footer() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Marque */}
           <div className="col-span-2 lg:col-span-1">
-            <h3
-              className="text-xl font-bold mb-1"
-              style={{ fontFamily: 'var(--font-playfair)' }}
-            >
-              Marine
-            </h3>
-            <p className="text-[#4DB8D4] text-xs tracking-widest uppercase mb-4">
-              et la douceur de l'été
-            </p>
+            <div className="mb-4">
+              <Image
+                src="/logo-marine-white.png"
+                alt="Marine et la douceur de l'été"
+                width={160}
+                height={80}
+                className="h-14 w-auto object-contain"
+              />
+            </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               Des bijoux artisanaux inspirés par la mer et la lumière de l'été.
               Portez l'été toujours avec vous.
