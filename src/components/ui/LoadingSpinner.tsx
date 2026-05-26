@@ -11,7 +11,7 @@ export function LoadingSpinner({ size = 'md', className }: Props) {
 
 export function PageLoader() {
   return (
-    <div className="min-h-screen bg-[#F5E9D6] flex items-center justify-center">
+    <div className="min-h-screen bg-[#FAF5EA] flex items-center justify-center">
       <div className="flex flex-col items-center gap-4">
         <LoadingSpinner size="lg" />
         <p className="text-sm text-gray-400">Chargement…</p>

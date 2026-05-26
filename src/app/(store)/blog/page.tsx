@@ -13,13 +13,13 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* En-tête */}
-      <div className="bg-gradient-to-br from-[#F5E9D6] to-[#ede6db] py-20 px-4 text-center">
+      <div className="bg-gradient-to-br from-[#FAF5EA] to-[#ede6db] py-20 px-4 text-center">
         <Reveal>
           <p className="text-[#D4AF37] text-sm tracking-widest uppercase mb-4">
             Le Journal
           </p>
           <h1
-            className="text-3xl sm:text-5xl text-[#1F3A56] font-light mb-3"
+            className="text-3xl sm:text-5xl text-[#1A1A1A] font-light mb-3"
             style={{ fontFamily: 'var(--font-playfair)' }}
           >
             Conseils & inspirations
@@ -37,7 +37,7 @@ export default function BlogPage() {
             <StaggerItem key={post.slug}>
               <Link href={`/blog/${post.slug}`} className="group block h-full">
                 <article className="h-full bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                  <div className="aspect-[4/3] bg-gradient-to-br from-[#4DB8D4]/15 to-[#D4AF37]/15 flex items-center justify-center">
+                  <div className="aspect-[4/3] bg-gradient-to-br from-[#A7D5E6]/15 to-[#D4AF37]/15 flex items-center justify-center">
                     <span className="text-6xl group-hover:scale-110 transition-transform duration-300">
                       {post.emoji}
                     </span>
@@ -51,7 +51,7 @@ export default function BlogPage() {
                       <span className="text-gray-400">{post.readingTime}</span>
                     </div>
                     <h2
-                      className="text-lg text-[#1F3A56] font-medium mb-2 group-hover:text-[#D4AF37] transition-colors"
+                      className="text-lg text-[#1A1A1A] font-medium mb-2 group-hover:text-[#D4AF37] transition-colors"
                       style={{ fontFamily: 'var(--font-playfair)' }}
                     >
                       {post.title}

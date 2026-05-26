@@ -4,145 +4,100 @@ import { ExternalLink, Share2, Mail } from 'lucide-react'
 import { PaymentBadges } from '@/components/ui/PaymentBadges'
 import { CookiePreferencesButton } from '@/components/layout/CookiePreferencesButton'
 
-const COL_BOUTIQUE = [
-  { label: "Collection Lumière d'été", href: '/collections/lumiere-dete' },
-  { label: 'Colliers', href: '/collections/colliers' },
-  { label: 'Bracelets', href: '/collections/bracelets' },
-  { label: "Boucles d'oreilles", href: '/collections/boucles-doreilles' },
-  { label: 'Bagues', href: '/collections/bagues' },
-  { label: 'Tous les bijoux', href: '/collections/all' },
+const COL_SHOP = [
+  { label: 'Nouveautés',  href: '/collections/all' },
+  { label: 'Lumière d\'été', href: '/collections/lumiere-dete' },
+  { label: 'Colliers',    href: '/collections/colliers' },
+  { label: 'Bracelets',   href: '/collections/bracelets' },
+  { label: 'Bagues',      href: '/collections/bagues' },
+  { label: 'Boucles',     href: '/collections/boucles-doreilles' },
 ]
 
-const COL_INFOS = [
+const COL_INFO = [
   { label: 'Notre histoire', href: '/pages/a-propos' },
-  { label: 'Le Journal', href: '/blog' },
-  { label: 'Entretien des bijoux', href: '/pages/entretien' },
-  { label: 'Questions fréquentes', href: '/pages/faq' },
-  { label: 'Mon compte', href: '/account' },
+  { label: 'Le Journal',     href: '/blog' },
+  { label: 'Entretien',      href: '/pages/entretien' },
+  { label: 'FAQ',            href: '/pages/faq' },
+  { label: 'Mon compte',     href: '/account' },
 ]
 
-const COL_AIDE = [
-  { label: 'Contact', href: '/pages/contact' },
-  { label: 'Livraison & expédition', href: '/pages/livraison' },
-  { label: 'Retours & remboursement', href: '/pages/remboursement' },
-  { label: 'Conditions générales de vente', href: '/pages/cgv' },
+const COL_HELP = [
+  { label: 'Contact',     href: '/pages/contact' },
+  { label: 'Livraison',   href: '/pages/livraison' },
+  { label: 'Retours',     href: '/pages/remboursement' },
+  { label: 'CGV',         href: '/pages/cgv' },
 ]
 
 const LEGAL = [
-  { label: 'Politique de confidentialité', href: '/pages/confidentialite' },
-  { label: 'Politique de remboursement', href: '/pages/remboursement' },
-  { label: "Conditions d'utilisation", href: '/pages/conditions-utilisation' },
-  { label: 'Coordonnées', href: '/pages/contact' },
-  { label: "Politique d'expédition", href: '/pages/livraison' },
+  { label: 'Confidentialité', href: '/pages/confidentialite' },
   { label: 'Mentions légales', href: '/pages/mentions-legales' },
-  { label: 'Conditions générales de vente', href: '/pages/cgv' },
+  { label: 'CGV', href: '/pages/cgv' },
+  { label: 'Conditions d\'utilisation', href: '/pages/conditions-utilisation' },
 ]
-
-function LinkColumn({
-  title,
-  links,
-}: {
-  title: string
-  links: { label: string; href: string }[]
-}) {
-  return (
-    <div>
-      <h4 className="text-sm font-semibold uppercase tracking-wider text-[#D8B98C] mb-4">
-        {title}
-      </h4>
-      <ul className="space-y-2.5">
-        {links.map((link) => (
-          <li key={link.href + link.label}>
-            <Link
-              href={link.href}
-              className="text-gray-300 hover:text-white text-sm transition-colors"
-            >
-              {link.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
 
 export function Footer() {
   return (
-    <footer className="bg-[#1F3A56] text-white mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Colonnes principales */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Marque */}
-          <div className="col-span-2 lg:col-span-1">
-            <div className="mb-4">
-              <Image
-                src="/logo-marine-white.png"
-                alt="Marine et la douceur de l'été"
-                width={160}
-                height={80}
-                className="h-14 w-auto object-contain"
-              />
-            </div>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              Des bijoux artisanaux inspirés par la mer et la lumière de l'été.
-              Portez l'été toujours avec vous.
+    <footer className="bg-[#1A1A1A] text-white">
+      <div className="container-x py-16">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
+          {/* Marque + social */}
+          <div className="col-span-2">
+            <Image
+              src="/logo-marine-white.png"
+              alt="Marine"
+              width={180}
+              height={90}
+              className="h-12 w-auto object-contain mb-5"
+            />
+            <p className="text-[#A8A8A8] text-sm leading-relaxed max-w-xs mb-6">
+              Des bijoux en acier inoxydable inspirés par le soleil, la mer
+              et la douceur de l'été.
             </p>
-            <div className="flex gap-3 mt-6">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#D4AF37] transition-colors"
-                aria-label="Instagram"
-              >
-                <ExternalLink className="w-4 h-4" />
-              </a>
-              <a
-                href="https://tiktok.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#D4AF37] transition-colors"
-                aria-label="TikTok"
-              >
-                <Share2 className="w-4 h-4" />
-              </a>
-              <a
-                href="mailto:contact@marineetladouceurdelete.com"
-                className="w-9 h-9 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#D4AF37] transition-colors"
-                aria-label="Email"
-              >
-                <Mail className="w-4 h-4" />
-              </a>
+            <div className="flex gap-3">
+              {[
+                { icon: ExternalLink, href: 'https://instagram.com', label: 'Instagram' },
+                { icon: Share2, href: 'https://tiktok.com', label: 'TikTok' },
+                { icon: Mail, href: 'mailto:contact@marineetladouceurdelete.com', label: 'Email' },
+              ].map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith('http') ? '_blank' : undefined}
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-9 h-9 border border-white/20 flex items-center justify-center hover:border-[#D4AF37] hover:text-[#D4AF37] transition-colors"
+                >
+                  <Icon className="w-4 h-4" strokeWidth={1.3} />
+                </a>
+              ))}
             </div>
           </div>
 
-          <LinkColumn title="Boutique" links={COL_BOUTIQUE} />
-          <LinkColumn title="Informations" links={COL_INFOS} />
-          <LinkColumn title="Aide & contact" links={COL_AIDE} />
+          {/* Boutique */}
+          <FooterColumn title="Boutique" links={COL_SHOP} />
+          {/* Infos */}
+          <FooterColumn title="La maison" links={COL_INFO} />
+          {/* Aide */}
+          <FooterColumn title="Aide" links={COL_HELP} />
         </div>
 
-        {/* Paiement & réassurance */}
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3 text-gray-300 text-sm">
-            <span>🔒 Paiement 100% sécurisé</span>
-          </div>
+        {/* Paiements */}
+        <div className="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-[10px] tracking-[0.2em] uppercase text-[#6B6B6B]">
+            Paiement 100% sécurisé
+          </p>
           <PaymentBadges />
         </div>
 
-        {/* Barre légale */}
-        <div className="mt-8 pt-8 border-t border-white/10 flex flex-col gap-4">
-          <p className="text-gray-400 text-sm text-center md:text-left">
-            © {new Date().getFullYear()} Marine et la douceur de l'été. Tous droits
-            réservés.
+        {/* Mentions */}
+        <div className="mt-8 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-[11px] text-[#6B6B6B]">
+            © {new Date().getFullYear()} Marine et la douceur de l'été. Tous droits réservés.
           </p>
-          <nav className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2">
-            {LEGAL.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="text-gray-400 hover:text-white text-xs transition-colors"
-              >
-                {link.label}
+          <nav className="flex flex-wrap justify-center md:justify-end gap-x-5 gap-y-2">
+            {LEGAL.map((l) => (
+              <Link key={l.label} href={l.href} className="text-[10px] tracking-[0.15em] uppercase text-[#6B6B6B] hover:text-white transition-colors">
+                {l.label}
               </Link>
             ))}
             <CookiePreferencesButton />
@@ -150,5 +105,27 @@ export function Footer() {
         </div>
       </div>
     </footer>
+  )
+}
+
+function FooterColumn({ title, links }: { title: string; links: { label: string; href: string }[] }) {
+  return (
+    <div>
+      <h4 className="text-[10px] tracking-[0.25em] uppercase font-medium text-[#D4AF37] mb-4">
+        {title}
+      </h4>
+      <ul className="space-y-2.5">
+        {links.map((l) => (
+          <li key={l.href + l.label}>
+            <Link
+              href={l.href}
+              className="text-sm text-[#A8A8A8] hover:text-white transition-colors"
+            >
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }

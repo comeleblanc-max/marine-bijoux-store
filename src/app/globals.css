@@ -1,38 +1,83 @@
 @import "tailwindcss";
 
+/* ──────────────────────────────────────────────────────────────
+   Design system V2 — Minimaliste luxe (mainajewels-inspired)
+   Palette claire dominante, accents dorés, typo épurée.
+   ────────────────────────────────────────────────────────────── */
+
 @theme inline {
-  --color-ocean:  #4DB8D4;
-  --color-sand:   #D8B98C;
-  --color-gold:   #D4AF37;
-  --color-coral:  #FF7A45;
-  --color-navy:   #1F3A56;
-  --color-cream:  #F5E9D6;
-  --font-sans: var(--font-inter);
-  --font-heading: var(--font-playfair);
+  /* Couleurs */
+  --color-ink:        #1A1A1A;
+  --color-ink-soft:   #6B6B6B;
+  --color-line:       #E8E2D5;
+  --color-paper:      #FFFFFF;
+  --color-cream:      #FAF5EA;
+  --color-sand:       #F2E5CC;
+  --color-gold:       #D4AF37;
+  --color-gold-deep:  #B8923D;
+  --color-navy:       #1A1A1A;
+  --color-coral:      #E89B6F;
+  --color-ocean:      #A7D5E6;
+
+  /* Polices */
+  --font-sans:    var(--font-inter);
+  --font-display: var(--font-playfair);
 }
 
 @layer base {
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
 
   body {
-    @apply antialiased bg-white text-[#1F3A56];
+    @apply bg-white text-[#1A1A1A];
     font-family: var(--font-inter), system-ui, sans-serif;
   }
 
-  h1, h2, h3, h4, h5 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-playfair), Georgia, serif;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+
+  input, textarea, select {
+    @apply outline-none focus:ring-1 focus:ring-[#D4AF37]/40 focus:border-[#D4AF37];
+  }
+
+  ::selection { background: #D4AF37; color: white; }
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-[10px] tracking-[0.25em] uppercase font-medium text-[#6B6B6B];
+  }
+
+  .container-x {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-10;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-[#1A1A1A] text-white px-7 py-3.5 text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-[#D4AF37] hover:gap-3;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 border border-[#1A1A1A] text-[#1A1A1A] px-7 py-3.5 text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-[#1A1A1A] hover:text-white;
+  }
+
+  .btn-gold {
+    @apply inline-flex items-center justify-center gap-2 bg-[#D4AF37] text-white px-7 py-3.5 text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-[#B8923D];
   }
 }
 
 @layer utilities {
   .text-balance   { text-wrap: balance; }
+  .text-pretty    { text-wrap: pretty; }
   .scrollbar-hide { scrollbar-width: none; }
   .scrollbar-hide::-webkit-scrollbar { display: none; }
 }
 
-/* Curseur personnalisé — masquer le curseur natif sur desktop */
+/* Curseur coquillage — masquer le curseur natif sur desktop */
 @media (pointer: fine) and (min-width: 769px) {
-  *, *::before, *::after {
-    cursor: none !important;
-  }
+  *, *::before, *::after { cursor: none !important; }
 }

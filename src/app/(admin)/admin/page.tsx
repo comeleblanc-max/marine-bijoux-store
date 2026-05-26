@@ -3,9 +3,9 @@ import { Package, ShoppingBag, Users, TrendingUp, ArrowUpRight } from 'lucide-re
 import { formatPrice } from '@/utils/format'
 
 const STATS = [
-  { label: 'Revenus ce mois', value: '2 847 €', change: '+12%', icon: TrendingUp, color: 'bg-[#4DB8D4]/10 text-[#4DB8D4]' },
+  { label: 'Revenus ce mois', value: '2 847 €', change: '+12%', icon: TrendingUp, color: 'bg-[#A7D5E6]/10 text-[#A7D5E6]' },
   { label: 'Commandes', value: '47', change: '+8%', icon: ShoppingBag, color: 'bg-[#D4AF37]/10 text-[#D4AF37]' },
-  { label: 'Produits actifs', value: String(PRODUCTS.length), change: '', icon: Package, color: 'bg-[#FF7A45]/10 text-[#FF7A45]' },
+  { label: 'Produits actifs', value: String(PRODUCTS.length), change: '', icon: Package, color: 'bg-[#E89B6F]/10 text-[#E89B6F]' },
   { label: 'Clients', value: '312', change: '+23%', icon: Users, color: 'bg-green-100 text-green-600' },
 ]
 
@@ -67,7 +67,7 @@ export default function AdminDashboard() {
                 <p className="text-xs text-gray-400">{order.customer} · {order.date}</p>
               </div>
               <div className="flex items-center gap-4">
-                <span className="font-semibold text-sm text-[#1F3A56]">{formatPrice(order.total)}</span>
+                <span className="font-semibold text-sm text-[#1A1A1A]">{formatPrice(order.total)}</span>
                 <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${STATUS_COLORS[order.status] || 'bg-gray-100 text-gray-700'}`}>
                   {order.status}
                 </span>

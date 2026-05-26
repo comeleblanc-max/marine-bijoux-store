@@ -30,7 +30,7 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-white">
       {/* En-tête */}
-      <div className="bg-gradient-to-br from-[#1F3A56] to-[#4DB8D4] py-20 px-4 text-center text-white">
+      <div className="bg-gradient-to-br from-[#1A1A1A] to-[#A7D5E6] py-20 px-4 text-center text-white">
         <Reveal>
           <div className="text-6xl mb-6">{post.emoji}</div>
           <div className="flex items-center justify-center gap-2 text-xs mb-4">
@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Contenu */}
       <article className="max-w-2xl mx-auto px-4 py-16">
         <Reveal>
-          <p className="text-lg text-[#1F3A56] leading-relaxed mb-10 font-medium">
+          <p className="text-lg text-[#1A1A1A] leading-relaxed mb-10 font-medium">
             {post.excerpt}
           </p>
         </Reveal>
@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: Props) {
               <section>
                 {block.heading && (
                   <h2
-                    className="text-xl sm:text-2xl text-[#1F3A56] font-medium mb-3"
+                    className="text-xl sm:text-2xl text-[#1A1A1A] font-medium mb-3"
                     style={{ fontFamily: 'var(--font-playfair)' }}
                   >
                     {block.heading}
@@ -93,10 +93,10 @@ export default async function BlogPostPage({ params }: Props) {
 
       {/* Autres articles */}
       {others.length > 0 && (
-        <div className="bg-[#F5E9D6] py-16 px-4">
+        <div className="bg-[#FAF5EA] py-16 px-4">
           <div className="max-w-5xl mx-auto">
             <h2
-              className="text-2xl text-[#1F3A56] font-light mb-8 text-center"
+              className="text-2xl text-[#1A1A1A] font-light mb-8 text-center"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
               À lire aussi
@@ -108,14 +108,14 @@ export default async function BlogPostPage({ params }: Props) {
                   href={`/blog/${other.slug}`}
                   className="group flex gap-4 bg-white rounded-2xl p-4 hover:shadow-lg transition-shadow"
                 >
-                  <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-[#4DB8D4]/15 to-[#D4AF37]/15 flex items-center justify-center flex-shrink-0 text-3xl">
+                  <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-[#A7D5E6]/15 to-[#D4AF37]/15 flex items-center justify-center flex-shrink-0 text-3xl">
                     {other.emoji}
                   </div>
                   <div>
                     <p className="text-[#D4AF37] text-xs font-semibold uppercase tracking-wide mb-1">
                       {other.category}
                     </p>
-                    <h3 className="text-[#1F3A56] font-medium group-hover:text-[#D4AF37] transition-colors leading-snug">
+                    <h3 className="text-[#1A1A1A] font-medium group-hover:text-[#D4AF37] transition-colors leading-snug">
                       {other.title}
                     </h3>
                   </div>

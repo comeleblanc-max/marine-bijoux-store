@@ -3,7 +3,6 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { CartDrawer } from '@/components/cart/CartDrawer'
 import { CookieConsent } from '@/components/layout/CookieConsent'
-import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { PageTransition } from '@/components/ui/motion'
 import { ToastContainer } from '@/components/ui/Toast'
 import { CustomCursor } from '@/components/ui/CustomCursor'
@@ -13,8 +12,7 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
   return (
     <>
       <CustomCursor />
-      <FloatingParticles count={18} />
-      <ScrollProgress />
+      <FloatingParticles count={12} />
       <AnnouncementBar />
       <Header />
       <main className="flex-1">

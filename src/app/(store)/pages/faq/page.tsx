@@ -35,8 +35,8 @@ export default function FaqPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="bg-[#F5E9D6] py-20 px-4 text-center">
-        <h1 className="text-4xl font-light text-[#1F3A56]" style={{ fontFamily: 'var(--font-playfair)' }}>
+      <div className="bg-[#FAF5EA] py-20 px-4 text-center">
+        <h1 className="text-4xl font-light text-[#1A1A1A]" style={{ fontFamily: 'var(--font-playfair)' }}>
           Questions fréquentes
         </h1>
         <p className="text-gray-500 mt-3">Tout ce que vous devez savoir sur nos bijoux et votre commande.</p>
@@ -53,9 +53,9 @@ export default function FaqPage() {
                 <div key={item.q} className="border border-gray-100 rounded-2xl overflow-hidden">
                   <button
                     onClick={() => setOpen(open === item.q ? null : item.q)}
-                    className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-[#F5E9D6] transition-colors"
+                    className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-[#FAF5EA] transition-colors"
                   >
-                    <span className="font-medium text-[#1F3A56] text-sm pr-4">{item.q}</span>
+                    <span className="font-medium text-[#1A1A1A] text-sm pr-4">{item.q}</span>
                     <ChevronDown className={`w-4 h-4 text-[#D4AF37] flex-shrink-0 transition-transform ${open === item.q ? 'rotate-180' : ''}`} />
                   </button>
                   {open === item.q && (
