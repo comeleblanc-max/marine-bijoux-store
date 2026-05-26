@@ -53,13 +53,13 @@ export default function ProductPage({ params }: PageProps) {
         <div className="container-x py-8 sm:py-12">
           {/* Fil d'Ariane */}
           <nav className="flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#6B6B6B] mb-8">
-            <Link href="/" className="hover:text-[#1A1A1A] transition-colors">Accueil</Link>
+            <Link href="/" className="hover:text-[#1F3A56] transition-colors">Accueil</Link>
             <span>/</span>
-            <Link href={`/collections/${product.category}`} className="hover:text-[#1A1A1A] transition-colors capitalize">
+            <Link href={`/collections/${product.category}`} className="hover:text-[#1F3A56] transition-colors capitalize">
               {product.category.replace('-', ' ')}
             </Link>
             <span>/</span>
-            <span className="text-[#1A1A1A] truncate">{product.name}</span>
+            <span className="text-[#1F3A56] truncate">{product.name}</span>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
@@ -82,7 +82,7 @@ export default function ProductPage({ params }: PageProps) {
                 {/* Badges */}
                 <div className="absolute top-4 left-4 flex flex-col gap-2">
                   {product.newArrival && (
-                    <span className="bg-white text-[#1A1A1A] text-[10px] tracking-[0.2em] uppercase font-medium px-3 py-1.5">
+                    <span className="bg-white text-[#1F3A56] text-[10px] tracking-[0.2em] uppercase font-medium px-3 py-1.5">
                       Nouveau
                     </span>
                   )}
@@ -109,7 +109,7 @@ export default function ProductPage({ params }: PageProps) {
             {/* Infos */}
             <div className="lg:py-6">
               <p className="eyebrow mb-3">{product.material ?? 'Acier inoxydable'}</p>
-              <h1 className="text-3xl sm:text-4xl text-[#1A1A1A] mb-4 leading-tight">
+              <h1 className="text-3xl sm:text-4xl text-[#1F3A56] mb-4 leading-tight">
                 {product.name}
               </h1>
 
@@ -125,7 +125,7 @@ export default function ProductPage({ params }: PageProps) {
 
               {/* Prix */}
               <div className="flex items-baseline gap-3 mb-6">
-                <span className="text-2xl text-[#1A1A1A] font-medium">{formatPrice(product.price)}</span>
+                <span className="text-2xl text-[#1F3A56] font-medium">{formatPrice(product.price)}</span>
                 {product.compareAt && (
                   <span className="text-[#6B6B6B] line-through">{formatPrice(product.compareAt)}</span>
                 )}
@@ -137,10 +137,10 @@ export default function ProductPage({ params }: PageProps) {
 
               {/* Quantité + ajout */}
               <div className="flex items-stretch gap-3 mb-4">
-                <div className="flex items-center border border-[#1A1A1A]">
+                <div className="flex items-center border border-[#1F3A56]">
                   <button
                     onClick={() => setQty(Math.max(1, qty - 1))}
-                    className="w-10 h-12 flex items-center justify-center hover:bg-[#1A1A1A] hover:text-white transition-colors"
+                    className="w-10 h-12 flex items-center justify-center hover:bg-[#1F3A56] hover:text-white transition-colors"
                     aria-label="Diminuer"
                   >
                     <Minus className="w-3.5 h-3.5" />
@@ -148,7 +148,7 @@ export default function ProductPage({ params }: PageProps) {
                   <span className="w-10 text-center text-sm">{qty}</span>
                   <button
                     onClick={() => setQty(qty + 1)}
-                    className="w-10 h-12 flex items-center justify-center hover:bg-[#1A1A1A] hover:text-white transition-colors"
+                    className="w-10 h-12 flex items-center justify-center hover:bg-[#1F3A56] hover:text-white transition-colors"
                     aria-label="Augmenter"
                   >
                     <Plus className="w-3.5 h-3.5" />
@@ -248,7 +248,7 @@ function Accordion({
         onClick={onToggle}
         className="w-full flex items-center justify-between py-4 text-left"
       >
-        <span className="text-[11px] tracking-[0.2em] uppercase font-medium text-[#1A1A1A]">
+        <span className="text-[11px] tracking-[0.2em] uppercase font-medium text-[#1F3A56]">
           {title}
         </span>
         <ChevronDown

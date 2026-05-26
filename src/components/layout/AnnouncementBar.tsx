@@ -19,7 +19,7 @@ export function AnnouncementBar() {
   }, [])
 
   return (
-    <div className="bg-[#1A1A1A] text-white">
+    <div className="bg-[#1F3A56] text-white">
       <div className="container-x h-9 flex items-center justify-center relative overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.p

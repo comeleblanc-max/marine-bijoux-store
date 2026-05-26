@@ -67,7 +67,7 @@ export default function AdminDashboard() {
                 <p className="text-xs text-gray-400">{order.customer} · {order.date}</p>
               </div>
               <div className="flex items-center gap-4">
-                <span className="font-semibold text-sm text-[#1A1A1A]">{formatPrice(order.total)}</span>
+                <span className="font-semibold text-sm text-[#1F3A56]">{formatPrice(order.total)}</span>
                 <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${STATUS_COLORS[order.status] || 'bg-gray-100 text-gray-700'}`}>
                   {order.status}
                 </span>
