@@ -50,6 +50,7 @@ export function Header() {
   const { data: session } = useSession()
   const isLoggedIn = !!session?.user
   const firstName = session?.user?.name?.split(' ')[0] || session?.user?.email?.split('@')[0]
+  const isAdmin = (session?.user as { role?: string } | undefined)?.role === 'ADMIN'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -108,6 +109,16 @@ export function Header() {
               >
                 <Search className="w-[18px] h-[18px]" strokeWidth={1.5} />
               </button>
+              {isAdmin && (
+                <Link
+                  href="/admin"
+                  aria-label="Administration"
+                  className="hidden md:inline-flex items-center gap-1 text-[10px] tracking-[0.18em] uppercase font-medium bg-[#1F3A56] text-white hover:bg-[#D4AF37] px-2.5 py-1 rounded transition-colors"
+                  title="Tableau de bord admin"
+                >
+                  Admin
+                </Link>
+              )}
               <Link
                 href="/account"
                 aria-label={isLoggedIn ? `Mon compte (${firstName})` : 'Connexion'}
