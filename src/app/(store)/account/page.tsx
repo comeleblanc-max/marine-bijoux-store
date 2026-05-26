@@ -44,6 +44,7 @@ function AccountPageInner() {
      ============================================================ */
   if (status === 'authenticated' && session?.user) {
     const firstName = session.user.name?.split(' ')[0] || 'vous'
+    const isAdmin = (session.user as { role?: string }).role === 'ADMIN'
     return (
       <div className="min-h-screen bg-[#FAF5EA] py-12 px-4">
         <div className="max-w-5xl mx-auto">
@@ -55,8 +56,21 @@ function AccountPageInner() {
                   style={{ fontFamily: 'var(--font-playfair)' }}
                 >
                   Bonjour {firstName} 👋
+                  {isAdmin && (
+                    <span className="ml-3 align-middle text-[10px] uppercase tracking-[0.18em] font-medium bg-[#D4AF37] text-white px-2 py-0.5 rounded">
+                      Admin
+                    </span>
+                  )}
                 </h1>
                 <p className="text-gray-500 mt-1">{session.user.email}</p>
+                {isAdmin && (
+                  <Link
+                    href="/admin"
+                    className="inline-flex items-center gap-1.5 mt-3 text-sm bg-[#1F3A56] text-white hover:bg-[#D4AF37] px-4 py-2 rounded-lg font-medium transition-colors"
+                  >
+                    🛠️ Tableau de bord admin →
+                  </Link>
+                )}
               </div>
               <button
                 onClick={() => signOut({ callbackUrl: '/' })}
