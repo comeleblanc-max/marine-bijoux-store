@@ -1,30 +1,11 @@
-import { NextResponse } from 'next/server'
-import { auth } from '@/auth'
+import NextAuth from 'next-auth'
+import { authConfig } from '@/auth.config'
 
 /**
- * Protège les routes /admin :
- * - Non connecté → redirige vers /account?callbackUrl=...
- * - Connecté mais pas admin → redirige vers /
+ * Middleware légère — utilise UNIQUEMENT authConfig (pas de Prisma, pas de bcrypt).
+ * La redirection est gérée par le callback `authorized` de authConfig.
  */
-export default auth((req) => {
-  const { pathname } = req.nextUrl
-
-  if (!pathname.startsWith('/admin')) return NextResponse.next()
-
-  const user = req.auth?.user as { role?: string } | undefined
-
-  if (!req.auth) {
-    const signInUrl = new URL('/account', req.url)
-    signInUrl.searchParams.set('callbackUrl', pathname)
-    return NextResponse.redirect(signInUrl)
-  }
-
-  if (user?.role !== 'ADMIN') {
-    return NextResponse.redirect(new URL('/', req.url))
-  }
-
-  return NextResponse.next()
-})
+export default NextAuth(authConfig).auth
 
 export const config = {
   matcher: ['/admin/:path*'],

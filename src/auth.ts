@@ -2,6 +2,7 @@ import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 import { db } from '@/lib/db'
+import { authConfig } from '@/auth.config'
 
 /* Liste des emails admin (séparés par virgule) — défini sur Vercel */
 function isAdminEmail(email: string): boolean {
@@ -14,15 +15,13 @@ function isAdminEmail(email: string): boolean {
 }
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   session: { strategy: 'jwt' },
-  pages: {
-    signIn: '/account',
-  },
   providers: [
     Credentials({
       name: 'Credentials',
       credentials: {
-        email:    { label: 'Email',          type: 'email' },
+        email:    { label: 'Email',         type: 'email' },
         password: { label: 'Mot de passe',  type: 'password' },
       },
       async authorize(credentials) {
@@ -56,21 +55,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id   = user.id
-        // @ts-expect-error - we add role to the user object
-        token.role = user.role
-      }
-      return token
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        if (token?.id)   (session.user as { id?: string }).id     = String(token.id)
-        if (token?.role) (session.user as { role?: string }).role = String(token.role)
-      }
-      return session
-    },
-  },
 })
