@@ -2,7 +2,6 @@ import { Hero } from '@/components/home/Hero'
 import { CategoryShowcase } from '@/components/home/CategoryShowcase'
 import { ReassuranceBar } from '@/components/home/ReassuranceBar'
 import { ProductRow } from '@/components/product/ProductRow'
-import { BrandStory } from '@/components/home/BrandStory'
 import { Testimonials } from '@/components/home/Testimonials'
 import { NewsletterBanner } from '@/components/home/NewsletterBanner'
 import { PRODUCTS } from '@/lib/data'
@@ -34,8 +33,6 @@ export default function HomePage() {
         href="/collections/lumiere-dete"
         hrefLabel="Voir la collection"
       />
-
-      <BrandStory />
 
       <ProductRow
         eyebrow="🐚 Dernières arrivées"

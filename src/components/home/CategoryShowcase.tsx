@@ -42,7 +42,7 @@ export function CategoryShowcase() {
           transition={{ duration: 0.6, ease: EASE }}
           className="text-center mb-10 sm:mb-14"
         >
-          <p className="eyebrow mb-3">✨ Explorer</p>
+          <p className="eyebrow mb-3">🌊 Explorer</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A]">
             Nos univers
           </h2>

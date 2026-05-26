@@ -11,6 +11,8 @@ import {
   Menu,
   X,
   Heart,
+  ChevronDown,
+  Sparkles,
 } from 'lucide-react'
 import { useCart } from '@/store/cart'
 import { useWishlist } from '@/hooks/useWishlist'
@@ -20,20 +22,26 @@ import { SearchModal } from '@/features/search/SearchModal'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
-const NAV = [
-  { label: 'Nouveautés',  href: '/collections/all?filter=new' },
-  { label: 'Lumière d\'été', href: '/collections/lumiere-dete', accent: true },
-  { label: 'Colliers',    href: '/collections/colliers' },
-  { label: 'Bracelets',   href: '/collections/bracelets' },
-  { label: 'Bagues',      href: '/collections/bagues' },
-  { label: 'Boucles',     href: '/collections/boucles-doreilles' },
-  { label: 'Le Journal',  href: '/blog' },
+/* Catégories regroupées dans le menu "Bijoux" */
+const CATEGORIES = [
+  { label: 'Colliers',           href: '/collections/colliers' },
+  { label: 'Bracelets',          href: '/collections/bracelets' },
+  { label: "Boucles d'oreilles", href: '/collections/boucles-doreilles' },
+  { label: 'Bagues',             href: '/collections/bagues' },
+  { label: 'Tous les bijoux',    href: '/collections/all' },
+]
+
+/* Liens principaux */
+const MAIN_LINKS = [
+  { label: 'Le Journal',    href: '/blog' },
+  { label: 'Notre histoire', href: '/pages/a-propos' },
 ]
 
 export function Header() {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen]     = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled]     = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
   const { openCart, itemCount } = useCart()
   const count = itemCount()
   const wishlistCount = useWishlist((s) => s.items.length)
@@ -48,7 +56,7 @@ export function Header() {
   useEffect(() => setMenuOpen(false), [pathname])
 
   const isActive = (href: string) =>
-    pathname === href.split('?')[0] || pathname.startsWith(href.split('?')[0] + '/')
+    pathname === href || pathname.startsWith(href + '/')
 
   return (
     <>
@@ -58,10 +66,11 @@ export function Header() {
           scrolled ? 'border-b border-[#E8E2D5]' : 'border-b border-transparent'
         )}
       >
-        {/* Ligne logo + icônes */}
         <div className="container-x">
+          {/* Ligne logo + icônes */}
           <div className="relative flex items-center justify-between h-20 lg:h-24">
-            {/* Gauche : burger mobile */}
+
+            {/* Burger mobile */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="lg:hidden text-[#1A1A1A] -ml-1 p-1"
@@ -70,7 +79,7 @@ export function Header() {
               {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
 
-            {/* Logo au centre */}
+            {/* Logo centré */}
             <Link
               href="/"
               aria-label="Marine — Accueil"
@@ -86,7 +95,7 @@ export function Header() {
               />
             </Link>
 
-            {/* Droite : icônes */}
+            {/* Icônes droite */}
             <div className="flex items-center gap-4 lg:gap-5 ml-auto">
               <button
                 onClick={() => setSearchOpen(true)}
@@ -140,7 +149,85 @@ export function Header() {
 
           {/* Navigation desktop — sous le logo */}
           <nav className="hidden lg:flex items-center justify-center gap-9 pb-4 -mt-1">
-            {NAV.map((link) => (
+
+            {/* Bijoux — menu déroulant */}
+            <div
+              className="relative"
+              onMouseEnter={() => setDropdownOpen(true)}
+              onMouseLeave={() => setDropdownOpen(false)}
+            >
+              <button
+                className={cn(
+                  'flex items-center gap-1 text-[11px] tracking-[0.18em] uppercase font-medium transition-colors py-1',
+                  isActive('/collections')
+                    ? 'text-[#D4AF37]'
+                    : 'text-[#1A1A1A] hover:text-[#D4AF37]'
+                )}
+              >
+                Bijoux
+                <ChevronDown
+                  className={cn(
+                    'w-3 h-3 transition-transform duration-200',
+                    dropdownOpen && 'rotate-180'
+                  )}
+                  strokeWidth={1.5}
+                />
+              </button>
+
+              {/* Indicateur actif */}
+              {isActive('/collections') && (
+                <span className="absolute -bottom-1 left-0 right-0 h-px bg-[#D4AF37]" />
+              )}
+
+              <AnimatePresence>
+                {dropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 6 }}
+                    transition={{ duration: 0.18, ease: EASE }}
+                    className="absolute left-1/2 -translate-x-1/2 top-full pt-4"
+                  >
+                    <div className="w-52 bg-white border border-[#E8E2D5] shadow-lg py-2">
+                      {CATEGORIES.map((cat) => (
+                        <Link
+                          key={cat.href}
+                          href={cat.href}
+                          className={cn(
+                            'block px-5 py-2.5 text-[11px] tracking-[0.12em] uppercase font-medium transition-colors',
+                            isActive(cat.href)
+                              ? 'text-[#D4AF37] bg-[#FAF5EA]'
+                              : 'text-[#1A1A1A] hover:text-[#D4AF37] hover:bg-[#FAF5EA]'
+                          )}
+                        >
+                          {cat.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Lumière d'été — lien accent */}
+            <Link
+              href="/collections/lumiere-dete"
+              className={cn(
+                'relative flex items-center gap-1.5 text-[11px] tracking-[0.18em] uppercase font-medium transition-colors',
+                isActive('/collections/lumiere-dete')
+                  ? 'text-[#D4AF37]'
+                  : 'text-[#D4AF37] hover:text-[#B8923D]'
+              )}
+            >
+              <Sparkles className="w-3 h-3" strokeWidth={1.5} />
+              Lumière d&apos;été
+              {isActive('/collections/lumiere-dete') && (
+                <span className="absolute -bottom-1 left-0 right-0 h-px bg-[#D4AF37]" />
+              )}
+            </Link>
+
+            {/* Le Journal + Notre histoire */}
+            {MAIN_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -148,18 +235,12 @@ export function Header() {
                   'relative text-[11px] tracking-[0.18em] uppercase font-medium transition-colors',
                   isActive(link.href)
                     ? 'text-[#D4AF37]'
-                    : link.accent
-                    ? 'text-[#D4AF37] hover:text-[#B8923D]'
                     : 'text-[#1A1A1A] hover:text-[#D4AF37]'
                 )}
               >
                 {link.label}
                 {isActive(link.href) && (
-                  <motion.span
-                    layoutId="nav-active"
-                    className="absolute -bottom-1 left-0 right-0 h-px bg-[#D4AF37]"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
+                  <span className="absolute -bottom-1 left-0 right-0 h-px bg-[#D4AF37]" />
                 )}
               </Link>
             ))}
@@ -177,32 +258,76 @@ export function Header() {
               className="lg:hidden bg-white border-t border-[#E8E2D5] overflow-hidden"
             >
               <nav className="container-x py-5 flex flex-col">
-                {NAV.map((link, i) => (
+
+                {/* Lumière d'été en tête */}
+                <Link
+                  href="/collections/lumiere-dete"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-2 text-sm font-medium text-[#D4AF37] py-3 border-b border-[#F2E5CC]"
+                >
+                  <Sparkles className="w-3.5 h-3.5" strokeWidth={1.5} />
+                  Collection Lumière d&apos;été
+                </Link>
+
+                {/* Catégories Bijoux */}
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#6B6B6B] mt-4 mb-1">
+                  Bijoux
+                </p>
+                {CATEGORIES.map((cat, i) => (
                   <motion.div
-                    key={link.href}
+                    key={cat.href}
                     initial={{ opacity: 0, x: -16 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.04 }}
                   >
                     <Link
+                      href={cat.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block text-sm text-[#1A1A1A] hover:text-[#D4AF37] transition-colors py-3 border-b border-[#F2E5CC]"
+                    >
+                      {cat.label}
+                    </Link>
+                  </motion.div>
+                ))}
+
+                {/* Liens principaux */}
+                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#6B6B6B] mt-4 mb-1">
+                  La maison
+                </p>
+                {MAIN_LINKS.map((link, i) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: (CATEGORIES.length + i) * 0.04 }}
+                  >
+                    <Link
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className={cn(
-                        'block text-sm tracking-wide py-3 border-b border-[#F2E5CC]',
-                        link.accent ? 'text-[#D4AF37] font-medium' : 'text-[#1A1A1A]'
-                      )}
+                      className="block text-sm text-[#1A1A1A] hover:text-[#D4AF37] transition-colors py-3 border-b border-[#F2E5CC]"
                     >
                       {link.label}
                     </Link>
                   </motion.div>
                 ))}
-                <Link
-                  href="/account"
-                  onClick={() => setMenuOpen(false)}
-                  className="block text-sm py-3 mt-2 text-[#6B6B6B]"
-                >
-                  Mon compte
-                </Link>
+
+                {/* Accès rapides */}
+                <div className="flex items-center gap-5 mt-4 pt-2">
+                  <Link
+                    href="/account"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-1.5 text-sm text-[#6B6B6B] hover:text-[#D4AF37] transition-colors"
+                  >
+                    <User className="w-4 h-4" strokeWidth={1.5} /> Mon compte
+                  </Link>
+                  <Link
+                    href="/wishlist"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-1.5 text-sm text-[#6B6B6B] hover:text-[#D4AF37] transition-colors"
+                  >
+                    <Heart className="w-4 h-4" strokeWidth={1.5} /> Favoris
+                  </Link>
+                </div>
               </nav>
             </motion.div>
           )}

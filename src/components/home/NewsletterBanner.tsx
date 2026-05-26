@@ -18,7 +18,7 @@ export function NewsletterBanner() {
       <div className="container-x">
         <Reveal>
           <div className="max-w-xl mx-auto text-center">
-            <p className="eyebrow text-[#D4AF37] mb-3">✨ Newsletter</p>
+            <p className="eyebrow text-[#D4AF37] mb-3">✨ Newsletter 🐚</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl mb-4 leading-tight">
               Recevez nos<br />
               <span className="italic text-[#D4AF37]">nouveautés</span> en avant-première

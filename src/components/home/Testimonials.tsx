@@ -12,7 +12,7 @@ export function Testimonials() {
     <section className="py-16 sm:py-24 bg-white">
       <div className="container-x">
         <Reveal className="text-center mb-12">
-          <p className="eyebrow mb-3">⭐ Avis vérifiés</p>
+          <p className="eyebrow mb-3">⭐ Avis vérifiés 💎</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A]">
             Elles parlent de nous
           </h2>

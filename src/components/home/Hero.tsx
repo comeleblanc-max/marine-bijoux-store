@@ -31,7 +31,7 @@ export function Hero() {
             transition={{ duration: 0.9, ease: EASE }}
             className="max-w-xl"
           >
-            <p className="eyebrow text-white/85 mb-4">🐚 Collection — Été 2026</p>
+            <p className="eyebrow text-white/85 mb-4">🐚 Collection — Été 2026 ✨</p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.05] mb-6 text-balance">
               La douceur de l'été<br />
               <span className="italic text-[#FAF5EA]">au creux de la peau.</span>
@@ -40,15 +40,26 @@ export function Hero() {
               Bijoux en acier inoxydable, conçus pour durer. Inspirés par le soleil,
               la mer, et les après-midis d'été qui ne finissent jamais.
             </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <Link href="/collections/all" className="btn-gold">
-                Découvrir
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <Link href="/collections/all">
+                <motion.span
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                  className="inline-flex bg-white text-[#1A1A1A] hover:bg-[#D4AF37] hover:text-white px-9 py-4 rounded-full font-semibold tracking-wide shadow-xl text-sm transition-colors"
+                >
+                  Découvrir la collection
+                </motion.span>
               </Link>
-              <Link
-                href="/pages/a-propos"
-                className="inline-flex items-center justify-center gap-2 border border-white/70 text-white px-7 py-3.5 text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-white hover:text-[#1A1A1A]"
-              >
-                Notre histoire
+              <Link href="/pages/a-propos">
+                <motion.span
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+                  className="inline-flex border border-white/80 text-white hover:bg-white hover:text-[#1A1A1A] px-9 py-4 rounded-full font-medium tracking-wide text-sm transition-colors backdrop-blur-sm"
+                >
+                  Notre histoire
+                </motion.span>
               </Link>
             </div>
           </motion.div>
