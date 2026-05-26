@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { signIn, signOut, useSession } from 'next-auth/react'
@@ -20,6 +20,14 @@ import { Reveal, motion } from '@/components/ui/motion'
 type Tab = 'login' | 'register'
 
 export default function AccountPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#FAF5EA]" />}>
+      <AccountPageInner />
+    </Suspense>
+  )
+}
+
+function AccountPageInner() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const search = useSearchParams()
