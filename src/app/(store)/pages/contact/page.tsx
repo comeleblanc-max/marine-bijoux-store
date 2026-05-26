@@ -7,12 +7,30 @@ import { Mail, Clock, Share2 } from 'lucide-react'
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [errorMsg, setErrorMsg] = useState<string>('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('loading')
-    await new Promise((r) => setTimeout(r, 1000))
-    setStatus('success')
+    setErrorMsg('')
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        setErrorMsg(data.error || "Une erreur est survenue. Veuillez réessayer.")
+        setStatus('error')
+        return
+      }
+      setStatus('success')
+      setForm({ name: '', email: '', subject: '', message: '' })
+    } catch {
+      setErrorMsg("Impossible d'envoyer le message. Vérifiez votre connexion.")
+      setStatus('error')
+    }
   }
 
   return (
@@ -106,6 +124,11 @@ export default function ContactPage() {
                   placeholder="Votre message..."
                 />
               </div>
+              {status === 'error' && errorMsg && (
+                <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+                  {errorMsg}
+                </p>
+              )}
               <Button type="submit" size="lg" loading={status === 'loading'} className="w-full rounded-xl">
                 Envoyer le message ✉️
               </Button>
