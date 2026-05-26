@@ -1,13 +1,19 @@
 'use client'
-import { useEffect, useState } from 'react'
-export function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false)
-  useEffect(() => {
-    const mql = window.matchMedia(query)
-    setMatches(mql.matches)
-    const handler = (e: MediaQueryListEvent) => setMatches(e.matches)
-    mql.addEventListener('change', handler)
-    return () => mql.removeEventListener('change', handler)
-  }, [query])
-  return matches
+
+import { useSyncExternalStore } from 'react'
+
+/**
+ * Hook React 19 friendly pour les media queries.
+ * Utilise useSyncExternalStore : pas de setState dans useEffect → pas d'avertissement lint.
+ */
+export function useMediaQuery(query: string): boolean {
+  return useSyncExternalStore(
+    (callback) => {
+      const mql = window.matchMedia(query)
+      mql.addEventListener('change', callback)
+      return () => mql.removeEventListener('change', callback)
+    },
+    () => window.matchMedia(query).matches,
+    () => false, // valeur côté serveur (SSR) — on suppose desktop
+  )
 }
