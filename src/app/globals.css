@@ -77,7 +77,20 @@
   .scrollbar-hide::-webkit-scrollbar { display: none; }
 }
 
-/* Curseur coquillage — masquer le curseur natif sur desktop */
+/* Curseur coquillage — masquer le curseur natif sur desktop UNIQUEMENT côté boutique */
 @media (pointer: fine) and (min-width: 769px) {
-  *, *::before, *::after { cursor: none !important; }
+  [data-section="store"],
+  [data-section="store"] *,
+  [data-section="store"] *::before,
+  [data-section="store"] *::after { cursor: none !important; }
 }
+
+/* Sur l'admin : curseur natif explicite */
+[data-section="admin"],
+[data-section="admin"] * { cursor: auto; }
+[data-section="admin"] a,
+[data-section="admin"] button,
+[data-section="admin"] [role="button"] { cursor: pointer; }
+[data-section="admin"] input,
+[data-section="admin"] textarea,
+[data-section="admin"] select { cursor: text; }

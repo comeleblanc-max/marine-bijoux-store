@@ -10,7 +10,7 @@ import { FloatingParticles } from '@/components/ui/FloatingParticles'
 
 export default function StoreLayout({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <div data-section="store" className="flex flex-col flex-1">
       <CustomCursor />
       <FloatingParticles count={12} />
       <AnnouncementBar />
@@ -22,6 +22,6 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
       <CartDrawer />
       <CookieConsent />
       <ToastContainer />
-    </>
+    </div>
   )
 }
