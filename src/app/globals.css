@@ -77,4 +77,20 @@
   .scrollbar-hide::-webkit-scrollbar { display: none; }
 }
 
-/* Curseur natif partout (la coquille a été retirée) */
+/* Curseur coquillage 🐚 — masque le curseur natif UNIQUEMENT côté boutique sur desktop */
+@media (pointer: fine) and (min-width: 769px) {
+  [data-section="store"],
+  [data-section="store"] *,
+  [data-section="store"] *::before,
+  [data-section="store"] *::after { cursor: none !important; }
+}
+
+/* Sur /admin → curseur natif (auto, pointer sur boutons, texte sur inputs) */
+[data-section="admin"],
+[data-section="admin"] * { cursor: auto; }
+[data-section="admin"] a,
+[data-section="admin"] button,
+[data-section="admin"] [role="button"] { cursor: pointer; }
+[data-section="admin"] input,
+[data-section="admin"] textarea,
+[data-section="admin"] select { cursor: text; }
