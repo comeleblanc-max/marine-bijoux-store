@@ -48,7 +48,7 @@ export default function CheckoutPage() {
             <CheckCircle2 className="w-8 h-8 text-[#D4AF37]" strokeWidth={1.5} />
           </motion.div>
           <p className="eyebrow mb-3">Confirmation</p>
-          <h1 className="text-3xl sm:text-4xl text-[#1A1A1A] mb-4">Merci pour votre commande</h1>
+          <h1 className="text-3xl sm:text-4xl text-[#1F3A56] mb-4">Merci pour votre commande</h1>
           <p className="text-sm text-[#6B6B6B] mb-2">
             Numéro <strong className="text-[#D4AF37]">{orderId}</strong>
           </p>
@@ -89,21 +89,21 @@ export default function CheckoutPage() {
       <div className="container-x">
         <button
           onClick={() => router.back()}
-          className="text-[10px] tracking-[0.2em] uppercase text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors mb-6"
+          className="text-[10px] tracking-[0.2em] uppercase text-[#6B6B6B] hover:text-[#1F3A56] transition-colors mb-6"
         >
           ← Retour
         </button>
 
         <div className="text-center mb-10">
           <p className="eyebrow mb-3">Finaliser</p>
-          <h1 className="text-3xl sm:text-4xl text-[#1A1A1A]">Votre commande</h1>
+          <h1 className="text-3xl sm:text-4xl text-[#1F3A56]">Votre commande</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Formulaire */}
           <div className="lg:col-span-2 space-y-8">
             <div>
-              <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#1A1A1A] mb-5">
+              <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#1F3A56] mb-5">
                 Coordonnées
               </h2>
               <div className="space-y-3">
@@ -117,7 +117,7 @@ export default function CheckoutPage() {
             </div>
 
             <div>
-              <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#1A1A1A] mb-5">
+              <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#1F3A56] mb-5">
                 Adresse de livraison
               </h2>
               <div className="space-y-3">
@@ -133,7 +133,7 @@ export default function CheckoutPage() {
             <div>
               <div className="flex items-center gap-2 mb-5">
                 <Lock className="w-4 h-4 text-[#D4AF37]" strokeWidth={1.5} />
-                <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#1A1A1A]">
+                <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#1F3A56]">
                   Paiement sécurisé
                 </h2>
               </div>
@@ -152,7 +152,7 @@ export default function CheckoutPage() {
 
           {/* Récapitulatif */}
           <aside className="border border-[#E8E2D5] p-6 h-fit lg:sticky lg:top-32">
-            <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#1A1A1A] mb-5">
+            <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#1F3A56] mb-5">
               Ma commande
             </h2>
             <div className="space-y-3 mb-5 max-h-72 overflow-y-auto">
@@ -162,10 +162,10 @@ export default function CheckoutPage() {
                     <Image src={item.image} alt={item.name} fill sizes="48px" className="object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs text-[#1A1A1A] truncate">{item.name}</p>
+                    <p className="text-xs text-[#1F3A56] truncate">{item.name}</p>
                     <p className="text-[10px] text-[#6B6B6B]">Qté {item.quantity}</p>
                   </div>
-                  <span className="text-xs text-[#1A1A1A] font-medium">
+                  <span className="text-xs text-[#1F3A56] font-medium">
                     {formatPrice(item.price * item.quantity)}
                   </span>
                 </div>
@@ -182,7 +182,7 @@ export default function CheckoutPage() {
                   {shipping === 0 ? 'Offerte' : formatPrice(shipping)}
                 </span>
               </div>
-              <div className="flex justify-between font-medium text-[#1A1A1A] pt-3 border-t border-[#E8E2D5]">
+              <div className="flex justify-between font-medium text-[#1F3A56] pt-3 border-t border-[#E8E2D5]">
                 <span className="text-[11px] tracking-[0.2em] uppercase">Total</span>
                 <span className="text-lg">{formatPrice(cartTotal + shipping)}</span>
               </div>

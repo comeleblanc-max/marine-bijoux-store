@@ -46,7 +46,7 @@ export default function AccountPage() {
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h1
-                  className="text-3xl sm:text-4xl text-[#1A1A1A] font-light"
+                  className="text-3xl sm:text-4xl text-[#1F3A56] font-light"
                   style={{ fontFamily: 'var(--font-playfair)' }}
                 >
                   Bonjour {name || 'Marine'} 👋
@@ -70,7 +70,7 @@ export default function AccountPage() {
                 <div className="flex items-center gap-2 mb-5">
                   <Package className="w-5 h-5 text-[#D4AF37]" />
                   <h2
-                    className="text-lg font-medium text-[#1A1A1A]"
+                    className="text-lg font-medium text-[#1F3A56]"
                     style={{ fontFamily: 'var(--font-playfair)' }}
                   >
                     Mes commandes
@@ -83,7 +83,7 @@ export default function AccountPage() {
                       className="flex items-center justify-between p-4 bg-[#FAF5EA] rounded-xl"
                     >
                       <div>
-                        <p className="font-medium text-[#1A1A1A] text-sm">{order.id}</p>
+                        <p className="font-medium text-[#1F3A56] text-sm">{order.id}</p>
                         <p className="text-gray-400 text-xs">
                           {order.date} · {order.items} article{order.items > 1 ? 's' : ''}
                         </p>
@@ -107,7 +107,7 @@ export default function AccountPage() {
               <div className="bg-white rounded-2xl p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <Heart className="w-5 h-5 text-[#E89B6F]" />
-                  <h3 className="font-medium text-[#1A1A1A]">Mes favoris</h3>
+                  <h3 className="font-medium text-[#1F3A56]">Mes favoris</h3>
                 </div>
                 <p className="text-gray-400 text-sm mb-4">
                   Retrouvez ici les bijoux que vous avez aimés.
@@ -123,7 +123,7 @@ export default function AccountPage() {
               <div className="bg-white rounded-2xl p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <MapPin className="w-5 h-5 text-[#A7D5E6]" />
-                  <h3 className="font-medium text-[#1A1A1A]">Mes adresses</h3>
+                  <h3 className="font-medium text-[#1F3A56]">Mes adresses</h3>
                 </div>
                 <p className="text-gray-400 text-sm">
                   Aucune adresse enregistrée pour le moment.
@@ -142,7 +142,7 @@ export default function AccountPage() {
       <Reveal className="w-full max-w-md">
         <div className="bg-white rounded-3xl p-8 shadow-sm">
           {/* Icône */}
-          <div className="w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-[#A7D5E6] to-[#1A1A1A] rounded-full flex items-center justify-center">
+          <div className="w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-[#A7D5E6] to-[#1F3A56] rounded-full flex items-center justify-center">
             <User className="w-6 h-6 text-white" />
           </div>
 
@@ -163,7 +163,7 @@ export default function AccountPage() {
                 )}
                 <span
                   className={`relative z-10 ${
-                    tab === t ? 'text-[#1A1A1A]' : 'text-gray-400'
+                    tab === t ? 'text-[#1F3A56]' : 'text-gray-400'
                   }`}
                 >
                   {t === 'login' ? 'Connexion' : 'Inscription'}
@@ -175,7 +175,7 @@ export default function AccountPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {tab === 'register' && (
               <div>
-                <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
+                <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">
                   Prénom
                 </label>
                 <input
@@ -189,7 +189,7 @@ export default function AccountPage() {
               </div>
             )}
             <div>
-              <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
+              <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">
                 Email
               </label>
               <div className="relative">
@@ -205,7 +205,7 @@ export default function AccountPage() {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#1A1A1A] mb-1.5">
+              <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">
                 Mot de passe
               </label>
               <div className="relative">

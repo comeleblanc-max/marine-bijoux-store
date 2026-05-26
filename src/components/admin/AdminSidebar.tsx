@@ -17,7 +17,7 @@ const NAV = [
 export function AdminSidebar() {
   const pathname = usePathname()
   return (
-    <aside className="w-60 bg-[#1A1A1A] text-white flex flex-col">
+    <aside className="w-60 bg-[#1F3A56] text-white flex flex-col">
       <div className="p-6 border-b border-white/10">
         <h1 className="font-bold text-lg" style={{ fontFamily: 'var(--font-playfair)' }}>Marine</h1>
         <p className="text-xs text-[#A7D5E6] mt-0.5">Administration</p>

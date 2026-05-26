@@ -22,7 +22,7 @@ export function CollectionGrid() {
             Collections
           </p>
           <h2
-            className="text-2xl sm:text-3xl text-[#1A1A1A] font-light"
+            className="text-2xl sm:text-3xl text-[#1F3A56] font-light"
             style={{ fontFamily: 'var(--font-playfair)' }}
           >
             Explorez nos univers
@@ -47,7 +47,7 @@ export function CollectionGrid() {
                   <span className="text-4xl sm:text-5xl">{tile.emoji}</span>
                 </div>
                 {/* Nom */}
-                <span className="text-sm font-medium text-[#1A1A1A] group-hover:text-[#D4AF37] transition-colors">
+                <span className="text-sm font-medium text-[#1F3A56] group-hover:text-[#D4AF37] transition-colors">
                   {col.name}
                 </span>
               </Link>

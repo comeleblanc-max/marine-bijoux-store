@@ -14,7 +14,7 @@ export function NewsletterBanner() {
   }
 
   return (
-    <section className="py-16 sm:py-24 bg-[#1A1A1A] text-white">
+    <section className="py-16 sm:py-24 bg-[#1F3A56] text-white">
       <div className="container-x">
         <Reveal>
           <div className="max-w-xl mx-auto text-center">

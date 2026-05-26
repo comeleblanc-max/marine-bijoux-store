@@ -7,7 +7,7 @@
 
 @theme inline {
   /* Couleurs */
-  --color-ink:        #1A1A1A;
+  --color-ink:        #1F3A56;
   --color-ink-soft:   #6B6B6B;
   --color-line:       #E8E2D5;
   --color-paper:      #FFFFFF;
@@ -15,7 +15,7 @@
   --color-sand:       #F2E5CC;
   --color-gold:       #D4AF37;
   --color-gold-deep:  #B8923D;
-  --color-navy:       #1A1A1A;
+  --color-navy:       #1F3A56;
   --color-coral:      #E89B6F;
   --color-ocean:      #A7D5E6;
 
@@ -31,7 +31,7 @@
   }
 
   body {
-    @apply bg-white text-[#1A1A1A];
+    @apply bg-white text-[#1F3A56];
     font-family: var(--font-inter), system-ui, sans-serif;
   }
 
@@ -58,11 +58,11 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-[#1A1A1A] text-white px-7 py-3.5 text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-[#D4AF37] hover:gap-3;
+    @apply inline-flex items-center justify-center gap-2 bg-[#1F3A56] text-white px-7 py-3.5 text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-[#D4AF37] hover:gap-3;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 border border-[#1A1A1A] text-[#1A1A1A] px-7 py-3.5 text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-[#1A1A1A] hover:text-white;
+    @apply inline-flex items-center justify-center gap-2 border border-[#1F3A56] text-[#1F3A56] px-7 py-3.5 text-xs tracking-[0.18em] uppercase font-medium transition-all duration-300 hover:bg-[#1F3A56] hover:text-white;
   }
 
   .btn-gold {
