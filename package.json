@@ -12,6 +12,8 @@
   "dependencies": {
     "@prisma/client": "^6.19.3",
     "@stripe/stripe-js": "^9.6.0",
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^3.0.3",
     "clsx": "^2.1.1",
     "framer-motion": "^12.40.0",
     "lucide-react": "^1.16.0",

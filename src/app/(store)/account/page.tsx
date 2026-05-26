@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import {
   User,
   Package,
@@ -11,50 +13,45 @@ import {
   Mail,
   Lock,
   ChevronRight,
+  AlertCircle,
 } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
-import { motion, Reveal } from '@/components/ui/motion'
+import { Reveal, motion } from '@/components/ui/motion'
 
 type Tab = 'login' | 'register'
 
-const DEMO_ORDERS = [
-  { id: 'MDE-1042', date: '12 mai 2026', status: 'Livrée', total: '83,00 €', items: 2 },
-  { id: 'MDE-1031', date: '28 avril 2026', status: 'Livrée', total: '45,00 €', items: 1 },
-]
-
 export default function AccountPage() {
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [tab, setTab] = useState<Tab>('login')
+  const { data: session, status } = useSession()
+  const router = useRouter()
+  const search = useSearchParams()
+
+  const [tab, setTab]         = useState<Tab>('login')
   const [loading, setLoading] = useState(false)
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
+  const [name, setName]       = useState('')
+  const [email, setEmail]     = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError]     = useState<string>('')
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    await new Promise((r) => setTimeout(r, 900))
-    setLoading(false)
-    setLoggedIn(true)
-  }
-
-  /* ---------------- Tableau de bord ---------------- */
-  if (loggedIn) {
+  /* ============================================================
+     SI CONNECTÉE → Tableau de bord
+     ============================================================ */
+  if (status === 'authenticated' && session?.user) {
+    const firstName = session.user.name?.split(' ')[0] || 'vous'
     return (
       <div className="min-h-screen bg-[#FAF5EA] py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <Reveal>
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
               <div>
                 <h1
                   className="text-3xl sm:text-4xl text-[#1F3A56] font-light"
                   style={{ fontFamily: 'var(--font-playfair)' }}
                 >
-                  Bonjour {name || 'Marine'} 👋
+                  Bonjour {firstName} 👋
                 </h1>
-                <p className="text-gray-500 mt-1">Bienvenue dans votre espace personnel.</p>
+                <p className="text-gray-500 mt-1">{session.user.email}</p>
               </div>
               <button
-                onClick={() => setLoggedIn(false)}
+                onClick={() => signOut({ callbackUrl: '/' })}
                 className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#E89B6F] transition-colors"
               >
                 <LogOut className="w-4 h-4" />
@@ -76,49 +73,35 @@ export default function AccountPage() {
                     Mes commandes
                   </h2>
                 </div>
-                <div className="space-y-3">
-                  {DEMO_ORDERS.map((order) => (
-                    <div
-                      key={order.id}
-                      className="flex items-center justify-between p-4 bg-[#FAF5EA] rounded-xl"
+                <div className="text-center py-10 text-gray-400 text-sm">
+                  <Package className="w-10 h-10 mx-auto mb-3 text-gray-200" />
+                  Vous n&apos;avez pas encore passé de commande.
+                  <div className="mt-3">
+                    <Link
+                      href="/collections/all"
+                      className="text-[#D4AF37] hover:text-[#b8963e] font-medium"
                     >
-                      <div>
-                        <p className="font-medium text-[#1F3A56] text-sm">{order.id}</p>
-                        <p className="text-gray-400 text-xs">
-                          {order.date} · {order.items} article{order.items > 1 ? 's' : ''}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <span className="inline-block text-xs px-2.5 py-0.5 rounded-full bg-[#A7D5E6]/15 text-[#2a8fa8] font-medium">
-                          {order.status}
-                        </span>
-                        <p className="text-[#D4AF37] font-semibold text-sm mt-1">
-                          {order.total}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
+                      Découvrir la boutique →
+                    </Link>
+                  </div>
                 </div>
               </div>
             </Reveal>
 
             {/* Cartes latérales */}
             <Reveal delay={0.1} className="space-y-6">
-              <div className="bg-white rounded-2xl p-6">
+              <Link href="/wishlist" className="block bg-white rounded-2xl p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-2 mb-3">
                   <Heart className="w-5 h-5 text-[#E89B6F]" />
                   <h3 className="font-medium text-[#1F3A56]">Mes favoris</h3>
                 </div>
-                <p className="text-gray-400 text-sm mb-4">
+                <p className="text-gray-400 text-sm">
                   Retrouvez ici les bijoux que vous avez aimés.
                 </p>
-                <Link
-                  href="/collections/all"
-                  className="text-sm text-[#D4AF37] hover:text-[#b8963e] font-medium inline-flex items-center gap-1"
-                >
-                  Explorer la boutique <ChevronRight className="w-4 h-4" />
-                </Link>
-              </div>
+                <span className="mt-3 text-sm text-[#D4AF37] hover:text-[#b8963e] font-medium inline-flex items-center gap-1">
+                  Voir mes favoris <ChevronRight className="w-4 h-4" />
+                </span>
+              </Link>
 
               <div className="bg-white rounded-2xl p-6">
                 <div className="flex items-center gap-2 mb-3">
@@ -136,7 +119,53 @@ export default function AccountPage() {
     )
   }
 
-  /* ---------------- Connexion / Inscription ---------------- */
+  /* ============================================================
+     SI NON CONNECTÉE → Connexion / Inscription
+     ============================================================ */
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+
+    try {
+      if (tab === 'register') {
+        // Inscription
+        const res = await fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password }),
+        })
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok) {
+          setError(data.error || 'Erreur lors de la création du compte.')
+          setLoading(false)
+          return
+        }
+      }
+
+      // Connexion (juste après inscription, ou direct si login)
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        setError('Email ou mot de passe incorrect.')
+        setLoading(false)
+        return
+      }
+
+      const callbackUrl = search.get('callbackUrl') || '/account'
+      router.push(callbackUrl)
+      router.refresh()
+    } catch {
+      setError("Une erreur est survenue. Veuillez réessayer.")
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#FAF5EA] py-16 px-4 flex items-center justify-center">
       <Reveal className="w-full max-w-md">
@@ -151,7 +180,8 @@ export default function AccountPage() {
             {(['login', 'register'] as Tab[]).map((t) => (
               <button
                 key={t}
-                onClick={() => setTab(t)}
+                type="button"
+                onClick={() => { setTab(t); setError('') }}
                 className="relative flex-1 py-2.5 text-sm font-medium rounded-full transition-colors"
               >
                 {tab === t && (
@@ -188,6 +218,7 @@ export default function AccountPage() {
                 />
               </div>
             )}
+
             <div>
               <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">
                 Email
@@ -204,6 +235,7 @@ export default function AccountPage() {
                 />
               </div>
             </div>
+
             <div>
               <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">
                 Mot de passe
@@ -213,36 +245,65 @@ export default function AccountPage() {
                 <input
                   type="password"
                   required
-                  minLength={6}
+                  minLength={8}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#A7D5E6] text-sm"
                 />
               </div>
+              {tab === 'register' && (
+                <p className="text-[11px] text-gray-400 mt-1.5">
+                  Au moins 8 caractères.
+                </p>
+              )}
             </div>
 
-            {tab === 'login' && (
-              <div className="text-right">
-                <button
-                  type="button"
-                  className="text-xs text-gray-400 hover:text-[#D4AF37] transition-colors"
-                >
-                  Mot de passe oublié ?
-                </button>
+            {error && (
+              <div className="flex items-start gap-2 bg-red-50 border border-red-200 rounded-xl px-3 py-2.5">
+                <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-red-700">{error}</p>
               </div>
             )}
 
-            <Button type="submit" size="lg" loading={loading} className="w-full rounded-xl">
-              {tab === 'login' ? 'Se connecter' : 'Créer mon compte'}
-            </Button>
-          </form>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-[#1F3A56] hover:bg-[#D4AF37] text-white py-3.5 rounded-xl text-sm font-medium uppercase tracking-wider transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {loading
+                ? '...'
+                : tab === 'login'
+                  ? 'Se connecter'
+                  : 'Créer mon compte'}
+            </button>
 
-          <p className="text-center text-xs text-gray-400 mt-6">
-            En continuant, vous acceptez nos{' '}
-            <Link href="/pages/cgv" className="text-[#D4AF37] hover:underline">
-              conditions générales de vente
-            </Link>
-            .
-          </p>
+            <p className="text-center text-xs text-gray-400 pt-2">
+              {tab === 'login' ? (
+                <>
+                  Pas encore de compte ?{' '}
+                  <button
+                    type="button"
+                    onClick={() => { setTab('register'); setError('') }}
+                    className="text-[#D4AF37] hover:text-[#b8963e] font-medium"
+                  >
+                    Inscrivez-vous
+                  </button>
+                </>
+              ) : (
+                <>
+                  Déjà un compte ?{' '}
+                  <button
+                    type="button"
+                    onClick={() => { setTab('login'); setError('') }}
+                    className="text-[#D4AF37] hover:text-[#b8963e] font-medium"
+                  >
+                    Connectez-vous
+                  </button>
+                </>
+              )}
+            </p>
+          </form>
         </div>
       </Reveal>
     </div>

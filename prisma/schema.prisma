@@ -84,14 +84,32 @@ model OrderItem {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
-  name      String?
-  role      Role      @default(CUSTOMER)
-  orders    Order[]
-  reviews   Review[]
-  wishlist  String[]
-  createdAt DateTime  @default(now())
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String?
+  passwordHash String?
+  role         Role      @default(CUSTOMER)
+  orders       Order[]
+  reviews      Review[]
+  wishlist     String[]
+  addresses    Address[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Address {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  label     String?  // ex: "Maison", "Travail"
+  fullName  String
+  street    String
+  city      String
+  postcode  String
+  country   String   @default("France")
+  phone     String?
+  isDefault Boolean  @default(false)
+  createdAt DateTime @default(now())
 }
 
 model Review {
