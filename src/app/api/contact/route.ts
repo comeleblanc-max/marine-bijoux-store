@@ -67,7 +67,7 @@ export async function POST(req: Request) {
       </div>
     `
 
-    const { error } = await resend.emails.send({
+    const result = await resend.emails.send({
       from: `Marine — Site <${from}>`,
       to: [to],
       replyTo: email,                       // ⇒ "Répondre" envoie au visiteur
@@ -75,10 +75,13 @@ export async function POST(req: Request) {
       html,
     })
 
-    if (error) {
-      console.error('[contact] Erreur Resend :', error)
+    if (result.error) {
+      console.error('[contact] Erreur Resend :', JSON.stringify(result.error, null, 2))
       return NextResponse.json(
-        { error: "Erreur lors de l'envoi du message." },
+        {
+          error: "Erreur lors de l'envoi du message.",
+          detail: result.error.message || String(result.error),
+        },
         { status: 502 }
       )
     }
