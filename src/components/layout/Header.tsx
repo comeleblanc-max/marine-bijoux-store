@@ -14,6 +14,7 @@ import {
   ChevronDown,
   Sparkles,
 } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import { useCart } from '@/store/cart'
 import { useWishlist } from '@/hooks/useWishlist'
 import { cn } from '@/lib/utils'
@@ -46,6 +47,9 @@ export function Header() {
   const count = itemCount()
   const wishlistCount = useWishlist((s) => s.items.length)
   const pathname = usePathname()
+  const { data: session } = useSession()
+  const isLoggedIn = !!session?.user
+  const firstName = session?.user?.name?.split(' ')[0] || session?.user?.email?.split('@')[0]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -106,10 +110,15 @@ export function Header() {
               </button>
               <Link
                 href="/account"
-                aria-label="Compte"
-                className="text-[#1F3A56] hover:text-[#D4AF37] transition-colors hidden sm:block"
+                aria-label={isLoggedIn ? `Mon compte (${firstName})` : 'Connexion'}
+                className="text-[#1F3A56] hover:text-[#D4AF37] transition-colors hidden sm:flex items-center gap-1.5"
               >
                 <User className="w-[18px] h-[18px]" strokeWidth={1.5} />
+                {isLoggedIn && (
+                  <span className="text-xs font-medium hidden md:inline">
+                    {firstName}
+                  </span>
+                )}
               </Link>
               <Link
                 href="/wishlist"
