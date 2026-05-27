@@ -8,6 +8,13 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
+/* ───────── Paramètres du site (clé/valeur JSON) ───────── */
+model Setting {
+  key       String   @id
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
 model Product {
   id          String      @id @default(cuid())
   name        String

@@ -8,14 +8,22 @@ import { ToastContainer } from '@/components/ui/Toast'
 import { CustomCursor } from '@/components/ui/CustomCursor'
 import { FloatingParticles } from '@/components/ui/FloatingParticles'
 import { ScrollToTop } from '@/components/ui/ScrollToTop'
+import { getSettings } from '@/lib/settings'
 
-export default function StoreLayout({ children }: { children: React.ReactNode }) {
+export const dynamic = 'force-dynamic'
+
+export default async function StoreLayout({ children }: { children: React.ReactNode }) {
+  const settings = await getSettings()
+
   return (
     <div data-section="store" className="flex flex-col flex-1">
       <ScrollToTop />
       <CustomCursor />
       <FloatingParticles count={12} />
-      <AnnouncementBar />
+      <AnnouncementBar
+        enabled={settings.announcement.enabled}
+        messages={settings.announcement.messages}
+      />
       <Header />
       <main className="flex-1">
         <PageTransition>{children}</PageTransition>
