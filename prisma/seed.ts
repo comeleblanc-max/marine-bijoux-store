@@ -1,54 +1,81 @@
 /**
- * Seed initial — copie les produits du fichier statique (src/lib/data.ts) vers la base.
+ * Seed — synchronise les produits de src/lib/data.ts avec la base.
  *
  * Logique :
- *   - Pour chaque produit : on regarde s'il existe déjà (par slug)
- *   - S'il n'existe PAS → on le crée
- *   - S'il existe DÉJÀ → on ne touche à rien (les modifs admin sont préservées)
+ *   1. Pour chaque produit :
+ *      - S'il n'existe PAS en base → on le crée
+ *      - S'il existe et que son slug est dans ALWAYS_SYNC_DETAILS → on force la mise à jour
+ *        de son champ "details" + "description" (utile pour pousser des MAJ de dimensions)
+ *      - Sinon → on n'y touche pas (les modifs admin sont préservées)
  *
- * Exécuté automatiquement à chaque build Vercel via package.json :
- *   "build": "prisma generate && prisma db push && tsx prisma/seed.ts && next build"
+ * Exécuté à chaque build via "build" dans package.json.
+ *
+ * 📌 Pour pousser une MAJ de description/dimensions d'un produit déjà en base,
+ *    ajoute son slug à ALWAYS_SYNC_DETAILS, déploie, puis retire-le (optionnel)
+ *    pour redonner la main à l'admin.
  */
 import { PrismaClient } from '@prisma/client'
 import { PRODUCTS } from '../src/lib/data'
 
 const db = new PrismaClient()
 
+/** Produits dont on force la sync des détails (overrides éventuels admin) */
+const ALWAYS_SYNC_DETAILS = new Set<string>([
+  'collier-solea',
+  'bracelet-eclat-ocean',
+  'bague-trois-soleils',
+  'collier-perla-bora',
+  'bracelet-vaiana',
+  'bracelet-ibiza',
+  'bague-bora-bora',
+  'bague-noumea',
+  'boucles-ibiza',
+])
+
 async function main() {
   console.log('🌱 Seed des produits…')
 
-  let createdCount = 0
-  let skippedCount = 0
+  let created = 0
+  let synced  = 0
+  let skipped = 0
 
   for (const p of PRODUCTS) {
     const exists = await db.product.findUnique({ where: { slug: p.slug } })
 
-    if (exists) {
-      skippedCount++
-      continue
+    if (!exists) {
+      await db.product.create({
+        data: {
+          name:        p.name,
+          slug:        p.slug,
+          description: p.description ?? null,
+          details:     p.details ?? null,
+          price:       p.price,
+          compareAt:   p.compareAt ?? null,
+          images:      p.images,
+          category:    p.category,
+          collection:  p.collection ?? null,
+          material:    p.material ?? null,
+          inStock:     p.inStock ?? true,
+          featured:    p.featured ?? false,
+          newArrival:  p.newArrival ?? false,
+        },
+      })
+      created++
+    } else if (ALWAYS_SYNC_DETAILS.has(p.slug)) {
+      await db.product.update({
+        where: { slug: p.slug },
+        data: {
+          description: p.description ?? null,
+          details:     p.details ?? null,
+        },
+      })
+      synced++
+    } else {
+      skipped++
     }
-
-    await db.product.create({
-      data: {
-        name:        p.name,
-        slug:        p.slug,
-        description: p.description ?? null,
-        details:     p.details ?? null,
-        price:       p.price,
-        compareAt:   p.compareAt ?? null,
-        images:      p.images,
-        category:    p.category,
-        collection:  p.collection ?? null,
-        material:    p.material ?? null,
-        inStock:     p.inStock ?? true,
-        featured:    p.featured ?? false,
-        newArrival:  p.newArrival ?? false,
-      },
-    })
-    createdCount++
   }
 
-  console.log(`✅ Seed terminé : ${createdCount} produit(s) créé(s), ${skippedCount} ignoré(s) (déjà en base).`)
+  console.log(`✅ Seed terminé : ${created} créé(s), ${synced} sync'd, ${skipped} ignoré(s).`)
 }
 
 main()
