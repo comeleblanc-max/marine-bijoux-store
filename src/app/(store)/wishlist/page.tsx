@@ -1,15 +1,35 @@
 'use client'
 
-import { useWishlist } from '@/hooks/useWishlist'
-import { PRODUCTS } from '@/lib/data'
-import { ProductCard } from '@/components/product/ProductCard'
-import { Heart, Trash2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { Heart, Trash2 } from 'lucide-react'
+import type { Product } from '@/types'
+import { useWishlist } from '@/hooks/useWishlist'
+import { ProductCard } from '@/components/product/ProductCard'
 import { Stagger, StaggerItem } from '@/components/ui/motion'
 
 export default function WishlistPage() {
   const { items, clear } = useWishlist()
-  const products = PRODUCTS.filter((p) => items.includes(p.id))
+  const [allProducts, setAllProducts] = useState<Product[]>([])
+  const [loading, setLoading]         = useState(true)
+
+  useEffect(() => {
+    let cancelled = false
+    fetch('/api/products')
+      .then((r) => r.json())
+      .then((data: Product[]) => {
+        if (!cancelled) {
+          setAllProducts(data)
+          setLoading(false)
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setLoading(false)
+      })
+    return () => { cancelled = true }
+  }, [])
+
+  const products = allProducts.filter((p) => items.includes(p.id))
 
   return (
     <section className="bg-white py-12 sm:py-16">
@@ -18,7 +38,7 @@ export default function WishlistPage() {
           <div>
             <p className="eyebrow mb-3">Mes favoris</p>
             <h1 className="text-3xl sm:text-4xl text-[#1F3A56]">Liste de souhaits</h1>
-            {products.length > 0 && (
+            {!loading && products.length > 0 && (
               <p className="text-xs text-[#6B6B6B] mt-2">
                 {products.length} bijou{products.length > 1 ? 'x' : ''}
               </p>
@@ -35,12 +55,14 @@ export default function WishlistPage() {
           )}
         </div>
 
-        {products.length === 0 ? (
+        {loading ? (
+          <div className="text-center py-16 text-[#6B6B6B] text-sm">Chargement…</div>
+        ) : products.length === 0 ? (
           <div className="text-center py-16 max-w-md mx-auto">
             <Heart className="w-12 h-12 text-[#E8E2D5] mx-auto mb-6" strokeWidth={1} />
             <p className="text-[#1F3A56] mb-2">Aucun favori pour le moment</p>
             <p className="text-sm text-[#6B6B6B] mb-8">
-              Cliquez sur ♡ sur un produit pour l'ajouter à vos favoris.
+              Cliquez sur ♡ sur un produit pour l&apos;ajouter à vos favoris.
             </p>
             <Link href="/collections/all" className="btn-primary">
               Découvrir les bijoux

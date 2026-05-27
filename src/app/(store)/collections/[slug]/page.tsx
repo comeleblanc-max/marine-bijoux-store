@@ -1,17 +1,16 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { COLLECTIONS, PRODUCTS } from '@/lib/data'
+import { COLLECTIONS } from '@/lib/data'
+import { db } from '@/lib/db'
+import { serializeProducts } from '@/lib/serialize'
 import { ProductCard } from '@/components/product/ProductCard'
 import { Stagger, StaggerItem } from '@/components/ui/motion'
 
+export const dynamic = 'force-dynamic'
+
 interface PageProps {
   params: Promise<{ slug: string }>
-}
-
-export async function generateStaticParams() {
-  const slugs = ['all', ...COLLECTIONS.map((c) => c.slug)]
-  return slugs.map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -26,19 +25,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function CollectionPage({ params }: PageProps) {
   const { slug } = await params
 
-  let products = PRODUCTS
-  let title = 'Tous les bijoux'
+  let title       = 'Tous les bijoux'
   let description = 'Découvrez l\'intégralité de la collection.'
-  let eyebrow = 'Boutique'
+  let eyebrow     = 'Boutique'
 
-  if (slug !== 'all') {
+  let raw
+  if (slug === 'all') {
+    raw = await db.product.findMany({ orderBy: { createdAt: 'desc' } })
+  } else {
     const col = COLLECTIONS.find((c) => c.slug === slug)
     if (!col) notFound()
-    products = PRODUCTS.filter((p) => p.category === slug || p.collection === slug)
-    title = col.name
+    raw = await db.product.findMany({
+      where:   { OR: [{ category: slug }, { collection: slug }] },
+      orderBy: { createdAt: 'desc' },
+    })
+    title       = col.name
     description = col.description ?? ''
-    eyebrow = col.slug === 'lumiere-dete' ? 'Collection' : 'Catégorie'
+    eyebrow     = col.slug === 'lumiere-dete' ? 'Collection' : 'Catégorie'
   }
+
+  const products = serializeProducts(raw)
 
   return (
     <div className="bg-white">

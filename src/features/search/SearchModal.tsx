@@ -4,7 +4,7 @@ import { Search, X, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PRODUCTS } from '@/data/products'
+import type { Product } from '@/types'
 import { formatPrice } from '@/utils/format'
 import { useDebounce } from '@/hooks/useDebounce'
 import { cn } from '@/utils/cn'
@@ -16,16 +16,28 @@ interface SearchModalProps {
 
 export function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [query, setQuery] = useState('')
-  const debounced = useDebounce(query, 200)
+  const [results, setResults] = useState<Product[]>([])
+  const [loading, setLoading] = useState(false)
+  const debounced = useDebounce(query, 250)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const results = debounced.length > 1
-    ? PRODUCTS.filter(p =>
-        p.name.toLowerCase().includes(debounced.toLowerCase()) ||
-        p.description?.toLowerCase().includes(debounced.toLowerCase()) ||
-        p.material?.toLowerCase().includes(debounced.toLowerCase())
-      ).slice(0, 6)
-    : []
+  /* Recherche live via l'API quand l'utilisateur tape */
+  useEffect(() => {
+    if (debounced.length < 2) {
+      setResults([])
+      return
+    }
+    setLoading(true)
+    const ctrl = new AbortController()
+    fetch(`/api/products?q=${encodeURIComponent(debounced)}`, { signal: ctrl.signal })
+      .then((r) => r.json())
+      .then((data: Product[]) => {
+        setResults(data.slice(0, 6))
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+    return () => ctrl.abort()
+  }, [debounced])
 
   useEffect(() => {
     if (isOpen) {
@@ -78,7 +90,10 @@ export function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
             {/* Results */}
             <div className="max-h-96 overflow-y-auto">
-              {debounced.length > 1 && results.length === 0 && (
+              {loading && (
+                <p className="p-6 text-center text-gray-400 text-sm">Recherche…</p>
+              )}
+              {!loading && debounced.length > 1 && results.length === 0 && (
                 <p className="p-6 text-center text-gray-400 text-sm">Aucun résultat pour &ldquo;{debounced}&rdquo;</p>
               )}
               {results.length > 0 && (
