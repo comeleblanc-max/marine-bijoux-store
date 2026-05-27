@@ -6,11 +6,13 @@ import { Testimonials } from '@/components/home/Testimonials'
 import { NewsletterBanner } from '@/components/home/NewsletterBanner'
 import { db } from '@/lib/db'
 import { serializeProducts } from '@/lib/serialize'
+import { getSettings } from '@/lib/settings'
 
 export const dynamic = 'force-dynamic'
 
 export default async function HomePage() {
   /* Lecture des produits depuis la base de données */
+  const settings = await getSettings()
   const [bestsellersRaw, newArrivalsRaw, lumiereDeteRaw, tileSource] = await Promise.all([
     db.product.findMany({
       where:   { featured: true, inStock: true },
@@ -49,7 +51,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero />
+      <Hero {...settings.hero} />
 
       <CategoryShowcase images={tileImages} />
 

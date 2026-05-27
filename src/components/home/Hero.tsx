@@ -6,7 +6,23 @@ import { motion } from 'framer-motion'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
-export function Hero() {
+interface HeroProps {
+  eyebrow?:      string
+  title?:        string
+  titleItalic?:  string
+  description?:  string
+  ctaPrimary?:   string
+  ctaSecondary?: string
+}
+
+export function Hero({
+  eyebrow      = '🐚 Collection — Été 2026 ✨',
+  title        = "La douceur de l'été",
+  titleItalic  = 'au creux de la peau.',
+  description  = "Bijoux en acier inoxydable, conçus pour durer. Inspirés par le soleil, la mer, et les après-midis d'été qui ne finissent jamais.",
+  ctaPrimary   = 'Découvrir la collection',
+  ctaSecondary = 'Notre histoire',
+}: HeroProps = {}) {
   return (
     <section className="relative w-full h-[75vh] min-h-[520px] max-h-[820px] overflow-hidden bg-[#FAF5EA]">
       {/* Image pleine largeur */}
@@ -31,14 +47,13 @@ export function Hero() {
             transition={{ duration: 0.9, ease: EASE }}
             className="max-w-xl"
           >
-            <p className="eyebrow text-white/85 mb-4">🐚 Collection — Été 2026 ✨</p>
+            <p className="eyebrow text-white/85 mb-4">{eyebrow}</p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl text-white leading-[1.05] mb-6 text-balance">
-              La douceur de l'été<br />
-              <span className="italic text-[#FAF5EA]">au creux de la peau.</span>
+              {title}<br />
+              <span className="italic text-[#FAF5EA]">{titleItalic}</span>
             </h1>
             <p className="text-white/90 text-sm sm:text-base max-w-md mb-8 leading-relaxed">
-              Bijoux en acier inoxydable, conçus pour durer. Inspirés par le soleil,
-              la mer, et les après-midis d'été qui ne finissent jamais.
+              {description}
             </p>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <Link href="/collections/all">
@@ -48,7 +63,7 @@ export function Hero() {
                   transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                   className="inline-flex bg-white text-[#1F3A56] hover:bg-[#D4AF37] hover:text-white px-9 py-4 rounded-full font-semibold tracking-wide shadow-xl text-sm transition-colors"
                 >
-                  Découvrir la collection
+                  {ctaPrimary}
                 </motion.span>
               </Link>
               <Link href="/pages/a-propos">
@@ -58,7 +73,7 @@ export function Hero() {
                   transition={{ type: 'spring', stiffness: 400, damping: 17 }}
                   className="inline-flex border border-white/80 text-white hover:bg-white hover:text-[#1F3A56] px-9 py-4 rounded-full font-medium tracking-wide text-sm transition-colors backdrop-blur-sm"
                 >
-                  Notre histoire
+                  {ctaSecondary}
                 </motion.span>
               </Link>
             </div>

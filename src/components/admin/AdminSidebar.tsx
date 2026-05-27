@@ -25,9 +25,9 @@ const NAV: NavItem[] = [
   { label: 'Produits',    href: '/admin/products',    icon: Package },
   { label: 'Commandes',   href: '/admin/orders',      icon: ShoppingBag },
   { label: 'Clientes',    href: '/admin/customers',   icon: Users },
+  { label: 'Paramètres',  href: '/admin/settings',    icon: Settings },
   { label: 'Collections', href: '/admin/collections', icon: Grid3X3, comingSoon: true },
   { label: 'Promotions',  href: '/admin/promos',      icon: Tag,     comingSoon: true },
-  { label: 'Paramètres',  href: '/admin/settings',    icon: Settings, comingSoon: true },
 ]
 
 export function AdminSidebar() {

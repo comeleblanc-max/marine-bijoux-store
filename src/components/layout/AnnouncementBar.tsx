@@ -3,20 +3,21 @@
 import { useState, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
-const MESSAGES = [
-  'Livraison offerte dès 60 €',
-  'Paiement en 3× sans frais à partir de 50 €',
-  'Acier inoxydable hypoallergénique — ne ternit pas',
-  'Retours gratuits sous 14 jours',
-]
+interface Props {
+  enabled?:  boolean
+  messages?: string[]
+}
 
-export function AnnouncementBar() {
+export function AnnouncementBar({ enabled = true, messages = [] }: Props) {
   const [i, setI] = useState(0)
 
   useEffect(() => {
-    const t = setInterval(() => setI((x) => (x + 1) % MESSAGES.length), 4500)
+    if (messages.length < 2) return
+    const t = setInterval(() => setI((x) => (x + 1) % messages.length), 4500)
     return () => clearInterval(t)
-  }, [])
+  }, [messages.length])
+
+  if (!enabled || messages.length === 0) return null
 
   return (
     <div className="bg-[#1F3A56] text-white">
@@ -30,7 +31,7 @@ export function AnnouncementBar() {
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
             className="text-[11px] tracking-[0.2em] uppercase font-medium absolute"
           >
-            {MESSAGES[i]}
+            {messages[i]}
           </motion.p>
         </AnimatePresence>
       </div>
