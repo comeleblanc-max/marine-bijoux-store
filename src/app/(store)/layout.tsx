@@ -7,10 +7,12 @@ import { PageTransition } from '@/components/ui/motion'
 import { ToastContainer } from '@/components/ui/Toast'
 import { CustomCursor } from '@/components/ui/CustomCursor'
 import { FloatingParticles } from '@/components/ui/FloatingParticles'
+import { ScrollToTop } from '@/components/ui/ScrollToTop'
 
 export default function StoreLayout({ children }: { children: React.ReactNode }) {
   return (
     <div data-section="store" className="flex flex-col flex-1">
+      <ScrollToTop />
       <CustomCursor />
       <FloatingParticles count={12} />
       <AnnouncementBar />
