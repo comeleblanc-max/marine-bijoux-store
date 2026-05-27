@@ -1,16 +1,31 @@
 import { NextResponse } from 'next/server'
-import { PRODUCTS } from '@/lib/data'
+import { db } from '@/lib/db'
+import { serializeProducts } from '@/lib/serialize'
+import type { Prisma } from '@prisma/client'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
-  const category = searchParams.get('category')
+  const category   = searchParams.get('category')
   const collection = searchParams.get('collection')
-  const featured = searchParams.get('featured')
+  const featured   = searchParams.get('featured')
+  const query      = searchParams.get('q')
 
-  let products = [...PRODUCTS]
-  if (category) products = products.filter((p) => p.category === category)
-  if (collection) products = products.filter((p) => p.collection === collection)
-  if (featured === 'true') products = products.filter((p) => p.featured)
+  const where: Prisma.ProductWhereInput = {}
+  if (category)        where.category   = category
+  if (collection)      where.collection = collection
+  if (featured === 'true') where.featured = true
+  if (query) {
+    where.OR = [
+      { name:        { contains: query, mode: 'insensitive' } },
+      { description: { contains: query, mode: 'insensitive' } },
+      { category:    { contains: query, mode: 'insensitive' } },
+    ]
+  }
 
-  return NextResponse.json(products)
+  const products = await db.product.findMany({
+    where,
+    orderBy: { createdAt: 'desc' },
+  })
+
+  return NextResponse.json(serializeProducts(products))
 }

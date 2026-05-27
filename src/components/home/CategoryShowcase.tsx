@@ -3,35 +3,29 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { PRODUCTS } from '@/lib/data'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
 interface Tile {
-  slug: string
-  name: string
+  slug:    string
+  name:    string
   eyebrow: string
-  span?: 'wide' | 'tall'
+  span?:   'wide' | 'tall'
 }
 
 const TILES: Tile[] = [
-  { slug: 'lumiere-dete',      name: 'Lumière d\'été', eyebrow: 'Collection', span: 'wide' },
-  { slug: 'colliers',          name: 'Colliers',       eyebrow: 'Catégorie' },
-  { slug: 'bracelets',         name: 'Bracelets',      eyebrow: 'Catégorie' },
+  { slug: 'lumiere-dete',      name: 'Lumière d\'été',     eyebrow: 'Collection', span: 'wide' },
+  { slug: 'colliers',          name: 'Colliers',           eyebrow: 'Catégorie' },
+  { slug: 'bracelets',         name: 'Bracelets',          eyebrow: 'Catégorie' },
   { slug: 'boucles-doreilles', name: 'Boucles d\'oreilles', eyebrow: 'Catégorie' },
-  { slug: 'bagues',            name: 'Bagues',         eyebrow: 'Catégorie' },
+  { slug: 'bagues',            name: 'Bagues',             eyebrow: 'Catégorie' },
 ]
 
-function imageFor(slug: string): string | null {
-  const cat = slug === 'lumiere-dete' ? 'collection' : 'category'
-  const found =
-    cat === 'collection'
-      ? PRODUCTS.find((p) => p.collection === slug && p.images[0])
-      : PRODUCTS.find((p) => p.category === slug && p.images[0])
-  return found?.images[0] ?? null
-}
-
-export function CategoryShowcase() {
+/**
+ * @param images - dictionnaire { slug: url-image } pour les fonds des tuiles
+ *                  fourni par le parent (page server-side qui fetch la base).
+ */
+export function CategoryShowcase({ images = {} }: { images?: Record<string, string | null> }) {
   return (
     <section className="py-14 sm:py-20 bg-white">
       <div className="container-x">
@@ -51,7 +45,7 @@ export function CategoryShowcase() {
         {/* Grille 2x3 — mainajewels style */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 auto-rows-[180px] sm:auto-rows-[260px] lg:auto-rows-[300px]">
           {TILES.map((tile, i) => {
-            const img = imageFor(tile.slug)
+            const img = images[tile.slug] ?? null
             return (
               <motion.div
                 key={tile.slug}
