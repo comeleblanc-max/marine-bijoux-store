@@ -20,7 +20,7 @@ export function AnnouncementBar({ enabled = true, messages = [] }: Props) {
   if (!enabled || messages.length === 0) return null
 
   return (
-    <div className="bg-[#1F3A56] text-white">
+    <div className="bg-[#24BBD0] text-white">
       <div className="container-x h-9 flex items-center justify-center relative overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.p

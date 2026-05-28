@@ -27,7 +27,7 @@ export default async function ContentPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-white">
       {/* En-tête */}
-      <div className="bg-gradient-to-br from-[#1F3A56] to-[#A7D5E6] py-20 px-4 text-center text-white">
+      <div className="bg-gradient-to-br from-[#0E4F5E] to-[#A7D5E6] py-20 px-4 text-center text-white">
         <Reveal>
           <p className="text-[#D4AF37] text-sm tracking-widest uppercase mb-4">
             Informations
@@ -54,7 +54,7 @@ export default async function ContentPage({ params }: Props) {
               <section>
                 {section.heading && (
                   <h2
-                    className="text-xl sm:text-2xl text-[#1F3A56] font-medium mb-4"
+                    className="text-xl sm:text-2xl text-[#0E4F5E] font-medium mb-4"
                     style={{ fontFamily: 'var(--font-playfair)' }}
                   >
                     {section.heading}
@@ -83,7 +83,7 @@ export default async function ContentPage({ params }: Props) {
         {/* Aide */}
         <Reveal delay={0.1}>
           <div className="mt-16 p-6 bg-[#FAF5EA] rounded-2xl text-center">
-            <p className="text-[#1F3A56] font-medium mb-1">Une question ?</p>
+            <p className="text-[#0E4F5E] font-medium mb-1">Une question ?</p>
             <p className="text-gray-500 text-sm mb-4">
               Notre équipe vous répond avec plaisir sous 24 h.
             </p>

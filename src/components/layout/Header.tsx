@@ -78,7 +78,7 @@ export function Header() {
             {/* Burger mobile */}
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden text-[#1F3A56] -ml-1 p-1"
+              className="lg:hidden text-[#0E4F5E] -ml-1 p-1"
               aria-label="Menu"
             >
               {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -105,7 +105,7 @@ export function Header() {
               <button
                 onClick={() => setSearchOpen(true)}
                 aria-label="Rechercher"
-                className="text-[#1F3A56] hover:text-[#D4AF37] transition-colors"
+                className="text-[#0E4F5E] hover:text-[#D4AF37] transition-colors"
               >
                 <Search className="w-[18px] h-[18px]" strokeWidth={1.5} />
               </button>
@@ -113,7 +113,7 @@ export function Header() {
                 <Link
                   href="/admin"
                   aria-label="Administration"
-                  className="hidden md:inline-flex items-center gap-1 text-[10px] tracking-[0.18em] uppercase font-medium bg-[#1F3A56] text-white hover:bg-[#D4AF37] px-2.5 py-1 rounded transition-colors"
+                  className="hidden md:inline-flex items-center gap-1 text-[10px] tracking-[0.18em] uppercase font-medium bg-[#0E4F5E] text-white hover:bg-[#D4AF37] px-2.5 py-1 rounded transition-colors"
                   title="Tableau de bord admin"
                 >
                   Admin
@@ -122,7 +122,7 @@ export function Header() {
               <Link
                 href="/account"
                 aria-label={isLoggedIn ? `Mon compte (${firstName})` : 'Connexion'}
-                className="text-[#1F3A56] hover:text-[#D4AF37] transition-colors hidden sm:flex items-center gap-1.5"
+                className="text-[#0E4F5E] hover:text-[#D4AF37] transition-colors hidden sm:flex items-center gap-1.5"
               >
                 <User className="w-[18px] h-[18px]" strokeWidth={1.5} />
                 {isLoggedIn && (
@@ -134,7 +134,7 @@ export function Header() {
               <Link
                 href="/wishlist"
                 aria-label="Favoris"
-                className="relative text-[#1F3A56] hover:text-[#D4AF37] transition-colors"
+                className="relative text-[#0E4F5E] hover:text-[#D4AF37] transition-colors"
               >
                 <Heart className="w-[18px] h-[18px]" strokeWidth={1.5} />
                 {wishlistCount > 0 && (
@@ -146,7 +146,7 @@ export function Header() {
               <button
                 onClick={openCart}
                 aria-label="Panier"
-                className="relative text-[#1F3A56] hover:text-[#D4AF37] transition-colors"
+                className="relative text-[#0E4F5E] hover:text-[#D4AF37] transition-colors"
               >
                 <ShoppingBag className="w-[18px] h-[18px]" strokeWidth={1.5} />
                 <AnimatePresence>
@@ -157,7 +157,7 @@ export function Header() {
                       animate={{ scale: 1 }}
                       exit={{ scale: 0 }}
                       transition={{ type: 'spring', stiffness: 500, damping: 20 }}
-                      className="absolute -top-1.5 -right-2 text-[9px] bg-[#1F3A56] text-white rounded-full min-w-[15px] h-[15px] flex items-center justify-center px-1 font-medium"
+                      className="absolute -top-1.5 -right-2 text-[9px] bg-[#0E4F5E] text-white rounded-full min-w-[15px] h-[15px] flex items-center justify-center px-1 font-medium"
                     >
                       {count}
                     </motion.span>
@@ -181,7 +181,7 @@ export function Header() {
                   'flex items-center gap-1 text-[11px] tracking-[0.18em] uppercase font-medium transition-colors py-1',
                   isActive('/collections')
                     ? 'text-[#D4AF37]'
-                    : 'text-[#1F3A56] hover:text-[#D4AF37]'
+                    : 'text-[#0E4F5E] hover:text-[#D4AF37]'
                 )}
               >
                 Bijoux
@@ -217,7 +217,7 @@ export function Header() {
                             'block px-5 py-2.5 text-[11px] tracking-[0.12em] uppercase font-medium transition-colors',
                             isActive(cat.href)
                               ? 'text-[#D4AF37] bg-[#FAF5EA]'
-                              : 'text-[#1F3A56] hover:text-[#D4AF37] hover:bg-[#FAF5EA]'
+                              : 'text-[#0E4F5E] hover:text-[#D4AF37] hover:bg-[#FAF5EA]'
                           )}
                         >
                           {cat.label}
@@ -255,7 +255,7 @@ export function Header() {
                   'relative text-[11px] tracking-[0.18em] uppercase font-medium transition-colors',
                   isActive(link.href)
                     ? 'text-[#D4AF37]'
-                    : 'text-[#1F3A56] hover:text-[#D4AF37]'
+                    : 'text-[#0E4F5E] hover:text-[#D4AF37]'
                 )}
               >
                 {link.label}
@@ -303,7 +303,7 @@ export function Header() {
                     <Link
                       href={cat.href}
                       onClick={() => setMenuOpen(false)}
-                      className="block text-sm text-[#1F3A56] hover:text-[#D4AF37] transition-colors py-3 border-b border-[#F2E5CC]"
+                      className="block text-sm text-[#0E4F5E] hover:text-[#D4AF37] transition-colors py-3 border-b border-[#F2E5CC]"
                     >
                       {cat.label}
                     </Link>
@@ -324,7 +324,7 @@ export function Header() {
                     <Link
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className="block text-sm text-[#1F3A56] hover:text-[#D4AF37] transition-colors py-3 border-b border-[#F2E5CC]"
+                      className="block text-sm text-[#0E4F5E] hover:text-[#D4AF37] transition-colors py-3 border-b border-[#F2E5CC]"
                     >
                       {link.label}
                     </Link>

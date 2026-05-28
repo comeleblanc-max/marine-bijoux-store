@@ -13,7 +13,7 @@ export function Testimonials() {
       <div className="container-x">
         <Reveal className="text-center mb-12">
           <p className="eyebrow mb-3">⭐ Avis vérifiés 💎</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#1F3A56]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#0E4F5E]">
             Elles parlent de nous
           </h2>
           <div className="flex items-center justify-center gap-2 mt-4">
@@ -44,11 +44,11 @@ export function Testimonials() {
                   />
                 ))}
               </div>
-              <p className="text-[#1F3A56] leading-relaxed text-sm mb-6 italic">
+              <p className="text-[#0E4F5E] leading-relaxed text-sm mb-6 italic">
                 "{t.comment}"
               </p>
               <div className="border-t border-[#E8E2D5] pt-4">
-                <p className="text-sm font-medium text-[#1F3A56]">{t.name}</p>
+                <p className="text-sm font-medium text-[#0E4F5E]">{t.name}</p>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-[#6B6B6B] mt-1">
                   {t.product}
                 </p>

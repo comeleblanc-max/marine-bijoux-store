@@ -38,13 +38,15 @@ src/
 └── types/            # TypeScript types
 ```
 
-## Brand Colors (moodboard "douceur de l'été")
-- Bleu marin: `#1F3A56`
-- Doré: `#D4AF37`
-- Bleu océan: `#4DB8D4` / soft `#A7D5E6`
-- Corail: `#FF7A45`
-- Sable accent: `#D8B98C`
-- Sable fond: `#F5E9D6`
+## Brand Colors (turquoise du logo)
+- Teal foncé (texte/titres): `#0E4F5E`
+- Turquoise vif (logo, fonds bandeau+newsletter, accents): `#24BBD0`
+- Turquoise foncé: `#1A9AAD`
+- Doré (accent): `#D4AF37`
+- Bleu océan soft: `#A7D5E6`
+- Corail: `#E89B6F`
+- Sable fond: `#FAF5EA`
+- Note: l'ancien marine `#1F3A56` a été remplacé par `#0E4F5E` partout.
 
 ## Fonts
 - Headings: Playfair Display (`var(--font-playfair)`)
