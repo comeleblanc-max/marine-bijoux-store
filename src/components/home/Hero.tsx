@@ -27,16 +27,17 @@ export function Hero({
     <section className="relative w-full h-[75vh] min-h-[520px] max-h-[820px] overflow-hidden bg-[#FAF5EA]">
       {/* Image pleine largeur */}
       <Image
-        src="/banniere-test.webp"
+        src="/hero-marine.webp"
         alt="Marine — collection bijoux d'été"
         fill
         priority
-        className="object-cover object-center"
+        className="object-cover object-[70%_center] sm:object-center"
         sizes="100vw"
       />
 
-      {/* Voile sombre subtil pour lisibilité */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/30" />
+      {/* Voile sombre pour lisibilité du texte (gauche + bas) */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/15 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
       {/* Contenu */}
       <div className="absolute inset-0 flex items-end pb-20 sm:pb-24 lg:pb-28">
