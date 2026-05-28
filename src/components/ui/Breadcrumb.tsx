@@ -12,9 +12,9 @@ export function Breadcrumb({ crumbs, className }: Props) {
         <span key={i} className="flex items-center gap-1">
           {i > 0 && <ChevronRight className="w-3.5 h-3.5 text-gray-300" />}
           {crumb.href && i < crumbs.length - 1 ? (
-            <Link href={crumb.href} className="hover:text-[#1F3A56] transition-colors">{crumb.label}</Link>
+            <Link href={crumb.href} className="hover:text-[#0E4F5E] transition-colors">{crumb.label}</Link>
           ) : (
-            <span className={i === crumbs.length - 1 ? 'text-[#1F3A56] font-medium' : ''}>{crumb.label}</span>
+            <span className={i === crumbs.length - 1 ? 'text-[#0E4F5E] font-medium' : ''}>{crumb.label}</span>
           )}
         </span>
       ))}

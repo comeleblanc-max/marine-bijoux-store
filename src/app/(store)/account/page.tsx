@@ -52,7 +52,7 @@ function AccountPageInner() {
             <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
               <div>
                 <h1
-                  className="text-3xl sm:text-4xl text-[#1F3A56] font-light"
+                  className="text-3xl sm:text-4xl text-[#0E4F5E] font-light"
                   style={{ fontFamily: 'var(--font-playfair)' }}
                 >
                   Bonjour {firstName} 👋
@@ -66,7 +66,7 @@ function AccountPageInner() {
                 {isAdmin && (
                   <Link
                     href="/admin"
-                    className="inline-flex items-center gap-1.5 mt-3 text-sm bg-[#1F3A56] text-white hover:bg-[#D4AF37] px-4 py-2 rounded-lg font-medium transition-colors"
+                    className="inline-flex items-center gap-1.5 mt-3 text-sm bg-[#0E4F5E] text-white hover:bg-[#D4AF37] px-4 py-2 rounded-lg font-medium transition-colors"
                   >
                     🛠️ Tableau de bord admin →
                   </Link>
@@ -89,7 +89,7 @@ function AccountPageInner() {
                 <div className="flex items-center gap-2 mb-5">
                   <Package className="w-5 h-5 text-[#D4AF37]" />
                   <h2
-                    className="text-lg font-medium text-[#1F3A56]"
+                    className="text-lg font-medium text-[#0E4F5E]"
                     style={{ fontFamily: 'var(--font-playfair)' }}
                   >
                     Mes commandes
@@ -115,7 +115,7 @@ function AccountPageInner() {
               <Link href="/wishlist" className="block bg-white rounded-2xl p-6 hover:shadow-md transition-shadow">
                 <div className="flex items-center gap-2 mb-3">
                   <Heart className="w-5 h-5 text-[#E89B6F]" />
-                  <h3 className="font-medium text-[#1F3A56]">Mes favoris</h3>
+                  <h3 className="font-medium text-[#0E4F5E]">Mes favoris</h3>
                 </div>
                 <p className="text-gray-400 text-sm">
                   Retrouvez ici les bijoux que vous avez aimés.
@@ -128,7 +128,7 @@ function AccountPageInner() {
               <div className="bg-white rounded-2xl p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <MapPin className="w-5 h-5 text-[#A7D5E6]" />
-                  <h3 className="font-medium text-[#1F3A56]">Mes adresses</h3>
+                  <h3 className="font-medium text-[#0E4F5E]">Mes adresses</h3>
                 </div>
                 <p className="text-gray-400 text-sm">
                   Aucune adresse enregistrée pour le moment.
@@ -193,7 +193,7 @@ function AccountPageInner() {
       <Reveal className="w-full max-w-md">
         <div className="bg-white rounded-3xl p-8 shadow-sm">
           {/* Icône */}
-          <div className="w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-[#A7D5E6] to-[#1F3A56] rounded-full flex items-center justify-center">
+          <div className="w-14 h-14 mx-auto mb-6 bg-gradient-to-br from-[#A7D5E6] to-[#0E4F5E] rounded-full flex items-center justify-center">
             <User className="w-6 h-6 text-white" />
           </div>
 
@@ -215,7 +215,7 @@ function AccountPageInner() {
                 )}
                 <span
                   className={`relative z-10 ${
-                    tab === t ? 'text-[#1F3A56]' : 'text-gray-400'
+                    tab === t ? 'text-[#0E4F5E]' : 'text-gray-400'
                   }`}
                 >
                   {t === 'login' ? 'Connexion' : 'Inscription'}
@@ -227,7 +227,7 @@ function AccountPageInner() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {tab === 'register' && (
               <div>
-                <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">
+                <label className="block text-sm font-medium text-[#0E4F5E] mb-1.5">
                   Prénom
                 </label>
                 <input
@@ -242,7 +242,7 @@ function AccountPageInner() {
             )}
 
             <div>
-              <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">
+              <label className="block text-sm font-medium text-[#0E4F5E] mb-1.5">
                 Email
               </label>
               <div className="relative">
@@ -259,7 +259,7 @@ function AccountPageInner() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-[#1F3A56] mb-1.5">
+              <label className="block text-sm font-medium text-[#0E4F5E] mb-1.5">
                 Mot de passe
               </label>
               <div className="relative">
@@ -291,7 +291,7 @@ function AccountPageInner() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#1F3A56] hover:bg-[#D4AF37] text-white py-3.5 rounded-xl text-sm font-medium uppercase tracking-wider transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full bg-[#0E4F5E] hover:bg-[#D4AF37] text-white py-3.5 rounded-xl text-sm font-medium uppercase tracking-wider transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {loading
                 ? '...'

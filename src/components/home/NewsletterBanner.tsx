@@ -14,16 +14,16 @@ export function NewsletterBanner() {
   }
 
   return (
-    <section className="py-16 sm:py-24 bg-[#1F3A56] text-white">
+    <section className="py-16 sm:py-24 bg-[#24BBD0] text-white">
       <div className="container-x">
         <Reveal>
           <div className="max-w-xl mx-auto text-center">
-            <p className="eyebrow text-[#D4AF37] mb-3">✨ Newsletter 🐚</p>
+            <p className="eyebrow text-white mb-3">✨ Newsletter 🐚</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl mb-4 leading-tight">
               Recevez nos<br />
-              <span className="italic text-[#D4AF37]">nouveautés</span> en avant-première
+              <span className="italic text-[#0E4F5E]">nouveautés</span> en avant-première
             </h2>
-            <p className="text-[#A8A8A8] text-sm leading-relaxed mb-8 max-w-sm mx-auto">
+            <p className="text-white/85 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
               Inscrivez-vous et profitez de -10% sur votre première commande.
               Pas de spam, promis.
             </p>

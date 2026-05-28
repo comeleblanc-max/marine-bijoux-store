@@ -22,9 +22,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               variant === 'primary',
             'bg-white text-[#D4AF37] border border-[#D4AF37] hover:bg-[#D4AF37] hover:text-white':
               variant === 'secondary',
-            'bg-transparent text-[#1F3A56] hover:text-[#D4AF37] underline-offset-4 hover:underline':
+            'bg-transparent text-[#0E4F5E] hover:text-[#D4AF37] underline-offset-4 hover:underline':
               variant === 'ghost',
-            'border border-[#1F3A56] text-[#1F3A56] hover:bg-[#1F3A56] hover:text-white':
+            'border border-[#0E4F5E] text-[#0E4F5E] hover:bg-[#0E4F5E] hover:text-white':
               variant === 'outline',
           },
           {

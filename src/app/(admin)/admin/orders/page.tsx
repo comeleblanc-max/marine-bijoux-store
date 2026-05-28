@@ -56,7 +56,7 @@ export default async function AdminOrders() {
                     <p className="text-xs text-gray-400">{o.user?.email}</p>
                   </td>
                   <td className="px-6 py-4 text-center">{o.items.length}</td>
-                  <td className="px-6 py-4 text-right font-semibold text-[#1F3A56]">
+                  <td className="px-6 py-4 text-right font-semibold text-[#0E4F5E]">
                     {Number(o.total).toFixed(2)} €
                   </td>
                   <td className="px-6 py-4">

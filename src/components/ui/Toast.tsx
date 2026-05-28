@@ -16,7 +16,7 @@ export function ToastContainer() {
             exit={{ opacity: 0, x: 100, scale: 0.9 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className={`pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-sm font-medium text-white min-w-64 max-w-sm ${
-              toast.type === 'success' ? 'bg-[#1F3A56]' :
+              toast.type === 'success' ? 'bg-[#0E4F5E]' :
               toast.type === 'error' ? 'bg-red-500' : 'bg-[#A7D5E6]'
             }`}
           >

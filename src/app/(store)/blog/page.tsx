@@ -19,7 +19,7 @@ export default function BlogPage() {
             Le Journal
           </p>
           <h1
-            className="text-3xl sm:text-5xl text-[#1F3A56] font-light mb-3"
+            className="text-3xl sm:text-5xl text-[#0E4F5E] font-light mb-3"
             style={{ fontFamily: 'var(--font-playfair)' }}
           >
             Conseils & inspirations
@@ -51,7 +51,7 @@ export default function BlogPage() {
                       <span className="text-gray-400">{post.readingTime}</span>
                     </div>
                     <h2
-                      className="text-lg text-[#1F3A56] font-medium mb-2 group-hover:text-[#D4AF37] transition-colors"
+                      className="text-lg text-[#0E4F5E] font-medium mb-2 group-hover:text-[#D4AF37] transition-colors"
                       style={{ fontFamily: 'var(--font-playfair)' }}
                     >
                       {post.title}

@@ -37,7 +37,7 @@ export function CategoryShowcase({ images = {} }: { images?: Record<string, stri
           className="text-center mb-10 sm:mb-14"
         >
           <p className="eyebrow mb-3">🌊 Explorer</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#1F3A56]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#0E4F5E]">
             Nos univers
           </h2>
         </motion.div>

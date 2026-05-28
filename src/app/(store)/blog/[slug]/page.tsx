@@ -30,7 +30,7 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-white">
       {/* En-tête */}
-      <div className="bg-gradient-to-br from-[#1F3A56] to-[#A7D5E6] py-20 px-4 text-center text-white">
+      <div className="bg-gradient-to-br from-[#0E4F5E] to-[#A7D5E6] py-20 px-4 text-center text-white">
         <Reveal>
           <div className="text-6xl mb-6">{post.emoji}</div>
           <div className="flex items-center justify-center gap-2 text-xs mb-4">
@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Contenu */}
       <article className="max-w-2xl mx-auto px-4 py-16">
         <Reveal>
-          <p className="text-lg text-[#1F3A56] leading-relaxed mb-10 font-medium">
+          <p className="text-lg text-[#0E4F5E] leading-relaxed mb-10 font-medium">
             {post.excerpt}
           </p>
         </Reveal>
@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: Props) {
               <section>
                 {block.heading && (
                   <h2
-                    className="text-xl sm:text-2xl text-[#1F3A56] font-medium mb-3"
+                    className="text-xl sm:text-2xl text-[#0E4F5E] font-medium mb-3"
                     style={{ fontFamily: 'var(--font-playfair)' }}
                   >
                     {block.heading}
@@ -96,7 +96,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="bg-[#FAF5EA] py-16 px-4">
           <div className="max-w-5xl mx-auto">
             <h2
-              className="text-2xl text-[#1F3A56] font-light mb-8 text-center"
+              className="text-2xl text-[#0E4F5E] font-light mb-8 text-center"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
               À lire aussi
@@ -115,7 +115,7 @@ export default async function BlogPostPage({ params }: Props) {
                     <p className="text-[#D4AF37] text-xs font-semibold uppercase tracking-wide mb-1">
                       {other.category}
                     </p>
-                    <h3 className="text-[#1F3A56] font-medium group-hover:text-[#D4AF37] transition-colors leading-snug">
+                    <h3 className="text-[#0E4F5E] font-medium group-hover:text-[#D4AF37] transition-colors leading-snug">
                       {other.title}
                     </h3>
                   </div>
