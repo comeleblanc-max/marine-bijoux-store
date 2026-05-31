@@ -1,24 +1,32 @@
+import Link from 'next/link'
 import { db } from '@/lib/db'
-import { ShoppingBag } from 'lucide-react'
+import { ShoppingBag, ChevronRight } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
+
+const STATUS_BADGE: Record<string, { label: string; color: string }> = {
+  PENDING:    { label: '⏳ En attente',    color: 'bg-gray-100 text-gray-700' },
+  CONFIRMED:  { label: '✅ Confirmée',     color: 'bg-blue-100 text-blue-700' },
+  PROCESSING: { label: '📦 En préparation', color: 'bg-amber-100 text-amber-700' },
+  SHIPPED:    { label: '🚚 Expédiée',      color: 'bg-purple-100 text-purple-700' },
+  DELIVERED:  { label: '🎉 Livrée',        color: 'bg-green-100 text-green-700' },
+  CANCELLED:  { label: '❌ Annulée',       color: 'bg-red-100 text-red-700' },
+  REFUNDED:   { label: '↩️ Remboursée',    color: 'bg-orange-100 text-orange-700' },
+}
 
 export default async function AdminOrders() {
   const orders = await db.order.findMany({
     orderBy: { createdAt: 'desc' },
     include: {
-      user: { select: { name: true, email: true } },
-      items: true,
+      user:  { select: { name: true, email: true } },
+      items: { select: { id: true } },
     },
   })
 
   return (
     <div className="space-y-6 max-w-6xl">
       <div>
-        <h1
-          className="text-2xl font-bold text-gray-900"
-          style={{ fontFamily: 'var(--font-playfair)' }}
-        >
+        <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-playfair)' }}>
           Commandes
         </h1>
         <p className="text-sm text-gray-500 mt-1">
@@ -29,10 +37,7 @@ export default async function AdminOrders() {
       {orders.length === 0 ? (
         <div className="bg-white rounded-2xl p-12 shadow-sm text-center">
           <ShoppingBag className="w-10 h-10 mx-auto mb-3 text-gray-200" />
-          <p className="text-gray-400 mb-1">Aucune commande pour le moment.</p>
-          <p className="text-xs text-gray-300">
-            Les commandes apparaîtront ici dès que Stripe sera configuré.
-          </p>
+          <p className="text-gray-400">Aucune commande pour le moment.</p>
         </div>
       ) : (
         <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
@@ -45,32 +50,51 @@ export default async function AdminOrders() {
                 <th className="px-6 py-3 text-right">Total</th>
                 <th className="px-6 py-3">Statut</th>
                 <th className="px-6 py-3">Date</th>
+                <th className="px-6 py-3"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {orders.map((o) => (
-                <tr key={o.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-4 font-mono text-xs">{o.id.slice(-8).toUpperCase()}</td>
-                  <td className="px-6 py-4">
-                    <p className="font-medium text-gray-900">{o.user?.name || '—'}</p>
-                    <p className="text-xs text-gray-400">{o.user?.email}</p>
-                  </td>
-                  <td className="px-6 py-4 text-center">{o.items.length}</td>
-                  <td className="px-6 py-4 text-right font-semibold text-[#0E4F5E]">
-                    {Number(o.total).toFixed(2)} €
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">
-                      {o.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-gray-400 text-xs">
-                    {new Date(o.createdAt).toLocaleDateString('fr-FR', {
-                      day: 'numeric', month: 'short',
-                    })}
-                  </td>
-                </tr>
-              ))}
+              {orders.map((o) => {
+                const badge = STATUS_BADGE[o.status] ?? { label: o.status, color: 'bg-gray-100 text-gray-700' }
+                return (
+                  <tr
+                    key={o.id}
+                    className="hover:bg-[#FAF5EA] transition-colors cursor-pointer"
+                  >
+                    <td className="px-6 py-4 font-mono text-xs">
+                      <Link href={`/admin/orders/${o.id}`} className="block text-[#0E4F5E] hover:underline">
+                        #{o.id.slice(-8).toUpperCase()}
+                      </Link>
+                    </td>
+                    <td className="px-6 py-4">
+                      <p className="font-medium text-gray-900">{o.shippingName || o.user?.name || '—'}</p>
+                      <p className="text-xs text-gray-400">{o.user?.email ?? o.email}</p>
+                    </td>
+                    <td className="px-6 py-4 text-center">{o.items.length}</td>
+                    <td className="px-6 py-4 text-right font-semibold text-[#0E4F5E]">
+                      {Number(o.total).toFixed(2)} €
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`text-xs px-2 py-1 rounded-full ${badge.color}`}>
+                        {badge.label}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-gray-400 text-xs">
+                      {new Date(o.createdAt).toLocaleDateString('fr-FR', {
+                        day: 'numeric', month: 'short',
+                      })}
+                    </td>
+                    <td className="px-6 py-4">
+                      <Link
+                        href={`/admin/orders/${o.id}`}
+                        className="inline-flex items-center text-[#0E4F5E] hover:text-[#24BBD0]"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </Link>
+                    </td>
+                  </tr>
+                )
+              })}
             </tbody>
           </table>
         </div>
