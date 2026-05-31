@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Photos sources lourdes — restent en local mais pas dans le repo
+public/images/Products Photo Marine/
+*.NEF
+*.HEIC
