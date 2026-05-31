@@ -7,22 +7,43 @@ import Link from 'next/link'
 export const dynamic = 'force-dynamic'
 
 export default async function AdminDashboard() {
+  /* Bornes "ce mois" */
+  const now            = new Date()
+  const startOfMonth   = new Date(now.getFullYear(), now.getMonth(), 1)
+
   /* Lecture des stats réelles depuis la base */
-  const [userCount, orderCount, recentUsers] = await Promise.all([
+  const [userCount, orderCount, recentUsers, monthOrders, totalRevenueAgg] = await Promise.all([
     db.user.count(),
-    db.order.count(),
+    db.order.count({ where: { status: { not: 'CANCELLED' } } }),
     db.user.findMany({
       orderBy: { createdAt: 'desc' },
       take:    5,
       select:  { id: true, name: true, email: true, createdAt: true, role: true },
     }),
+    db.order.findMany({
+      where:  {
+        status:    { not: 'CANCELLED' },
+        createdAt: { gte: startOfMonth },
+      },
+      select: { total: true },
+    }),
+    db.order.aggregate({
+      where: { status: { not: 'CANCELLED' } },
+      _sum:  { total: true },
+    }),
   ])
 
+  /* Sommes (Decimal → number) */
+  const monthRevenue = monthOrders.reduce((s, o) => s + Number(o.total), 0)
+  const totalRevenue = Number(totalRevenueAgg._sum.total ?? 0)
+
+  const fmt = (n: number) => n.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
   const stats = [
-    { label: 'Revenus ce mois', value: '0 €',                  icon: TrendingUp,  color: 'bg-[#A7D5E6]/10 text-[#A7D5E6]' },
-    { label: 'Commandes',       value: String(orderCount),     icon: ShoppingBag, color: 'bg-[#D4AF37]/10 text-[#D4AF37]' },
-    { label: 'Produits actifs', value: String(PRODUCTS.length), icon: Package,    color: 'bg-[#E89B6F]/10 text-[#E89B6F]' },
-    { label: 'Clientes',        value: String(userCount),       icon: Users,      color: 'bg-green-100 text-green-600' },
+    { label: 'Revenus ce mois', value: `${fmt(monthRevenue)} €`,  icon: TrendingUp,  color: 'bg-[#A7D5E6]/10 text-[#A7D5E6]' },
+    { label: 'Commandes',       value: String(orderCount),         icon: ShoppingBag, color: 'bg-[#D4AF37]/10 text-[#D4AF37]' },
+    { label: 'Produits actifs', value: String(PRODUCTS.length),    icon: Package,     color: 'bg-[#E89B6F]/10 text-[#E89B6F]' },
+    { label: 'Clientes',        value: String(userCount),          icon: Users,       color: 'bg-green-100 text-green-600' },
   ]
 
   return (
@@ -36,7 +57,7 @@ export default async function AdminDashboard() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat) => (
+        {stats.map((stat, idx) => (
           <div key={stat.label} className="bg-white rounded-2xl p-5 shadow-sm">
             <div className="flex items-start justify-between mb-3">
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${stat.color}`}>
@@ -45,6 +66,11 @@ export default async function AdminDashboard() {
             </div>
             <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
             <p className="text-xs text-gray-500 mt-0.5">{stat.label}</p>
+            {idx === 0 && totalRevenue > 0 && (
+              <p className="text-[11px] text-gray-400 mt-2 pt-2 border-t border-gray-100">
+                Total : <span className="font-medium text-gray-600">{fmt(totalRevenue)} €</span>
+              </p>
+            )}
           </div>
         ))}
       </div>
