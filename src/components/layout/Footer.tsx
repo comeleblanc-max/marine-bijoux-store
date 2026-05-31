@@ -37,7 +37,7 @@ const LEGAL = [
 
 export function Footer() {
   return (
-    <footer className="bg-[#24BBD0] text-white">
+    <footer className="bg-[#0E4F5E] text-white">
       <div className="container-x py-16">
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
           {/* Marque + social */}
