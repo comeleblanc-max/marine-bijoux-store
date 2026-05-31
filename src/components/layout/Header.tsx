@@ -93,10 +93,10 @@ export function Header() {
               <Image
                 src="/logo-marine.png"
                 alt="Marine et la douceur de l'été"
-                width={280}
-                height={140}
+                width={300}
+                height={300}
                 priority
-                className="h-16 lg:h-24 w-auto object-contain"
+                className="h-20 lg:h-28 w-auto object-contain"
               />
             </Link>
 
