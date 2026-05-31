@@ -273,7 +273,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
         <button
           type="submit"
           disabled={saving}
-          className="inline-flex items-center gap-2 bg-[#0E4F5E] text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-[#0E4F5E]/90 transition-colors disabled:opacity-60"
+          className="inline-flex items-center gap-2 bg-[#24BBD0] text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-[#24BBD0]/90 transition-colors disabled:opacity-60"
         >
           <Save className="w-4 h-4" />
           {saving ? 'Enregistrement…' : 'Enregistrer tout'}
@@ -292,7 +292,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
           transition: border-color 0.15s;
         }
         [data-section="admin"] .input:focus {
-          border-color: #0E4F5E;
+          border-color: #24BBD0;
         }
       `}</style>
     </form>
@@ -325,7 +325,7 @@ function Toggle({ label, checked, onChange }: { label: string; checked: boolean;
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className="w-4 h-4 rounded text-[#0E4F5E] focus:ring-[#0E4F5E]"
+        className="w-4 h-4 rounded text-[#24BBD0] focus:ring-[#24BBD0]"
       />
       <span className="text-sm text-gray-700">{label}</span>
     </label>

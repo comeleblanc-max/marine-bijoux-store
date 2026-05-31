@@ -45,7 +45,7 @@ function CheckoutSuccessInner() {
         </motion.div>
 
         <p className="eyebrow mb-3">Confirmation</p>
-        <h1 className="text-3xl sm:text-4xl text-[#0E4F5E] mb-4">Merci pour votre commande 🐚</h1>
+        <h1 className="text-3xl sm:text-4xl text-[#24BBD0] mb-4">Merci pour votre commande 🐚</h1>
 
         {sessionId && (
           <p className="text-sm text-[#6B6B6B] mb-2">

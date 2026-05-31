@@ -15,7 +15,7 @@ export function ReassuranceBar() {
           {ITEMS.map(({ icon: Icon, label, sub }) => (
             <div key={label} className="flex flex-col items-center text-center gap-2">
               <Icon className="w-6 h-6 text-[#D4AF37]" strokeWidth={1.3} />
-              <p className="text-[11px] tracking-[0.2em] uppercase font-medium text-[#0E4F5E]">
+              <p className="text-[11px] tracking-[0.2em] uppercase font-medium text-[#24BBD0]">
                 {label}
               </p>
               <p className="text-[10px] text-[#6B6B6B]">{sub}</p>

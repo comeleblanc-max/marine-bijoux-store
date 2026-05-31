@@ -18,7 +18,7 @@ export default function CartPage() {
         <div className="text-center max-w-md">
           <ShoppingBag className="w-12 h-12 text-[#E8E2D5] mx-auto mb-6" strokeWidth={1} />
           <p className="eyebrow mb-3">Panier vide</p>
-          <h1 className="text-3xl text-[#0E4F5E] mb-4">Votre panier est vide</h1>
+          <h1 className="text-3xl text-[#24BBD0] mb-4">Votre panier est vide</h1>
           <p className="text-[#6B6B6B] text-sm mb-8">
             Découvrez notre collection de bijoux en acier inoxydable.
           </p>
@@ -35,7 +35,7 @@ export default function CartPage() {
       <div className="container-x">
         <div className="text-center mb-10 sm:mb-14">
           <p className="eyebrow mb-3">Panier</p>
-          <h1 className="text-3xl sm:text-4xl text-[#0E4F5E]">Votre commande</h1>
+          <h1 className="text-3xl sm:text-4xl text-[#24BBD0]">Votre commande</h1>
           <p className="text-xs text-[#6B6B6B] mt-2">{count} article{count > 1 ? 's' : ''}</p>
         </div>
 
@@ -51,18 +51,18 @@ export default function CartPage() {
                   <p className="eyebrow text-[9px] mb-1">Acier inoxydable</p>
                   <Link
                     href={`/products/${item.slug}`}
-                    className="text-sm sm:text-base text-[#0E4F5E] hover:text-[#D4AF37] transition-colors"
+                    className="text-sm sm:text-base text-[#24BBD0] hover:text-[#D4AF37] transition-colors"
                   >
                     {item.name}
                   </Link>
                   {item.variantName && <p className="text-xs text-[#6B6B6B] mt-1">{item.variantName}</p>}
-                  <p className="text-sm text-[#0E4F5E] font-medium mt-1">{formatPrice(item.price)}</p>
+                  <p className="text-sm text-[#24BBD0] font-medium mt-1">{formatPrice(item.price)}</p>
 
                   <div className="flex items-center justify-between mt-auto pt-2">
                     <div className="flex items-center border border-[#E8E2D5]">
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        className="w-8 h-8 flex items-center justify-center hover:bg-[#0E4F5E] hover:text-white transition-colors"
+                        className="w-8 h-8 flex items-center justify-center hover:bg-[#24BBD0] hover:text-white transition-colors"
                         aria-label="Diminuer"
                       >
                         <Minus className="w-3 h-3" />
@@ -70,7 +70,7 @@ export default function CartPage() {
                       <span className="w-8 text-center text-sm">{item.quantity}</span>
                       <button
                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="w-8 h-8 flex items-center justify-center hover:bg-[#0E4F5E] hover:text-white transition-colors"
+                        className="w-8 h-8 flex items-center justify-center hover:bg-[#24BBD0] hover:text-white transition-colors"
                         aria-label="Augmenter"
                       >
                         <Plus className="w-3 h-3" />
@@ -78,7 +78,7 @@ export default function CartPage() {
                     </div>
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="text-[#6B6B6B] hover:text-[#0E4F5E] transition-colors"
+                      className="text-[#6B6B6B] hover:text-[#24BBD0] transition-colors"
                       aria-label="Supprimer"
                     >
                       <Trash2 className="w-4 h-4" strokeWidth={1.3} />
@@ -91,7 +91,7 @@ export default function CartPage() {
 
           {/* Récapitulatif */}
           <aside className="border border-[#E8E2D5] p-6 h-fit lg:sticky lg:top-32 space-y-5">
-            <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#0E4F5E]">
+            <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#24BBD0]">
               Récapitulatif
             </h2>
             <div className="space-y-2 text-sm">
@@ -112,8 +112,8 @@ export default function CartPage() {
               )}
             </div>
             <div className="border-t border-[#E8E2D5] pt-4 flex justify-between items-baseline">
-              <span className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#0E4F5E]">Total</span>
-              <span className="text-xl text-[#0E4F5E] font-medium">
+              <span className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#24BBD0]">Total</span>
+              <span className="text-xl text-[#24BBD0] font-medium">
                 {formatPrice(cartTotal + shipping)}
               </span>
             </div>
@@ -122,7 +122,7 @@ export default function CartPage() {
             </Link>
             <Link
               href="/collections/all"
-              className="block text-center text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B] hover:text-[#0E4F5E] transition-colors"
+              className="block text-center text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B] hover:text-[#24BBD0] transition-colors"
             >
               Continuer mes achats
             </Link>

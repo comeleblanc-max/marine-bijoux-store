@@ -24,7 +24,7 @@ export function BrandStory() {
           <div className="max-w-md">
             <Reveal>
               <p className="eyebrow mb-3">🌴 Notre histoire ☀️</p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#0E4F5E] mb-6 leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl text-[#24BBD0] mb-6 leading-tight">
                 Née d'une passion<br />
                 <span className="italic text-[#D4AF37]">pour la mer</span>
               </h2>

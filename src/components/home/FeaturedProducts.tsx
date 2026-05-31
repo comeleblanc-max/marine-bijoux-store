@@ -18,7 +18,7 @@ export function FeaturedProducts() {
                 Nos coups de cœur
               </p>
               <h2
-                className="text-2xl sm:text-3xl text-[#0E4F5E] font-light"
+                className="text-2xl sm:text-3xl text-[#24BBD0] font-light"
                 style={{ fontFamily: 'var(--font-playfair)' }}
               >
                 Meilleures ventes
@@ -26,7 +26,7 @@ export function FeaturedProducts() {
             </div>
             <Link
               href="/collections/all"
-              className="hidden sm:inline text-sm text-[#0E4F5E]/60 hover:text-[#D4AF37] transition-colors underline-offset-4 hover:underline"
+              className="hidden sm:inline text-sm text-[#24BBD0]/60 hover:text-[#D4AF37] transition-colors underline-offset-4 hover:underline"
             >
               Voir tout →
             </Link>
@@ -43,7 +43,7 @@ export function FeaturedProducts() {
           <Reveal delay={0.15} className="text-center mt-8 sm:hidden">
             <Link
               href="/collections/all"
-              className="text-sm text-[#0E4F5E]/60 hover:text-[#D4AF37] transition-colors underline-offset-4 underline"
+              className="text-sm text-[#24BBD0]/60 hover:text-[#D4AF37] transition-colors underline-offset-4 underline"
             >
               Voir toute la collection →
             </Link>
@@ -62,7 +62,7 @@ export function FeaturedProducts() {
           ].map(({ icon, label, sub }) => (
             <div key={label} className="flex flex-col items-center gap-1">
               <span className="text-2xl">{icon}</span>
-              <p className="text-xs font-semibold text-[#0E4F5E]">{label}</p>
+              <p className="text-xs font-semibold text-[#24BBD0]">{label}</p>
               <p className="text-[10px] text-gray-400">{sub}</p>
             </div>
           ))}
@@ -79,7 +79,7 @@ export function FeaturedProducts() {
                   Dernières arrivées
                 </p>
                 <h2
-                  className="text-2xl sm:text-3xl text-[#0E4F5E] font-light"
+                  className="text-2xl sm:text-3xl text-[#24BBD0] font-light"
                   style={{ fontFamily: 'var(--font-playfair)' }}
                 >
                   Nouveautés
@@ -87,7 +87,7 @@ export function FeaturedProducts() {
               </div>
               <Link
                 href="/collections/all"
-                className="hidden sm:inline text-sm text-[#0E4F5E]/60 hover:text-[#D4AF37] transition-colors underline-offset-4 hover:underline"
+                className="hidden sm:inline text-sm text-[#24BBD0]/60 hover:text-[#D4AF37] transition-colors underline-offset-4 hover:underline"
               >
                 Voir tout →
               </Link>

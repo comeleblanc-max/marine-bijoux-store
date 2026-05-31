@@ -41,7 +41,7 @@ export function PaymentBadges() {
 
       {/* Carte Bleue */}
       <Card label="Carte Bleue">
-        <span className="text-[#0E4F5E] font-bold text-xs tracking-tight">CB</span>
+        <span className="text-[#24BBD0] font-bold text-xs tracking-tight">CB</span>
       </Card>
 
       {/* Klarna */}

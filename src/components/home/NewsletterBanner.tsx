@@ -21,7 +21,7 @@ export function NewsletterBanner() {
             <p className="eyebrow text-white mb-3">✨ Newsletter 🐚</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl mb-4 leading-tight">
               Recevez nos<br />
-              <span className="italic text-[#0E4F5E]">nouveautés</span> en avant-première
+              <span className="italic text-[#24BBD0]">nouveautés</span> en avant-première
             </h2>
             <p className="text-white/85 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
               Inscrivez-vous et profitez de -10% sur votre première commande.

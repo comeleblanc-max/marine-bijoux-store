@@ -69,12 +69,12 @@ export function ProductCard({ product }: Props) {
         {/* Badges en haut à gauche */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5">
           {product.newArrival && (
-            <span className="bg-white/95 text-[#0E4F5E] text-[9px] tracking-[0.2em] uppercase font-medium px-2.5 py-1">
+            <span className="bg-white/95 text-[#24BBD0] text-[9px] tracking-[0.2em] uppercase font-medium px-2.5 py-1">
               Nouveau
             </span>
           )}
           {discount && (
-            <span className="bg-[#0E4F5E] text-white text-[9px] tracking-[0.2em] uppercase font-medium px-2.5 py-1">
+            <span className="bg-[#24BBD0] text-white text-[9px] tracking-[0.2em] uppercase font-medium px-2.5 py-1">
               -{discount}%
             </span>
           )}
@@ -98,7 +98,7 @@ export function ProductCard({ product }: Props) {
         >
           <Heart
             className={`w-[14px] h-[14px] transition-colors ${
-              wished ? 'fill-[#D4AF37] text-[#D4AF37]' : 'text-[#0E4F5E]'
+              wished ? 'fill-[#D4AF37] text-[#D4AF37]' : 'text-[#24BBD0]'
             }`}
             strokeWidth={1.5}
           />
@@ -108,7 +108,7 @@ export function ProductCard({ product }: Props) {
         {product.inStock && (
           <button
             onClick={onAdd}
-            className="absolute bottom-0 left-0 right-0 bg-[#0E4F5E] text-white py-3 text-[10px] tracking-[0.25em] uppercase font-medium flex items-center justify-center gap-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"
+            className="absolute bottom-0 left-0 right-0 bg-[#24BBD0] text-white py-3 text-[10px] tracking-[0.25em] uppercase font-medium flex items-center justify-center gap-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"
           >
             <Plus className="w-3 h-3" strokeWidth={2} />
             Ajouter
@@ -119,11 +119,11 @@ export function ProductCard({ product }: Props) {
       {/* Infos */}
       <div className="space-y-1.5">
         <p className="eyebrow">Acier inoxydable</p>
-        <h3 className="text-sm text-[#0E4F5E] group-hover:text-[#D4AF37] transition-colors leading-snug">
+        <h3 className="text-sm text-[#24BBD0] group-hover:text-[#D4AF37] transition-colors leading-snug">
           {product.name}
         </h3>
         <div className="flex items-center gap-2">
-          <span className="text-sm text-[#0E4F5E] font-medium">
+          <span className="text-sm text-[#24BBD0] font-medium">
             {formatPrice(product.price)}
           </span>
           {product.compareAt && (
