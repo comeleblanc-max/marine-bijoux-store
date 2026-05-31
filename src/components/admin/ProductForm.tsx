@@ -371,7 +371,7 @@ function Toggle({ label, checked, onChange }: { label: string; checked: boolean;
         type="checkbox"
         checked={checked}
         onChange={(e) => onChange(e.target.checked)}
-        className="w-4 h-4 rounded text-[#24BBD0] focus:ring-[#24BBD0]"
+        className="w-4 h-4 rounded text-[#0E4F5E] focus:ring-[#24BBD0]"
       />
       <span className="text-sm text-gray-700">{label}</span>
     </label>

@@ -54,7 +54,7 @@ export default async function ContentPage({ params }: Props) {
               <section>
                 {section.heading && (
                   <h2
-                    className="text-xl sm:text-2xl text-[#24BBD0] font-medium mb-4"
+                    className="text-xl sm:text-2xl text-[#0E4F5E] font-medium mb-4"
                     style={{ fontFamily: 'var(--font-playfair)' }}
                   >
                     {section.heading}
@@ -83,7 +83,7 @@ export default async function ContentPage({ params }: Props) {
         {/* Aide */}
         <Reveal delay={0.1}>
           <div className="mt-16 p-6 bg-[#FAF5EA] rounded-2xl text-center">
-            <p className="text-[#24BBD0] font-medium mb-1">Une question ?</p>
+            <p className="text-[#0E4F5E] font-medium mb-1">Une question ?</p>
             <p className="text-gray-500 text-sm mb-4">
               Notre équipe vous répond avec plaisir sous 24 h.
             </p>

@@ -53,13 +53,13 @@ export default async function CollectionPage({ params }: PageProps) {
         <div className="container-x text-center">
           {/* Fil d'Ariane */}
           <nav className="flex items-center justify-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#6B6B6B] mb-5">
-            <Link href="/" className="hover:text-[#24BBD0] transition-colors">Accueil</Link>
+            <Link href="/" className="hover:text-[#0E4F5E] transition-colors">Accueil</Link>
             <span>/</span>
-            <span className="text-[#24BBD0]">{title}</span>
+            <span className="text-[#0E4F5E]">{title}</span>
           </nav>
 
           <p className="eyebrow mb-3">{eyebrow}</p>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl text-[#24BBD0] mb-4">{title}</h1>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl text-[#0E4F5E] mb-4">{title}</h1>
           {description && (
             <p className="text-[#6B6B6B] max-w-lg mx-auto leading-relaxed">{description}</p>
           )}

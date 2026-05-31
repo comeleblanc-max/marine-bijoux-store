@@ -68,14 +68,14 @@ export default function CheckoutPage() {
       <div className="container-x max-w-2xl">
         <button
           onClick={() => router.back()}
-          className="text-[10px] tracking-[0.2em] uppercase text-[#6B6B6B] hover:text-[#24BBD0] transition-colors mb-6"
+          className="text-[10px] tracking-[0.2em] uppercase text-[#6B6B6B] hover:text-[#0E4F5E] transition-colors mb-6"
         >
           ← Retour
         </button>
 
         <div className="text-center mb-10">
           <p className="eyebrow mb-3">Finaliser</p>
-          <h1 className="text-3xl sm:text-4xl text-[#24BBD0]">Votre commande</h1>
+          <h1 className="text-3xl sm:text-4xl text-[#0E4F5E]">Votre commande</h1>
           <p className="text-sm text-[#6B6B6B] mt-3">
             Tu seras redirigée vers une page de paiement <strong>sécurisée Stripe</strong> pour finaliser.
           </p>
@@ -83,7 +83,7 @@ export default function CheckoutPage() {
 
         {/* Récapitulatif */}
         <aside className="border border-[#E8E2D5] p-6 mb-6">
-          <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#24BBD0] mb-5">
+          <h2 className="text-[11px] tracking-[0.25em] uppercase font-medium text-[#0E4F5E] mb-5">
             Récapitulatif
           </h2>
           <div className="space-y-3 mb-5 max-h-96 overflow-y-auto">
@@ -93,10 +93,10 @@ export default function CheckoutPage() {
                   <Image src={item.image} alt={item.name} fill sizes="48px" className="object-cover" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs text-[#24BBD0] truncate">{item.name}</p>
+                  <p className="text-xs text-[#0E4F5E] truncate">{item.name}</p>
                   <p className="text-[10px] text-[#6B6B6B]">Qté {item.quantity}</p>
                 </div>
-                <span className="text-xs text-[#24BBD0] font-medium">
+                <span className="text-xs text-[#0E4F5E] font-medium">
                   {formatPrice(item.price * item.quantity)}
                 </span>
               </div>
@@ -113,7 +113,7 @@ export default function CheckoutPage() {
                 {shipping === 0 ? 'Offerte' : formatPrice(shipping)}
               </span>
             </div>
-            <div className="flex justify-between font-medium text-[#24BBD0] pt-3 border-t border-[#E8E2D5]">
+            <div className="flex justify-between font-medium text-[#0E4F5E] pt-3 border-t border-[#E8E2D5]">
               <span className="text-[11px] tracking-[0.2em] uppercase">Total</span>
               <span className="text-lg">{formatPrice(cartTotal + shipping)}</span>
             </div>

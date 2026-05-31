@@ -59,7 +59,7 @@ export function ProductRow({ eyebrow, title, products, href, hrefLabel = 'Voir t
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
             {eyebrow && <p className="eyebrow mb-2">{eyebrow}</p>}
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl text-[#24BBD0]">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl text-[#0E4F5E]">
               {title}
             </h2>
           </motion.div>
@@ -78,7 +78,7 @@ export function ProductRow({ eyebrow, title, products, href, hrefLabel = 'Voir t
                 onClick={() => scroll(-1)}
                 disabled={!canPrev}
                 aria-label="Précédent"
-                className="w-9 h-9 border border-[#E8E2D5] flex items-center justify-center hover:bg-[#24BBD0] hover:text-white hover:border-[#24BBD0] transition-colors disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[#24BBD0] disabled:hover:border-[#E8E2D5]"
+                className="w-9 h-9 border border-[#E8E2D5] flex items-center justify-center hover:bg-[#24BBD0] hover:text-white hover:border-[#0E4F5E] transition-colors disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[#0E4F5E] disabled:hover:border-[#E8E2D5]"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -86,7 +86,7 @@ export function ProductRow({ eyebrow, title, products, href, hrefLabel = 'Voir t
                 onClick={() => scroll(1)}
                 disabled={!canNext}
                 aria-label="Suivant"
-                className="w-9 h-9 border border-[#E8E2D5] flex items-center justify-center hover:bg-[#24BBD0] hover:text-white hover:border-[#24BBD0] transition-colors disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[#24BBD0] disabled:hover:border-[#E8E2D5]"
+                className="w-9 h-9 border border-[#E8E2D5] flex items-center justify-center hover:bg-[#24BBD0] hover:text-white hover:border-[#0E4F5E] transition-colors disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[#0E4F5E] disabled:hover:border-[#E8E2D5]"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>

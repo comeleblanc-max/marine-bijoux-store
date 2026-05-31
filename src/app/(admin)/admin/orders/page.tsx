@@ -62,7 +62,7 @@ export default async function AdminOrders() {
                     className="hover:bg-[#FAF5EA] transition-colors cursor-pointer"
                   >
                     <td className="px-6 py-4 font-mono text-xs">
-                      <Link href={`/admin/orders/${o.id}`} className="block text-[#24BBD0] hover:underline">
+                      <Link href={`/admin/orders/${o.id}`} className="block text-[#0E4F5E] hover:underline">
                         #{o.id.slice(-8).toUpperCase()}
                       </Link>
                     </td>
@@ -71,7 +71,7 @@ export default async function AdminOrders() {
                       <p className="text-xs text-gray-400">{o.user?.email ?? o.email}</p>
                     </td>
                     <td className="px-6 py-4 text-center">{o.items.length}</td>
-                    <td className="px-6 py-4 text-right font-semibold text-[#24BBD0]">
+                    <td className="px-6 py-4 text-right font-semibold text-[#0E4F5E]">
                       {Number(o.total).toFixed(2)} €
                     </td>
                     <td className="px-6 py-4">
@@ -87,7 +87,7 @@ export default async function AdminOrders() {
                     <td className="px-6 py-4">
                       <Link
                         href={`/admin/orders/${o.id}`}
-                        className="inline-flex items-center text-[#24BBD0] hover:text-[#24BBD0]"
+                        className="inline-flex items-center text-[#0E4F5E] hover:text-[#0E4F5E]"
                       >
                         <ChevronRight className="w-4 h-4" />
                       </Link>

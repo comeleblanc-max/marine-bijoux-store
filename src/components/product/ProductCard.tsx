@@ -69,7 +69,7 @@ export function ProductCard({ product }: Props) {
         {/* Badges en haut à gauche */}
         <div className="absolute top-3 left-3 flex flex-col gap-1.5">
           {product.newArrival && (
-            <span className="bg-white/95 text-[#24BBD0] text-[9px] tracking-[0.2em] uppercase font-medium px-2.5 py-1">
+            <span className="bg-white/95 text-[#0E4F5E] text-[9px] tracking-[0.2em] uppercase font-medium px-2.5 py-1">
               Nouveau
             </span>
           )}
@@ -98,7 +98,7 @@ export function ProductCard({ product }: Props) {
         >
           <Heart
             className={`w-[14px] h-[14px] transition-colors ${
-              wished ? 'fill-[#D4AF37] text-[#D4AF37]' : 'text-[#24BBD0]'
+              wished ? 'fill-[#D4AF37] text-[#D4AF37]' : 'text-[#0E4F5E]'
             }`}
             strokeWidth={1.5}
           />
@@ -119,11 +119,11 @@ export function ProductCard({ product }: Props) {
       {/* Infos */}
       <div className="space-y-1.5">
         <p className="eyebrow">Acier inoxydable</p>
-        <h3 className="text-sm text-[#24BBD0] group-hover:text-[#D4AF37] transition-colors leading-snug">
+        <h3 className="text-sm text-[#0E4F5E] group-hover:text-[#D4AF37] transition-colors leading-snug">
           {product.name}
         </h3>
         <div className="flex items-center gap-2">
-          <span className="text-sm text-[#24BBD0] font-medium">
+          <span className="text-sm text-[#0E4F5E] font-medium">
             {formatPrice(product.price)}
           </span>
           {product.compareAt && (

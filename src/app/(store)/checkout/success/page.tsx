@@ -41,11 +41,11 @@ function CheckoutSuccessInner() {
           transition={{ type: 'spring', stiffness: 220, damping: 16 }}
           className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#24BBD0]/15 flex items-center justify-center"
         >
-          <CheckCircle2 className="w-8 h-8 text-[#24BBD0]" strokeWidth={1.5} />
+          <CheckCircle2 className="w-8 h-8 text-[#0E4F5E]" strokeWidth={1.5} />
         </motion.div>
 
         <p className="eyebrow mb-3">Confirmation</p>
-        <h1 className="text-3xl sm:text-4xl text-[#24BBD0] mb-4">Merci pour votre commande 🐚</h1>
+        <h1 className="text-3xl sm:text-4xl text-[#0E4F5E] mb-4">Merci pour votre commande 🐚</h1>
 
         {sessionId && (
           <p className="text-sm text-[#6B6B6B] mb-2">
