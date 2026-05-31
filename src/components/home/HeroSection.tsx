@@ -113,13 +113,13 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: EASE }}
-          className="text-[#24BBD0]/70 text-xs sm:text-sm tracking-[0.35em] uppercase font-medium mb-6"
+          className="text-[#0E4F5E]/70 text-xs sm:text-sm tracking-[0.35em] uppercase font-medium mb-6"
         >
           Bijoux en ligne
         </motion.p>
 
         <h1
-          className="text-5xl sm:text-6xl lg:text-8xl font-light leading-[1.05] mb-6 text-[#24BBD0]"
+          className="text-5xl sm:text-6xl lg:text-8xl font-light leading-[1.05] mb-6 text-[#0E4F5E]"
           style={{ fontFamily: 'var(--font-playfair)' }}
         >
           <motion.span
@@ -145,7 +145,7 @@ export function HeroSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: EASE }}
-          className="text-base sm:text-xl text-[#24BBD0]/75 mb-10 max-w-xl mx-auto leading-relaxed italic"
+          className="text-base sm:text-xl text-[#0E4F5E]/75 mb-10 max-w-xl mx-auto leading-relaxed italic"
           style={{ fontFamily: 'var(--font-playfair)' }}
         >
           Des bijoux qui sentent bon le soleil et la mer.
@@ -172,7 +172,7 @@ export function HeroSection() {
               whileHover={{ scale: 1.04, y: -2 }}
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-              className="inline-flex text-[#24BBD0] border border-[#24BBD0]/30 hover:border-[#D4AF37] hover:text-[#D4AF37] rounded-full px-10 py-4 text-base font-medium transition-colors"
+              className="inline-flex text-[#0E4F5E] border border-[#0E4F5E]/30 hover:border-[#D4AF37] hover:text-[#D4AF37] rounded-full px-10 py-4 text-base font-medium transition-colors"
             >
               Notre histoire
             </motion.span>
@@ -183,7 +183,7 @@ export function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.8 }}
-          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-12 text-[#24BBD0]/55 text-xs"
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-12 text-[#0E4F5E]/55 text-xs"
         >
           <span>🚚 Livraison offerte dès 60€</span>
           <span className="hidden sm:inline">·</span>
@@ -201,7 +201,7 @@ export function HeroSection() {
           opacity: { delay: 1.2, duration: 0.6 },
           y: { delay: 1.2, duration: 1.8, repeat: Infinity, ease: 'easeInOut' },
         }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#24BBD0]/40"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#0E4F5E]/40"
       >
         <ChevronDown className="w-6 h-6" />
       </motion.div>

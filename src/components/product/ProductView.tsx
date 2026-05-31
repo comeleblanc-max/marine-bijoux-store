@@ -43,13 +43,13 @@ export function ProductView({ product, related }: { product: Product; related: P
         <div className="container-x py-8 sm:py-12">
           {/* Fil d'Ariane */}
           <nav className="flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase text-[#6B6B6B] mb-8">
-            <Link href="/" className="hover:text-[#24BBD0] transition-colors">Accueil</Link>
+            <Link href="/" className="hover:text-[#0E4F5E] transition-colors">Accueil</Link>
             <span>/</span>
-            <Link href={`/collections/${product.category}`} className="hover:text-[#24BBD0] transition-colors capitalize">
+            <Link href={`/collections/${product.category}`} className="hover:text-[#0E4F5E] transition-colors capitalize">
               {product.category.replace('-', ' ')}
             </Link>
             <span>/</span>
-            <span className="text-[#24BBD0] truncate">{product.name}</span>
+            <span className="text-[#0E4F5E] truncate">{product.name}</span>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
@@ -72,7 +72,7 @@ export function ProductView({ product, related }: { product: Product; related: P
                 {/* Badges */}
                 <div className="absolute top-4 left-4 flex flex-col gap-2">
                   {product.newArrival && (
-                    <span className="bg-white text-[#24BBD0] text-[10px] tracking-[0.2em] uppercase font-medium px-3 py-1.5">
+                    <span className="bg-white text-[#0E4F5E] text-[10px] tracking-[0.2em] uppercase font-medium px-3 py-1.5">
                       Nouveau
                     </span>
                   )}
@@ -99,7 +99,7 @@ export function ProductView({ product, related }: { product: Product; related: P
             {/* Infos */}
             <div className="lg:py-6">
               <p className="eyebrow mb-3">{product.material ?? 'Acier inoxydable'}</p>
-              <h1 className="text-3xl sm:text-4xl text-[#24BBD0] mb-4 leading-tight">
+              <h1 className="text-3xl sm:text-4xl text-[#0E4F5E] mb-4 leading-tight">
                 {product.name}
               </h1>
 
@@ -115,7 +115,7 @@ export function ProductView({ product, related }: { product: Product; related: P
 
               {/* Prix */}
               <div className="flex items-baseline gap-3 mb-6">
-                <span className="text-2xl text-[#24BBD0] font-medium">{formatPrice(product.price)}</span>
+                <span className="text-2xl text-[#0E4F5E] font-medium">{formatPrice(product.price)}</span>
                 {product.compareAt && (
                   <span className="text-[#6B6B6B] line-through">{formatPrice(product.compareAt)}</span>
                 )}
@@ -127,7 +127,7 @@ export function ProductView({ product, related }: { product: Product; related: P
 
               {/* Quantité + ajout */}
               <div className="flex items-stretch gap-3 mb-4">
-                <div className="flex items-center border border-[#24BBD0]">
+                <div className="flex items-center border border-[#0E4F5E]">
                   <button
                     onClick={() => setQty(Math.max(1, qty - 1))}
                     className="w-10 h-12 flex items-center justify-center hover:bg-[#24BBD0] hover:text-white transition-colors"
@@ -238,7 +238,7 @@ function Accordion({
         onClick={onToggle}
         className="w-full flex items-center justify-between py-4 text-left"
       >
-        <span className="text-[11px] tracking-[0.2em] uppercase font-medium text-[#24BBD0]">
+        <span className="text-[11px] tracking-[0.2em] uppercase font-medium text-[#0E4F5E]">
           {title}
         </span>
         <ChevronDown

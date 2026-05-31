@@ -41,7 +41,7 @@ export function CookieConsent() {
         >
           <div className="flex items-center gap-2 mb-2">
             <Cookie className="w-5 h-5 text-[#D4AF37]" />
-            <h3 className="font-semibold text-[#24BBD0] text-sm">
+            <h3 className="font-semibold text-[#0E4F5E] text-sm">
               Préférences cookies
             </h3>
           </div>
@@ -60,7 +60,7 @@ export function CookieConsent() {
           <div className="flex gap-2">
             <button
               onClick={() => choose('essential')}
-              className="flex-1 py-2.5 text-xs font-medium text-[#24BBD0] border border-gray-200 rounded-lg hover:bg-[#FAF5EA] transition-colors"
+              className="flex-1 py-2.5 text-xs font-medium text-[#0E4F5E] border border-gray-200 rounded-lg hover:bg-[#FAF5EA] transition-colors"
             >
               Essentiels uniquement
             </button>

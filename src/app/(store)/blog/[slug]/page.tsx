@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Contenu */}
       <article className="max-w-2xl mx-auto px-4 py-16">
         <Reveal>
-          <p className="text-lg text-[#24BBD0] leading-relaxed mb-10 font-medium">
+          <p className="text-lg text-[#0E4F5E] leading-relaxed mb-10 font-medium">
             {post.excerpt}
           </p>
         </Reveal>
@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: Props) {
               <section>
                 {block.heading && (
                   <h2
-                    className="text-xl sm:text-2xl text-[#24BBD0] font-medium mb-3"
+                    className="text-xl sm:text-2xl text-[#0E4F5E] font-medium mb-3"
                     style={{ fontFamily: 'var(--font-playfair)' }}
                   >
                     {block.heading}
@@ -96,7 +96,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="bg-[#FAF5EA] py-16 px-4">
           <div className="max-w-5xl mx-auto">
             <h2
-              className="text-2xl text-[#24BBD0] font-light mb-8 text-center"
+              className="text-2xl text-[#0E4F5E] font-light mb-8 text-center"
               style={{ fontFamily: 'var(--font-playfair)' }}
             >
               À lire aussi
@@ -115,7 +115,7 @@ export default async function BlogPostPage({ params }: Props) {
                     <p className="text-[#D4AF37] text-xs font-semibold uppercase tracking-wide mb-1">
                       {other.category}
                     </p>
-                    <h3 className="text-[#24BBD0] font-medium group-hover:text-[#D4AF37] transition-colors leading-snug">
+                    <h3 className="text-[#0E4F5E] font-medium group-hover:text-[#D4AF37] transition-colors leading-snug">
                       {other.title}
                     </h3>
                   </div>

@@ -62,7 +62,7 @@ export function Hero({
                   whileHover={{ scale: 1.04, y: -2 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                  className="inline-flex bg-white text-[#24BBD0] hover:bg-[#D4AF37] hover:text-white px-9 py-4 rounded-full font-semibold tracking-wide shadow-xl text-sm transition-colors"
+                  className="inline-flex bg-white text-[#0E4F5E] hover:bg-[#D4AF37] hover:text-white px-9 py-4 rounded-full font-semibold tracking-wide shadow-xl text-sm transition-colors"
                 >
                   {ctaPrimary}
                 </motion.span>
@@ -72,7 +72,7 @@ export function Hero({
                   whileHover={{ scale: 1.04, y: -2 }}
                   whileTap={{ scale: 0.97 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-                  className="inline-flex border border-white/80 text-white hover:bg-white hover:text-[#24BBD0] px-9 py-4 rounded-full font-medium tracking-wide text-sm transition-colors backdrop-blur-sm"
+                  className="inline-flex border border-white/80 text-white hover:bg-white hover:text-[#0E4F5E] px-9 py-4 rounded-full font-medium tracking-wide text-sm transition-colors backdrop-blur-sm"
                 >
                   {ctaSecondary}
                 </motion.span>
