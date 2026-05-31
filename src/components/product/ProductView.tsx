@@ -13,6 +13,7 @@ import { formatPrice } from '@/lib/utils'
 import { useCart } from '@/store/cart'
 import { useWishlist } from '@/hooks/useWishlist'
 import { ProductRow } from '@/components/product/ProductRow'
+import { celebrate } from '@/lib/confetti'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -23,7 +24,7 @@ export function ProductView({ product, related }: { product: Product; related: P
   const { toggle, has }       = useWishlist()
   const wished = has(product.id)
 
-  const handleAdd = () => {
+  const handleAdd = (e?: React.MouseEvent<HTMLButtonElement>) => {
     addItem({
       id:        `${product.id}-default`,
       productId: product.id,
@@ -33,6 +34,8 @@ export function ProductView({ product, related }: { product: Product; related: P
       quantity:  qty,
       slug:      product.slug,
     })
+    /* Petits confettis dorés au point cliqué */
+    if (e) celebrate(e.clientX, e.clientY)
     openCart()
   }
 
@@ -144,23 +147,31 @@ export function ProductView({ product, related }: { product: Product; related: P
                     <Plus className="w-3.5 h-3.5" />
                   </button>
                 </div>
-                <button
+                <motion.button
                   onClick={handleAdd}
                   disabled={!product.inStock}
+                  whileTap={{ scale: 0.97 }}
                   className="flex-1 btn-primary disabled:bg-[#6B6B6B] disabled:hover:bg-[#6B6B6B] disabled:hover:gap-2"
                 >
                   {product.inStock ? 'Ajouter au panier' : 'Épuisé'}
-                </button>
+                </motion.button>
               </div>
 
               <button
                 onClick={() => toggle(product.id)}
                 className="flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B] hover:text-[#D4AF37] transition-colors mb-8"
               >
-                <Heart
-                  className={`w-4 h-4 ${wished ? 'fill-[#D4AF37] text-[#D4AF37]' : ''}`}
-                  strokeWidth={1.5}
-                />
+                <motion.span
+                  key={String(wished)}
+                  animate={wished ? { scale: [1, 1.4, 1] } : { scale: 1 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="inline-flex"
+                >
+                  <Heart
+                    className={`w-4 h-4 ${wished ? 'fill-[#D4AF37] text-[#D4AF37]' : ''}`}
+                    strokeWidth={1.5}
+                  />
+                </motion.span>
                 {wished ? 'Retirer des favoris' : 'Ajouter aux favoris'}
               </button>
 

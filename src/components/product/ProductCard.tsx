@@ -1,13 +1,15 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Heart, Plus } from 'lucide-react'
+import { Heart, Plus, Check } from 'lucide-react'
 import type { Product } from '@/types'
 import { formatPrice } from '@/lib/utils'
 import { useCart } from '@/store/cart'
 import { useWishlist } from '@/hooks/useWishlist'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import { celebrate } from '@/lib/confetti'
 
 interface Props {
   product: Product
@@ -23,6 +25,8 @@ export function ProductCard({ product }: Props) {
   const { addItem } = useCart()
   const { toggle, has } = useWishlist()
   const wished = has(product.id)
+  const [justAdded, setJustAdded] = useState(false)
+  const [heartBurst, setHeartBurst] = useState(0)
 
   // Couleurs disponibles déduites du matériau
   const colors: string[] = []
@@ -46,12 +50,26 @@ export function ProductCard({ product }: Props) {
       quantity: 1,
       slug: product.slug,
     })
+    /* Confettis au point cliqué */
+    celebrate(e.clientX, e.clientY)
+    setJustAdded(true)
+    setTimeout(() => setJustAdded(false), 1600)
+  }
+
+  const onToggleWish = (e: React.MouseEvent) => {
+    e.preventDefault()
+    toggle(product.id)
+    if (!wished) setHeartBurst((n) => n + 1)
   }
 
   return (
     <Link href={`/products/${product.slug}`} className="group block">
-      {/* Image */}
-      <div className="relative aspect-square bg-[#FAF5EA] overflow-hidden mb-4">
+      {/* Image — léger lift + ombre au survol */}
+      <motion.div
+        whileHover={{ y: -3 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+        className="relative aspect-square bg-[#FAF5EA] overflow-hidden mb-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] group-hover:shadow-[0_10px_30px_-15px_rgba(14,79,94,0.25)] transition-shadow duration-500"
+      >
         {product.images.length > 0 ? (
           <Image
             src={product.images[0]}
@@ -85,36 +103,83 @@ export function ProductCard({ product }: Props) {
           )}
         </div>
 
-        {/* Favoris */}
+        {/* Favoris — coeur qui "pulse" + petits coeurs qui s'envolent */}
         <button
-          onClick={(e) => {
-            e.preventDefault()
-            toggle(product.id)
-          }}
+          onClick={onToggleWish}
           aria-label={wished ? 'Retirer des favoris' : 'Ajouter aux favoris'}
           className={`absolute top-3 right-3 w-8 h-8 bg-white flex items-center justify-center transition-all duration-300 ${
             wished ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
           }`}
         >
-          <Heart
-            className={`w-[14px] h-[14px] transition-colors ${
-              wished ? 'fill-[#D4AF37] text-[#D4AF37]' : 'text-[#0E4F5E]'
-            }`}
-            strokeWidth={1.5}
-          />
+          <motion.span
+            key={`${wished}-${heartBurst}`}
+            initial={false}
+            animate={wished ? { scale: [1, 1.35, 1] } : { scale: 1 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex"
+          >
+            <Heart
+              className={`w-[14px] h-[14px] transition-colors ${
+                wished ? 'fill-[#D4AF37] text-[#D4AF37]' : 'text-[#0E4F5E]'
+              }`}
+              strokeWidth={1.5}
+            />
+          </motion.span>
+
+          {/* Petits coeurs flottants quand on aime */}
+          <AnimatePresence>
+            {heartBurst > 0 && wished && (
+              <motion.span
+                key={heartBurst}
+                initial={{ opacity: 0, y: 0, scale: 0.5 }}
+                animate={{ opacity: [0, 1, 0], y: -28, scale: [0.5, 1.1, 0.9] }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.9, ease: 'easeOut' }}
+                className="absolute pointer-events-none text-[#D4AF37]"
+                onAnimationComplete={() => { /* aucune action */ }}
+              >
+                ❤️
+              </motion.span>
+            )}
+          </AnimatePresence>
         </button>
 
-        {/* Bouton ajout rapide — bottom slide */}
+        {/* Bouton ajout rapide — slide depuis le bas + état "Ajouté ✓" */}
         {product.inStock && (
           <button
             onClick={onAdd}
-            className="absolute bottom-0 left-0 right-0 bg-[#24BBD0] text-white py-3 text-[10px] tracking-[0.25em] uppercase font-medium flex items-center justify-center gap-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"
+            className="absolute bottom-0 left-0 right-0 overflow-hidden bg-[#24BBD0] text-white py-3 text-[10px] tracking-[0.25em] uppercase font-medium flex items-center justify-center gap-2 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"
           >
-            <Plus className="w-3 h-3" strokeWidth={2} />
-            Ajouter
+            <AnimatePresence mode="wait" initial={false}>
+              {justAdded ? (
+                <motion.span
+                  key="added"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center gap-1.5"
+                >
+                  <Check className="w-3.5 h-3.5" strokeWidth={2.5} />
+                  Ajouté !
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="add"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center gap-1.5"
+                >
+                  <Plus className="w-3 h-3" strokeWidth={2} />
+                  Ajouter
+                </motion.span>
+              )}
+            </AnimatePresence>
           </button>
         )}
-      </div>
+      </motion.div>
 
       {/* Infos */}
       <div className="space-y-1.5">

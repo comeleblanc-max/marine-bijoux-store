@@ -148,15 +148,23 @@ export function Header() {
                 aria-label="Panier"
                 className="relative text-[#0E4F5E] hover:text-[#D4AF37] transition-colors"
               >
-                <ShoppingBag className="w-[18px] h-[18px]" strokeWidth={1.5} />
+                {/* L'icône panier "bounce" légèrement à chaque ajout */}
+                <motion.span
+                  key={`bag-${count}`}
+                  animate={count > 0 ? { rotate: [0, -10, 8, -4, 0], scale: [1, 1.15, 1] } : {}}
+                  transition={{ duration: 0.55, ease: 'easeOut' }}
+                  className="inline-block"
+                >
+                  <ShoppingBag className="w-[18px] h-[18px]" strokeWidth={1.5} />
+                </motion.span>
                 <AnimatePresence>
                   {count > 0 && (
                     <motion.span
                       key={count}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
+                      initial={{ scale: 0, y: -4 }}
+                      animate={{ scale: [0, 1.25, 1], y: 0 }}
                       exit={{ scale: 0 }}
-                      transition={{ type: 'spring', stiffness: 500, damping: 20 }}
+                      transition={{ type: 'spring', stiffness: 500, damping: 18 }}
                       className="absolute -top-1.5 -right-2 text-[9px] bg-[#24BBD0] text-white rounded-full min-w-[15px] h-[15px] flex items-center justify-center px-1 font-medium"
                     >
                       {count}
