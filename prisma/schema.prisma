@@ -73,6 +73,12 @@ model Order {
   stripeId    String?
   promoCode   String?
   discount    Decimal?    @db.Decimal(10, 2)
+  /* Suivi de livraison */
+  trackingNumber  String?
+  trackingCarrier String?   // "colissimo" | "mondialrelay" | "chronopost" | "laposte" | "autre"
+  shippedAt       DateTime?
+  deliveredAt     DateTime?
+  adminNote       String?   // note privée pour Marine
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
 }
