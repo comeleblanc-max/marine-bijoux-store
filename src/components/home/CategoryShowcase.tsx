@@ -22,10 +22,23 @@ const TILES: Tile[] = [
 ]
 
 /**
- * @param images - dictionnaire { slug: url-image } pour les fonds des tuiles
- *                  fourni par le parent (page server-side qui fetch la base).
+ * Photos fixes de Marine pour chaque tuile (placées dans /public/tiles/).
+ * Si tu veux changer une photo : remplace le fichier dans public/tiles/
+ * avec le même nom et redéploie.
  */
-export function CategoryShowcase({ images = {} }: { images?: Record<string, string | null> }) {
+const TILE_IMAGES: Record<string, string> = {
+  'lumiere-dete':      '/tiles/lumiere-dete.webp',
+  'colliers':          '/tiles/colliers.webp',
+  'bracelets':         '/tiles/bracelets.webp',
+  'boucles-doreilles': '/tiles/boucles-doreilles.webp',
+  'bagues':            '/tiles/bagues.webp',
+}
+
+/**
+ * @param images - (déprécié) dictionnaire d'images alternatives.
+ *                  Aujourd'hui on utilise TILE_IMAGES (fichiers fixes dans /public/tiles).
+ */
+export function CategoryShowcase(_props: { images?: Record<string, string | null> } = {}) {
   return (
     <section className="py-14 sm:py-20 bg-white">
       <div className="container-x">
@@ -45,7 +58,7 @@ export function CategoryShowcase({ images = {} }: { images?: Record<string, stri
         {/* Grille 2x3 — mainajewels style */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 auto-rows-[180px] sm:auto-rows-[260px] lg:auto-rows-[300px]">
           {TILES.map((tile, i) => {
-            const img = images[tile.slug] ?? null
+            const img = TILE_IMAGES[tile.slug] ?? null
             return (
               <motion.div
                 key={tile.slug}
