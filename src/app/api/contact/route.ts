@@ -50,8 +50,8 @@ export async function POST(req: Request) {
     const cleanMessage = String(message).slice(0, 5000)
 
     const html = `
-      <div style="font-family: -apple-system, Helvetica, Arial, sans-serif; max-width:600px; margin:auto; color:#0E4F5E;">
-        <div style="background:#0E4F5E; color:white; padding:24px; text-align:center;">
+      <div style="font-family: -apple-system, Helvetica, Arial, sans-serif; max-width:600px; margin:auto; color:#24BBD0;">
+        <div style="background:#24BBD0; color:white; padding:24px; text-align:center;">
           <h1 style="margin:0; font-weight:300; font-size:22px;">Nouveau message depuis le site</h1>
         </div>
         <div style="padding:24px; background:#FAF5EA;">

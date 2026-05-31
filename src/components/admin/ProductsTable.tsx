@@ -115,7 +115,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
                     <span className="text-sm text-gray-600 capitalize">{p.category.replace(/-/g, ' ')}</span>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-sm font-semibold text-[#0E4F5E]">{p.price.toFixed(2)} €</span>
+                    <span className="text-sm font-semibold text-[#24BBD0]">{p.price.toFixed(2)} €</span>
                     {p.compareAt && (
                       <span className="text-xs text-gray-400 line-through ml-2">{p.compareAt.toFixed(2)} €</span>
                     )}
@@ -129,7 +129,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
                     <div className="flex items-center gap-2 justify-end">
                       <Link
                         href={`/admin/products/${p.id}`}
-                        className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-[#0E4F5E] transition-colors"
+                        className="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-[#24BBD0] transition-colors"
                         title="Modifier"
                       >
                         <Edit className="w-4 h-4" />

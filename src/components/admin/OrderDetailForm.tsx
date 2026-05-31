@@ -119,7 +119,7 @@ export function OrderDetailForm({ initial }: { initial: OrderData }) {
         <button
           type="submit"
           disabled={saving}
-          className="inline-flex items-center gap-2 bg-[#0E4F5E] text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-[#0E4F5E]/90 transition-colors disabled:opacity-60"
+          className="inline-flex items-center gap-2 bg-[#24BBD0] text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-[#24BBD0]/90 transition-colors disabled:opacity-60"
         >
           <Save className="w-4 h-4" />
           {saving ? 'Enregistrement…' : 'Enregistrer'}
@@ -166,7 +166,7 @@ export function OrderDetailForm({ initial }: { initial: OrderData }) {
             <div className="border-t border-gray-200 pt-3 mt-3 space-y-1 text-sm">
               <div className="flex justify-between text-gray-500"><span>Sous-total</span><span>{subtotal.toFixed(2)} €</span></div>
               <div className="flex justify-between text-gray-500"><span>Livraison</span><span>{shipping > 0 ? `${shipping.toFixed(2)} €` : 'Offerte'}</span></div>
-              <div className="flex justify-between font-semibold text-[#0E4F5E] text-base pt-2 border-t border-gray-100"><span>Total</span><span>{initial.total.toFixed(2)} €</span></div>
+              <div className="flex justify-between font-semibold text-[#24BBD0] text-base pt-2 border-t border-gray-100"><span>Total</span><span>{initial.total.toFixed(2)} €</span></div>
             </div>
           </Card>
 
@@ -180,7 +180,7 @@ export function OrderDetailForm({ initial }: { initial: OrderData }) {
             <button
               type="button"
               onClick={copyAddress}
-              className="mt-3 text-xs text-[#0E4F5E] hover:text-[#24BBD0] underline"
+              className="mt-3 text-xs text-[#24BBD0] hover:text-[#24BBD0] underline"
             >
               📋 Copier l&apos;adresse complète
             </button>
@@ -190,7 +190,7 @@ export function OrderDetailForm({ initial }: { initial: OrderData }) {
             <p className="text-sm">
               <span className="font-medium">{initial.shippingName || initial.user?.name || '—'}</span>
               <br />
-              <a href={`mailto:${initial.email}`} className="text-[#0E4F5E] hover:underline">{initial.email}</a>
+              <a href={`mailto:${initial.email}`} className="text-[#24BBD0] hover:underline">{initial.email}</a>
             </p>
             {initial.user && (
               <p className="text-xs text-gray-400 mt-2">✓ Cliente inscrite sur le site</p>
@@ -268,7 +268,7 @@ export function OrderDetailForm({ initial }: { initial: OrderData }) {
           outline: none;
           transition: border-color 0.15s;
         }
-        [data-section="admin"] .input:focus { border-color: #0E4F5E; }
+        [data-section="admin"] .input:focus { border-color: #24BBD0; }
       `}</style>
     </form>
   )
@@ -280,7 +280,7 @@ function Card({
   return (
     <div className="bg-white rounded-2xl shadow-sm p-5">
       <h2 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-        <Icon className="w-4 h-4 text-[#0E4F5E]" />
+        <Icon className="w-4 h-4 text-[#24BBD0]" />
         {title}
       </h2>
       <div className="space-y-3">{children}</div>

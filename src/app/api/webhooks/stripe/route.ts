@@ -128,7 +128,7 @@ async function sendCustomerEmail({
     to:   [email],
     subject: `Confirmation de votre commande #${orderId.slice(-8).toUpperCase()}`,
     html: `
-      <div style="font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:560px;margin:auto;color:#0E4F5E">
+      <div style="font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:560px;margin:auto;color:#24BBD0">
         <div style="background:#24BBD0;color:white;padding:32px 24px;text-align:center">
           <h1 style="margin:0;font-weight:300;font-size:24px">Merci pour votre commande !</h1>
         </div>
@@ -163,7 +163,7 @@ async function sendAdminEmail({
     replyTo: email,
     subject: `🎉 Nouvelle commande — ${(totalCents/100).toFixed(2)} € — #${orderId.slice(-8).toUpperCase()}`,
     html: `
-      <div style="font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:560px;margin:auto;color:#0E4F5E">
+      <div style="font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:560px;margin:auto;color:#24BBD0">
         <h1 style="margin:0 0 16px 0">Nouvelle commande</h1>
         <p><strong>Numéro :</strong> #${orderId.slice(-8).toUpperCase()}</p>
         <p><strong>Cliente :</strong> ${escape(name)} &lt;${escape(email)}&gt;</p>

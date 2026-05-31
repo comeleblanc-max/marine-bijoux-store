@@ -131,7 +131,7 @@ async function sendShippedEmail(order: OrderForEmail, carrier: string, trackingN
     to:   [order.email],
     subject: `📦 Votre commande #${orderShortId} a été expédiée !`,
     html: `
-      <div style="font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:560px;margin:auto;color:#0E4F5E">
+      <div style="font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:560px;margin:auto;color:#24BBD0">
         <div style="background:#24BBD0;color:white;padding:32px 24px;text-align:center">
           <h1 style="margin:0;font-weight:300;font-size:24px">Votre colis est en route 📦</h1>
         </div>
@@ -144,7 +144,7 @@ async function sendShippedEmail(order: OrderForEmail, carrier: string, trackingN
               <p style="margin:0 0 12px 0;font-weight:600">${escapeHtml(carrierName)}</p>
               <p style="margin:0 0 6px 0;font-size:13px;color:#6B6B6B">Numéro de suivi</p>
               <p style="margin:0 0 16px 0;font-family:monospace;font-size:15px;letter-spacing:1px">${escapeHtml(trackingNumber)}</p>
-              ${trackingUrl ? `<a href="${trackingUrl}" style="display:inline-block;background:#0E4F5E;color:white;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:500">Suivre mon colis →</a>` : ''}
+              ${trackingUrl ? `<a href="${trackingUrl}" style="display:inline-block;background:#24BBD0;color:white;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:500">Suivre mon colis →</a>` : ''}
             </div>
           ` : ''}
           <p style="margin:0 0 16px 0">Récap de votre commande :</p>
