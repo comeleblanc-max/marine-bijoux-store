@@ -149,7 +149,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
               value={form.hero.titleItalic}
               onChange={(e) => setForm({ ...form, hero: { ...form.hero, titleItalic: e.target.value } })}
               className="input"
-              placeholder="au creux de la peau."
+              placeholder="à fleur de peau."
             />
           </Field>
         </div>

@@ -47,7 +47,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   hero: {
     eyebrow:      '🐚 Collection — Été 2026 ✨',
     title:        "La douceur de l'été",
-    titleItalic:  'au creux de la peau.',
+    titleItalic:  'à fleur de peau.',
     description:  "Bijoux en acier inoxydable, conçus pour durer. Inspirés par le soleil, la mer, et les après-midis d'été qui ne finissent jamais.",
     ctaPrimary:   'Découvrir la collection',
     ctaSecondary: 'Notre histoire',
