@@ -2,7 +2,6 @@ import { Hero } from '@/components/home/Hero'
 import { CategoryShowcase } from '@/components/home/CategoryShowcase'
 import { ReassuranceBar } from '@/components/home/ReassuranceBar'
 import { ProductRow } from '@/components/product/ProductRow'
-import { Testimonials } from '@/components/home/Testimonials'
 import { NewsletterBanner } from '@/components/home/NewsletterBanner'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { db } from '@/lib/db'
@@ -113,8 +112,6 @@ export default async function HomePage() {
         products={newArrivals}
         href="/collections/all"
       />
-
-      <Testimonials />
 
       <NewsletterBanner />
     </>
