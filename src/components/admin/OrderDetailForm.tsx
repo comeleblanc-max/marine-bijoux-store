@@ -256,20 +256,6 @@ export function OrderDetailForm({ initial }: { initial: OrderData }) {
           </Card>
         </div>
       </div>
-
-      <style jsx global>{`
-        [data-section="admin"] .input {
-          width: 100%;
-          padding: 0.625rem 0.875rem;
-          border: 1px solid #e5e7eb;
-          border-radius: 0.625rem;
-          background: white;
-          font-size: 0.875rem;
-          outline: none;
-          transition: border-color 0.15s;
-        }
-        [data-section="admin"] .input:focus { border-color: #24BBD0; }
-      `}</style>
     </form>
   )
 }
@@ -278,7 +264,7 @@ function Card({
   title, icon: Icon, children,
 }: { title: string; icon: typeof Truck; children: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-5">
+    <div className="admin-card p-5">
       <h2 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
         <Icon className="w-4 h-4 text-[#0E4F5E]" />
         {title}

@@ -2,6 +2,7 @@ import { Package, ShoppingBag, Users, TrendingUp, Star, AlertCircle } from 'luci
 import { db } from '@/lib/db'
 import Link from 'next/link'
 import { RevenueChart } from '@/components/admin/RevenueChart'
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 
 export const dynamic = 'force-dynamic'
 
@@ -77,30 +78,22 @@ export default async function AdminDashboard() {
 
   return (
     <div className="space-y-6 max-w-6xl">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-playfair)' }}>
-            Tableau de bord
-          </h1>
-          <p className="text-sm text-gray-500 mt-1">Bienvenue, Marine 👋</p>
-        </div>
+      <AdminPageHeader title="Tableau de bord" subtitle="Bienvenue, Marine 👋">
         {pendingReviewsCount > 0 && (
           <Link
             href="/admin/reviews"
             className="inline-flex items-center gap-2 bg-amber-50 hover:bg-amber-100 text-amber-700 px-3.5 py-2 rounded-xl text-xs font-medium transition-colors border border-amber-200"
           >
             <AlertCircle className="w-4 h-4" />
-            <span>
-              {pendingReviewsCount} avis en attente
-            </span>
+            <span>{pendingReviewsCount} avis en attente</span>
           </Link>
         )}
-      </div>
+      </AdminPageHeader>
 
       {/* Stats cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, idx) => (
-          <div key={stat.label} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div key={stat.label} className="admin-card p-5">
             <div className="flex items-start justify-between mb-3">
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${stat.color}`}>
                 <stat.icon className="w-5 h-5" />
@@ -118,7 +111,7 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Graphique revenus 30 derniers jours */}
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+      <div className="admin-card p-5 sm:p-6">
         <div className="flex items-center justify-between mb-5">
           <div>
             <h2 className="font-semibold text-gray-900">Revenus sur 30 jours</h2>
@@ -130,7 +123,7 @@ export default async function AdminDashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Commandes récentes */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="admin-card overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <h2 className="font-semibold text-gray-900">Commandes récentes</h2>
             <Link href="/admin/orders" className="text-sm text-[#D4AF37] hover:underline">
@@ -161,7 +154,7 @@ export default async function AdminDashboard() {
         </div>
 
         {/* Dernières clientes */}
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+        <div className="admin-card overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <h2 className="font-semibold text-gray-900">Dernières clientes</h2>
             <Link href="/admin/customers" className="text-sm text-[#D4AF37] hover:underline">
@@ -210,7 +203,7 @@ function QuickLink({ href, icon: Icon, label }: { href: string; icon: typeof Pac
   return (
     <Link
       href={href}
-      className="bg-white border border-gray-100 hover:border-[#D4AF37] hover:shadow-md rounded-xl p-4 transition-all group"
+      className="admin-card hover:border-[#D4AF37] hover:shadow-md p-4 transition-all group"
     >
       <Icon className="w-5 h-5 text-[#0E4F5E] group-hover:text-[#D4AF37] transition-colors mb-2" />
       <p className="text-xs font-medium text-gray-700">{label}</p>

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { db } from '@/lib/db'
 import { ShoppingBag, ChevronRight } from 'lucide-react'
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 
 export const dynamic = 'force-dynamic'
 
@@ -24,24 +25,20 @@ export default async function AdminOrders() {
   })
 
   return (
-    <div className="space-y-6 max-w-6xl">
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-playfair)' }}>
-          Commandes
-        </h1>
-        <p className="text-sm text-gray-500 mt-1">
-          {orders.length} {orders.length > 1 ? 'commandes' : 'commande'}
-        </p>
-      </div>
+    <div className="max-w-6xl">
+      <AdminPageHeader
+        title="Commandes"
+        subtitle={`${orders.length} ${orders.length > 1 ? 'commandes' : 'commande'}`}
+      />
 
       {orders.length === 0 ? (
-        <div className="bg-white rounded-2xl p-12 shadow-sm text-center">
+        <div className="admin-card p-12 text-center">
           <ShoppingBag className="w-10 h-10 mx-auto mb-3 text-gray-200" />
           <p className="text-gray-400">Aucune commande pour le moment.</p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-          <table className="w-full text-sm">
+        <div className="admin-card overflow-x-auto">
+          <table className="w-full text-sm min-w-[720px]">
             <thead className="bg-gray-50 text-left text-xs uppercase tracking-wider text-gray-500">
               <tr>
                 <th className="px-6 py-3">Numéro</th>
