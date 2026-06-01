@@ -63,8 +63,8 @@ export function ProductsTable({ products }: { products: Product[] }) {
       </div>
 
       {/* Tableau */}
-      <div className="bg-white rounded-2xl shadow-sm overflow-hidden mt-6">
-        <table className="w-full">
+      <div className="admin-card overflow-x-auto mt-6">
+        <table className="w-full min-w-[640px]">
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50/50">
               <th className="text-left px-6 py-3 text-xs font-semibold uppercase tracking-wider text-gray-500">Produit</th>

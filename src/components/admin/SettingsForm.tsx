@@ -269,7 +269,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
       )}
 
       {/* BOUTON SAUVER STICKY EN BAS */}
-      <div className="sticky bottom-0 -mx-8 px-8 py-4 bg-white/90 backdrop-blur border-t border-gray-200 flex justify-end gap-3">
+      <div className="sticky bottom-0 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 py-4 bg-white/90 backdrop-blur border-t border-gray-200 flex justify-end gap-3">
         <button
           type="submit"
           disabled={saving}
@@ -279,29 +279,13 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
           {saving ? 'Enregistrement…' : 'Enregistrer tout'}
         </button>
       </div>
-
-      <style jsx global>{`
-        [data-section="admin"] .input {
-          width: 100%;
-          padding: 0.625rem 0.875rem;
-          border: 1px solid #e5e7eb;
-          border-radius: 0.625rem;
-          background: white;
-          font-size: 0.875rem;
-          outline: none;
-          transition: border-color 0.15s;
-        }
-        [data-section="admin"] .input:focus {
-          border-color: #24BBD0;
-        }
-      `}</style>
     </form>
   )
 }
 
 function Card({ title, desc, children }: { title: string; desc?: string; children: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-6">
+    <div className="admin-card p-5 sm:p-6">
       <h2 className="font-semibold text-gray-900">{title}</h2>
       {desc && <p className="text-xs text-gray-500 mt-1 mb-4">{desc}</p>}
       <div className="space-y-4 mt-3">{children}</div>

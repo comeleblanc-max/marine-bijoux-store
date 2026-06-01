@@ -4,8 +4,9 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Star, Check, X, Trash2, MessageSquare, Eye, ExternalLink } from 'lucide-react'
+import { Star, Check, Trash2, MessageSquare, Eye, ExternalLink } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 
 interface ReviewItem {
   id:        string
@@ -68,20 +69,14 @@ export function ReviewsModeration({ initial }: { initial: ReviewItem[] }) {
   }
 
   return (
-    <div className="space-y-6 max-w-5xl">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-playfair)' }}>
-            Avis clients
-          </h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Modère les avis avant qu&apos;ils ne soient publiés sur le site.
-          </p>
-        </div>
-      </div>
+    <div className="max-w-5xl">
+      <AdminPageHeader
+        title="Avis clients"
+        subtitle="Modère les avis avant qu'ils ne soient publiés sur le site."
+      />
 
       {/* Onglets */}
-      <div className="flex gap-2 bg-gray-100 p-1 rounded-xl w-fit">
+      <div className="flex gap-2 bg-gray-100 p-1 rounded-xl w-fit max-w-full overflow-x-auto scrollbar-hide mb-6">
         <TabBtn active={filter === 'pending'}  onClick={() => setFilter('pending')}  label="En attente"   count={pendingCount}  highlight />
         <TabBtn active={filter === 'approved'} onClick={() => setFilter('approved')} label="Publiés"      count={approvedCount} />
         <TabBtn active={filter === 'all'}      onClick={() => setFilter('all')}      label="Tous"         count={items.length} />
@@ -89,7 +84,7 @@ export function ReviewsModeration({ initial }: { initial: ReviewItem[] }) {
 
       {/* Liste */}
       {filtered.length === 0 ? (
-        <div className="bg-white rounded-2xl p-12 shadow-sm text-center">
+        <div className="admin-card p-12 text-center">
           <MessageSquare className="w-10 h-10 mx-auto mb-3 text-gray-200" strokeWidth={1.2} />
           <p className="text-gray-400">
             {filter === 'pending'  ? '✨ Pas d\'avis en attente — tout est à jour.'
@@ -108,7 +103,7 @@ export function ReviewsModeration({ initial }: { initial: ReviewItem[] }) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="bg-white rounded-2xl p-5 shadow-sm border border-transparent hover:border-gray-200 transition-colors"
+                className="admin-card p-5 hover:border-gray-200 transition-colors"
               >
                 <div className="flex items-start gap-4">
                   {/* Photo produit */}

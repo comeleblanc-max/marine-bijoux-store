@@ -96,3 +96,50 @@
 [data-section="admin"] input,
 [data-section="admin"] textarea,
 [data-section="admin"] select { cursor: text; }
+
+/* ──────────────────────────────────────────────────────────────
+   Admin — système d'UI partagé (cartes, champs, labels)
+   Centralisé ici pour que tous les formulaires partagent le même
+   rendu, plutôt que de redéfinir .input dans chaque composant.
+   ────────────────────────────────────────────────────────────── */
+[data-section="admin"] .admin-card {
+  background: #fff;
+  border: 1px solid #f3f4f6;
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(16, 79, 94, 0.04), 0 1px 3px rgba(16, 79, 94, 0.03);
+}
+
+[data-section="admin"] .admin-label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.375rem;
+}
+
+[data-section="admin"] .input {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.625rem;
+  background: #fff;
+  font-size: 0.875rem;
+  color: #111827;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+[data-section="admin"] .input::placeholder { color: #9ca3af; }
+[data-section="admin"] .input:focus {
+  border-color: #24BBD0;
+  box-shadow: 0 0 0 3px rgba(36, 187, 208, 0.12);
+}
+[data-section="admin"] textarea.input { resize: vertical; min-height: 4.5rem; }
+
+/* Le bandeau store a un cadrage par défaut ; sur admin on neutralise
+   l'anneau doré global des inputs au profit du turquoise ci-dessus. */
+[data-section="admin"] input:focus,
+[data-section="admin"] textarea:focus,
+[data-section="admin"] select:focus { box-shadow: none; }
+[data-section="admin"] .input:focus {
+  box-shadow: 0 0 0 3px rgba(36, 187, 208, 0.12);
+}

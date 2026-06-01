@@ -323,30 +323,13 @@ export function ProductForm({ initial, mode }: { initial: ProductFormData; mode:
           {saving ? 'Enregistrement…' : 'Enregistrer'}
         </button>
       </div>
-
-      {/* Styles utilitaires pour ce formulaire uniquement */}
-      <style jsx global>{`
-        [data-section="admin"] .input {
-          width: 100%;
-          padding: 0.625rem 0.875rem;
-          border: 1px solid #e5e7eb;
-          border-radius: 0.625rem;
-          background: white;
-          font-size: 0.875rem;
-          outline: none;
-          transition: border-color 0.15s;
-        }
-        [data-section="admin"] .input:focus {
-          border-color: #24BBD0;
-        }
-      `}</style>
     </form>
   )
 }
 
 function Card({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-6">
+    <div className="admin-card p-5 sm:p-6">
       <h2 className="font-semibold text-gray-900 mb-4">{title}</h2>
       <div className="space-y-4">{children}</div>
     </div>

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Plus } from 'lucide-react'
 import { db } from '@/lib/db'
 import { ProductsTable } from '@/components/admin/ProductsTable'
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 
 export const dynamic = 'force-dynamic'
 
@@ -25,24 +26,19 @@ export default async function AdminProductsPage() {
   }))
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-playfair)' }}>
-            Produits
-          </h1>
-          <p className="text-sm text-gray-500 mt-1">
-            {data.length} produit{data.length > 1 ? 's' : ''} en boutique
-          </p>
-        </div>
+    <div className="max-w-6xl">
+      <AdminPageHeader
+        title="Produits"
+        subtitle={`${data.length} produit${data.length > 1 ? 's' : ''} en boutique`}
+      >
         <Link
           href="/admin/products/new"
-          className="flex items-center gap-2 bg-[#24BBD0] text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-[#24BBD0]/90 transition-colors"
+          className="inline-flex items-center gap-2 bg-[#24BBD0] text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-[#1A9AAD] transition-colors"
         >
           <Plus className="w-4 h-4" />
           Ajouter un produit
         </Link>
-      </div>
+      </AdminPageHeader>
 
       <ProductsTable products={data} />
     </div>
