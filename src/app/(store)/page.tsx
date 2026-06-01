@@ -3,6 +3,7 @@ import { CategoryShowcase } from '@/components/home/CategoryShowcase'
 import { ReassuranceBar } from '@/components/home/ReassuranceBar'
 import { ProductRow } from '@/components/product/ProductRow'
 import { NewsletterBanner } from '@/components/home/NewsletterBanner'
+import { HomeReviewsBand } from '@/components/home/HomeReviewsBand'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { db } from '@/lib/db'
 import { serializeProducts } from '@/lib/serialize'
@@ -15,7 +16,7 @@ const BASE = process.env.NEXT_PUBLIC_BASE_URL || 'https://marineetladouceurdelet
 export default async function HomePage() {
   /* Lecture des produits depuis la base de données */
   const settings = await getSettings()
-  const [bestsellersRaw, newArrivalsRaw, lumiereDeteRaw, tileSource] = await Promise.all([
+  const [bestsellersRaw, newArrivalsRaw, lumiereDeteRaw, tileSource, reviewAgg] = await Promise.all([
     db.product.findMany({
       where:   { featured: true, inStock: true },
       orderBy: { createdAt: 'desc' },
@@ -34,7 +35,15 @@ export default async function HomePage() {
       select: { category: true, collection: true, images: true },
       orderBy: { createdAt: 'desc' },
     }),
+    db.review.aggregate({
+      where:  { approved: true },
+      _avg:   { rating: true },
+      _count: { _all: true },
+    }),
   ])
+
+  const reviewAvg   = reviewAgg._avg.rating   ?? 0
+  const reviewCount = reviewAgg._count._all   ?? 0
 
   const bestsellers = serializeProducts(bestsellersRaw)
   const newArrivals = serializeProducts(newArrivalsRaw)
@@ -112,6 +121,8 @@ export default async function HomePage() {
         products={newArrivals}
         href="/collections/all"
       />
+
+      <HomeReviewsBand average={reviewAvg} count={reviewCount} />
 
       <NewsletterBanner />
     </>
