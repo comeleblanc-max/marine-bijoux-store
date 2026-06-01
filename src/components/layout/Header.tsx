@@ -96,7 +96,7 @@ export function Header() {
                 width={927}
                 height={955}
                 priority
-                className="h-20 lg:h-28 w-auto object-contain"
+                className="h-14 lg:h-20 w-auto object-contain"
               />
             </Link>
 
