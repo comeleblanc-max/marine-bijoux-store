@@ -54,27 +54,37 @@ export function CartDrawer() {
               </button>
             </div>
 
-            {/* Barre livraison */}
+            {/* Barre livraison — plus visible, dégradée, animation */}
             {cartTotal > 0 && (
-              <div className="px-6 py-4 bg-[#FAF5EA] border-b border-[#E8E2D5]">
+              <div className="px-6 py-4 bg-gradient-to-br from-[#FAF5EA] to-[#F2E5CC] border-b border-[#E8E2D5]">
                 {remaining > 0 ? (
                   <>
-                    <p className="text-xs text-[#0E4F5E] mb-2">
-                      Plus que <strong>{formatPrice(remaining)}</strong> pour la livraison offerte
-                    </p>
-                    <div className="h-px bg-[#E8E2D5] relative overflow-hidden">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-xs text-[#0E4F5E]">
+                        🎁 Plus que <strong className="text-[#D4AF37]">{formatPrice(remaining)}</strong> pour la livraison offerte !
+                      </p>
+                      <span className="text-[10px] text-[#6B6B6B] font-medium">
+                        {Math.round(progress)}%
+                      </span>
+                    </div>
+                    <div className="h-1.5 bg-white/70 rounded-full relative overflow-hidden">
                       <motion.div
-                        className="absolute left-0 top-0 bottom-0 bg-[#D4AF37]"
+                        className="absolute left-0 top-0 bottom-0 bg-gradient-to-r from-[#D4AF37] to-[#24BBD0] rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: `${progress}%` }}
-                        transition={{ duration: 0.6, ease: EASE }}
+                        transition={{ duration: 0.7, ease: EASE }}
                       />
                     </div>
                   </>
                 ) : (
-                  <p className="text-xs text-[#D4AF37] font-medium tracking-wide">
-                    ✦ Livraison offerte
-                  </p>
+                  <motion.p
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: 'spring', stiffness: 250, damping: 18 }}
+                    className="text-sm text-[#0E4F5E] font-medium text-center"
+                  >
+                    🎉 <span className="text-[#D4AF37]">Livraison offerte</span> débloquée !
+                  </motion.p>
                 )}
               </div>
             )}
