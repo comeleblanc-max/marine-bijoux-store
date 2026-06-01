@@ -16,6 +16,7 @@ const COL_SHOP = [
 const COL_INFO = [
   { label: 'Notre histoire', href: '/pages/a-propos' },
   { label: 'Le Journal',     href: '/blog' },
+  { label: 'Avis clients',   href: '/avis' },
   { label: 'Entretien',      href: '/pages/entretien' },
   { label: 'FAQ',            href: '/pages/faq' },
   { label: 'Mon compte',     href: '/account' },
