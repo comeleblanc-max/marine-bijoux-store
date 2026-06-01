@@ -28,7 +28,7 @@ export function ProductView({ product, related }: { product: Product; related: P
   /* Note moyenne réelle depuis l'API */
   const [reviewStats, setReviewStats] = useState<{ average: number; count: number }>({ average: 0, count: 0 })
   useEffect(() => {
-    fetch(`/api/products/${product.slug}/reviews`)
+    fetch(`/api/products/${product.slug}/reviews`, { cache: 'no-store' })
       .then((r) => r.json())
       .then((d) => setReviewStats({ average: d.average ?? 0, count: d.count ?? 0 }))
       .catch(() => {})

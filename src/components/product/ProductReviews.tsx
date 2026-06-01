@@ -32,7 +32,7 @@ export function ProductReviews({ productSlug }: Props) {
   const [msg, setMsg]       = useState<{ ok: boolean; text: string } | null>(null)
 
   useEffect(() => {
-    fetch(`/api/products/${productSlug}/reviews`)
+    fetch(`/api/products/${productSlug}/reviews`, { cache: 'no-store' })
       .then((r) => r.json())
       .then((d) => { setData(d); setLoading(false) })
       .catch(() => setLoading(false))
