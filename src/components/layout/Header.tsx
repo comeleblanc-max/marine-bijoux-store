@@ -91,10 +91,10 @@ export function Header() {
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
             >
               <Image
-                src="/logo-marine.png"
+                src="/logo-marine-transparent.png"
                 alt="Marine et la douceur de l'été"
-                width={300}
-                height={300}
+                width={927}
+                height={955}
                 priority
                 className="h-20 lg:h-28 w-auto object-contain"
               />
