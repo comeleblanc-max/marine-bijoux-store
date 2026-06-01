@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Heart, Plus, Minus, Truck, ShieldCheck, RefreshCw,
@@ -13,6 +13,7 @@ import { formatPrice } from '@/lib/utils'
 import { useCart } from '@/store/cart'
 import { useWishlist } from '@/hooks/useWishlist'
 import { ProductRow } from '@/components/product/ProductRow'
+import { ProductReviews } from '@/components/product/ProductReviews'
 import { celebrate } from '@/lib/confetti'
 
 const EASE = [0.22, 1, 0.36, 1] as const
@@ -23,6 +24,15 @@ export function ProductView({ product, related }: { product: Product; related: P
   const { addItem, openCart } = useCart()
   const { toggle, has }       = useWishlist()
   const wished = has(product.id)
+
+  /* Note moyenne réelle depuis l'API */
+  const [reviewStats, setReviewStats] = useState<{ average: number; count: number }>({ average: 0, count: 0 })
+  useEffect(() => {
+    fetch(`/api/products/${product.slug}/reviews`)
+      .then((r) => r.json())
+      .then((d) => setReviewStats({ average: d.average ?? 0, count: d.count ?? 0 }))
+      .catch(() => {})
+  }, [product.slug])
 
   const handleAdd = (e?: React.MouseEvent<HTMLButtonElement>) => {
     addItem({
@@ -109,11 +119,23 @@ export function ProductView({ product, related }: { product: Product; related: P
               {/* Étoiles */}
               <div className="flex items-center gap-2 mb-5">
                 <div className="flex gap-0.5">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-3.5 h-3.5 fill-[#D4AF37] text-[#D4AF37]" />
-                  ))}
+                  {[1, 2, 3, 4, 5].map((s) => {
+                    const isFilled = reviewStats.count > 0
+                      ? s <= Math.round(reviewStats.average)
+                      : true /* placeholder visuel quand pas encore d'avis */
+                    return (
+                      <Star
+                        key={s}
+                        className={`w-3.5 h-3.5 ${isFilled ? 'fill-[#D4AF37] text-[#D4AF37]' : 'text-[#E8E2D5]'}`}
+                      />
+                    )
+                  })}
                 </div>
-                <span className="text-xs text-[#6B6B6B]">(24 avis)</span>
+                <a href="#avis" className="text-xs text-[#6B6B6B] hover:text-[#0E4F5E]">
+                  {reviewStats.count > 0
+                    ? `${reviewStats.average.toFixed(1)} · ${reviewStats.count} avis`
+                    : 'Aucun avis · Soyez la première'}
+                </a>
               </div>
 
               {/* Prix */}
@@ -218,9 +240,14 @@ export function ProductView({ product, related }: { product: Product; related: P
         </div>
       </section>
 
+      {/* Avis clients */}
+      <div id="avis">
+        <ProductReviews productSlug={product.slug} />
+      </div>
+
       {/* Produits liés */}
       {related.length > 0 && (
-        <div className="bg-[#FAF5EA]">
+        <div className="bg-white">
           <ProductRow
             eyebrow="Vous aimerez aussi"
             title="Dans le même esprit"

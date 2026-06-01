@@ -10,6 +10,7 @@ import {
   Settings,
   LogOut,
   Tag,
+  Star,
 } from 'lucide-react'
 import { cn } from '@/utils/cn'
 
@@ -24,6 +25,7 @@ const NAV: NavItem[] = [
   { label: 'Dashboard',   href: '/admin',             icon: LayoutDashboard },
   { label: 'Produits',    href: '/admin/products',    icon: Package },
   { label: 'Commandes',   href: '/admin/orders',      icon: ShoppingBag },
+  { label: 'Avis',        href: '/admin/reviews',     icon: Star },
   { label: 'Clientes',    href: '/admin/customers',   icon: Users },
   { label: 'Paramètres',  href: '/admin/settings',    icon: Settings },
   { label: 'Collections', href: '/admin/collections', icon: Grid3X3, comingSoon: true },
@@ -33,7 +35,7 @@ const NAV: NavItem[] = [
 export function AdminSidebar() {
   const pathname = usePathname()
   return (
-    <aside className="w-60 bg-[#24BBD0] text-white flex flex-col">
+    <aside className="w-60 bg-[#0E4F5E] text-white flex flex-col">
       <div className="p-6 border-b border-white/10">
         <h1 className="font-bold text-lg" style={{ fontFamily: 'var(--font-playfair)' }}>
           Marine
