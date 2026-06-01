@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db'
 
+/** Toujours frais — un avis fraîchement approuvé doit apparaître sans délai. */
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 /**
  * GET /api/products/[slug]/reviews
  * Retourne les avis approuvés + la moyenne + le nombre total.
