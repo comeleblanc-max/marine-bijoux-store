@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
@@ -19,6 +19,7 @@ function CheckoutSuccessInner() {
   const search    = useSearchParams()
   const sessionId = search.get('session_id')
   const { clearCart } = useCart()
+  const [orderRef, setOrderRef] = useState<string | null>(null)
 
   /* Vide le panier dès l'arrivée sur la page (paiement validé côté Stripe) */
   useEffect(() => {
@@ -26,17 +27,21 @@ function CheckoutSuccessInner() {
   }, [clearCart])
 
   /* Filet de sécurité : crée la commande côté serveur si le webhook ne l'a
-     pas (encore) fait. Idempotent — aucun doublon possible. */
+     pas (encore) fait. Idempotent — aucun doublon possible.
+     On récupère aussi le VRAI numéro de commande (cohérent avec l'email/admin). */
   useEffect(() => {
     if (!sessionId) return
     fetch('/api/checkout/confirm', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({ sessionId }),
-    }).catch(() => {})
+    })
+      .then((r) => r.json())
+      .then((d) => { if (d?.orderId) setOrderRef(d.orderId.slice(-8).toUpperCase()) })
+      .catch(() => {})
   }, [sessionId])
 
-  const shortId = sessionId ? sessionId.slice(-8).toUpperCase() : 'XXXXXXXX'
+  const shortId = orderRef ?? (sessionId ? sessionId.slice(-8).toUpperCase() : null)
 
   return (
     <section className="min-h-[60vh] bg-white flex items-center justify-center px-4 py-16">
@@ -58,7 +63,7 @@ function CheckoutSuccessInner() {
         <p className="eyebrow mb-3">Confirmation</p>
         <h1 className="text-3xl sm:text-4xl text-[#0E4F5E] mb-4">Merci pour votre commande 🐚</h1>
 
-        {sessionId && (
+        {shortId && (
           <p className="text-sm text-[#6B6B6B] mb-2">
             Référence <strong className="text-[#D4AF37]">#{shortId}</strong>
           </p>
