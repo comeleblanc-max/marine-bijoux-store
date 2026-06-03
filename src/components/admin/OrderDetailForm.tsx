@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, Save, AlertCircle, CheckCircle2, Truck, MapPin, User, Package, Calendar } from 'lucide-react'
+import { ArrowLeft, Save, AlertCircle, CheckCircle2, Truck, MapPin, User, Package, Calendar, Trash2 } from 'lucide-react'
 
 interface OrderData {
   id:              string
@@ -61,6 +61,7 @@ export function OrderDetailForm({ initial }: { initial: OrderData }) {
   const [saving,         setSaving]         = useState(false)
   const [error,          setError]          = useState('')
   const [success,        setSuccess]        = useState(false)
+  const [deleting,       setDeleting]       = useState(false)
 
   const isShipped     = status === 'SHIPPED'
   const wasJustShippedNow = initial.status !== 'SHIPPED' && status === 'SHIPPED'
@@ -92,6 +93,26 @@ export function OrderDetailForm({ initial }: { initial: OrderData }) {
     } catch {
       setError('Erreur réseau.')
       setSaving(false)
+    }
+  }
+
+  async function handleDelete() {
+    if (!confirm(`Supprimer définitivement la commande #${orderNumber} ?\n\nÀ utiliser pour les commandes de test. Cette action est irréversible et ne rembourse pas le paiement Stripe.`)) return
+    setDeleting(true)
+    setError('')
+    try {
+      const res = await fetch(`/api/admin/orders/${initial.id}`, { method: 'DELETE' })
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        setError(data.error || 'Erreur lors de la suppression.')
+        setDeleting(false)
+        return
+      }
+      router.push('/admin/orders')
+      router.refresh()
+    } catch {
+      setError('Erreur réseau.')
+      setDeleting(false)
     }
   }
 
@@ -255,6 +276,24 @@ export function OrderDetailForm({ initial }: { initial: OrderData }) {
             />
           </Card>
         </div>
+      </div>
+
+      {/* Zone danger — supprimer (utile pour les commandes de test) */}
+      <div className="admin-card p-5 border-red-100">
+        <h2 className="font-semibold text-gray-900 mb-1">Supprimer la commande</h2>
+        <p className="text-xs text-gray-500 mb-4">
+          Retire définitivement cette commande du tableau de bord (pratique pour les commandes de test).
+          Cela ne rembourse pas le paiement Stripe — fais le remboursement séparément si besoin.
+        </p>
+        <button
+          type="button"
+          onClick={handleDelete}
+          disabled={deleting}
+          className="inline-flex items-center gap-2 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors disabled:opacity-50"
+        >
+          <Trash2 className="w-4 h-4" />
+          {deleting ? 'Suppression…' : 'Supprimer cette commande'}
+        </button>
       </div>
     </form>
   )
