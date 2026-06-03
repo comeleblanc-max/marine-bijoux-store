@@ -101,6 +101,26 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
   }
 }
 
+/**
+ * DELETE /api/admin/orders/[id] — supprime définitivement une commande
+ * (et ses articles). Utile pour retirer les commandes de test.
+ * ⚠️ Ne rembourse pas le paiement Stripe — à faire séparément côté Stripe.
+ */
+export async function DELETE(_: Request, { params }: { params: Promise<{ id: string }> }) {
+  if (!(await ensureAdmin())) return NextResponse.json({ error: 'Non autorisée.' }, { status: 401 })
+  const { id } = await params
+  try {
+    await db.$transaction([
+      db.orderItem.deleteMany({ where: { orderId: id } }),
+      db.order.delete({ where: { id } }),
+    ])
+    return NextResponse.json({ ok: true })
+  } catch (err) {
+    console.error('[admin/orders DELETE] erreur :', err)
+    return NextResponse.json({ error: 'Erreur lors de la suppression.' }, { status: 500 })
+  }
+}
+
 type OrderForEmail = {
   id: string
   email: string
