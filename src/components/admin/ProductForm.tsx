@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Save, AlertCircle, Plus, X } from 'lucide-react'
+import { ArrowLeft, Save, AlertCircle, Plus, X, UploadCloud, Loader2 } from 'lucide-react'
 
 interface ProductFormData {
   id?:         string
@@ -40,6 +40,8 @@ export function ProductForm({ initial, mode }: { initial: ProductFormData; mode:
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [newImageUrl, setNewImageUrl] = useState('')
+  const [uploading, setUploading]     = useState(false)
+  const [uploadError, setUploadError] = useState('')
 
   /* Auto-slug à la création depuis le nom */
   function updateName(name: string) {
@@ -62,6 +64,72 @@ export function ProductForm({ initial, mode }: { initial: ProductFormData; mode:
 
   function removeImage(idx: number) {
     setForm({ ...form, images: form.images.filter((_, i) => i !== idx) })
+  }
+
+  /* Redimensionne l'image dans le navigateur (max 2000px, webp) pour
+     un upload léger et rapide — évite d'envoyer une photo de 5 Mo. */
+  async function resizeImage(file: File, maxSize = 2000, quality = 0.85): Promise<Blob> {
+    const dataUrl = await new Promise<string>((resolve, reject) => {
+      const fr = new FileReader()
+      fr.onload  = () => resolve(fr.result as string)
+      fr.onerror = () => reject(new Error('read'))
+      fr.readAsDataURL(file)
+    })
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const i = new window.Image()
+      i.onload  = () => resolve(i)
+      i.onerror = () => reject(new Error('decode'))
+      i.src = dataUrl
+    })
+    let { width, height } = img
+    if (width > maxSize || height > maxSize) {
+      if (width >= height) { height = Math.round((height * maxSize) / width); width = maxSize }
+      else                 { width  = Math.round((width * maxSize) / height); height = maxSize }
+    }
+    const canvas = document.createElement('canvas')
+    canvas.width = width
+    canvas.height = height
+    const ctx = canvas.getContext('2d')
+    if (!ctx) throw new Error('canvas')
+    ctx.drawImage(img, 0, 0, width, height)
+    const blob = await new Promise<Blob | null>((resolve) =>
+      canvas.toBlob(resolve, 'image/webp', quality),
+    )
+    if (!blob) throw new Error('export')
+    return blob
+  }
+
+  async function handleFiles(files: FileList | null) {
+    if (!files || files.length === 0) return
+    setUploading(true)
+    setUploadError('')
+    const uploaded: string[] = []
+    try {
+      for (const file of Array.from(files)) {
+        if (!file.type.startsWith('image/')) continue
+        let body: Blob
+        try {
+          body = await resizeImage(file)
+        } catch {
+          throw new Error(
+            `Impossible de lire « ${file.name} ». Si c'est une photo iPhone (HEIC), exporte-la en JPG.`,
+          )
+        }
+        const fd = new FormData()
+        fd.append('file', body, 'photo.webp')
+        const res  = await fetch('/api/admin/upload', { method: 'POST', body: fd })
+        const data = await res.json().catch(() => ({}))
+        if (!res.ok) throw new Error(data.error || 'Échec du téléversement.')
+        uploaded.push(data.url)
+      }
+      if (uploaded.length) {
+        setForm((f) => ({ ...f, images: [...f.images, ...uploaded] }))
+      }
+    } catch (e) {
+      setUploadError(e instanceof Error ? e.message : 'Erreur lors du téléversement.')
+    } finally {
+      setUploading(false)
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -203,48 +271,97 @@ export function ProductForm({ initial, mode }: { initial: ProductFormData; mode:
 
       {/* PHOTOS */}
       <Card title="Photos">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
-          {form.images.map((img, idx) => (
-            <div key={idx} className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden group">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={img} alt="" className="w-full h-full object-cover" />
-              <button
-                type="button"
-                onClick={() => removeImage(idx)}
-                className="absolute top-2 right-2 w-7 h-7 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity"
-                title="Retirer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          ))}
-          {form.images.length === 0 && (
-            <div className="col-span-full text-center text-xs text-gray-400 py-6">
-              Aucune photo pour le moment.
-            </div>
-          )}
-        </div>
+        {form.images.length > 0 && (
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+            {form.images.map((img, idx) => (
+              <div key={idx} className="relative aspect-square bg-gray-100 rounded-lg overflow-hidden group">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={img} alt="" className="w-full h-full object-cover" />
+                {idx === 0 && (
+                  <span className="absolute bottom-1.5 left-1.5 text-[9px] uppercase tracking-wider bg-[#0E4F5E] text-white px-1.5 py-0.5 rounded">
+                    Principale
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => removeImage(idx)}
+                  className="absolute top-2 right-2 w-7 h-7 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity"
+                  title="Retirer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
 
-        <div className="flex gap-2">
+        {/* Zone de téléversement */}
+        <label
+          className={`flex flex-col items-center justify-center gap-2 border-2 border-dashed rounded-xl px-4 py-8 text-center transition-colors ${
+            uploading
+              ? 'border-[#24BBD0] bg-[#24BBD0]/5 cursor-wait'
+              : 'border-gray-200 hover:border-[#24BBD0] hover:bg-[#24BBD0]/5 cursor-pointer'
+          }`}
+        >
           <input
-            type="url"
-            value={newImageUrl}
-            onChange={(e) => setNewImageUrl(e.target.value)}
-            className="input flex-1"
-            placeholder="https://exemple.com/photo.jpg  OU  /images/products/mon-bijou.jpg"
+            type="file"
+            accept="image/*"
+            multiple
+            disabled={uploading}
+            onChange={(e) => { handleFiles(e.target.files); e.target.value = '' }}
+            className="hidden"
           />
-          <button
-            type="button"
-            onClick={addImage}
-            className="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-            Ajouter
-          </button>
-        </div>
-        <p className="text-[11px] text-gray-400 mt-2">
-          📌 Pour l&apos;instant : colle une URL d&apos;image. L&apos;upload direct de fichiers arrivera bientôt.
-        </p>
+          {uploading ? (
+            <>
+              <Loader2 className="w-7 h-7 text-[#24BBD0] animate-spin" />
+              <p className="text-sm text-[#0E4F5E] font-medium">Téléversement en cours…</p>
+            </>
+          ) : (
+            <>
+              <UploadCloud className="w-7 h-7 text-[#24BBD0]" />
+              <p className="text-sm text-[#0E4F5E] font-medium">Cliquez pour choisir une ou plusieurs photos</p>
+              <p className="text-[11px] text-gray-400">JPG, PNG ou WEBP — depuis votre ordinateur ou téléphone</p>
+            </>
+          )}
+        </label>
+
+        {uploadError && (
+          <div className="flex items-start gap-2 bg-red-50 border border-red-200 rounded-xl px-3 py-2 mt-3">
+            <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+            <p className="text-xs text-red-700">{uploadError}</p>
+          </div>
+        )}
+
+        {form.images.length > 0 && (
+          <p className="text-[11px] text-gray-400 mt-3">
+            💡 La photo marquée « Principale » (la première) est celle affichée dans la boutique.
+            Retirez-la pour en mettre une autre en avant.
+          </p>
+        )}
+
+        {/* Option avancée : coller une URL */}
+        <details className="mt-4 group">
+          <summary className="text-[11px] text-gray-400 cursor-pointer hover:text-gray-600 select-none">
+            Ou coller un lien d&apos;image (avancé)
+          </summary>
+          <div className="flex gap-2 mt-2">
+            <input
+              type="url"
+              value={newImageUrl}
+              onChange={(e) => setNewImageUrl(e.target.value)}
+              className="input flex-1"
+              placeholder="https://exemple.com/photo.jpg"
+            />
+            <button
+              type="button"
+              onClick={addImage}
+              className="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors"
+            >
+              <Plus className="w-4 h-4" />
+              Ajouter
+            </button>
+          </div>
+        </details>
       </Card>
 
       {/* CLASSIFICATION */}
