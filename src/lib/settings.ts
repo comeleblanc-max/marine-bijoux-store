@@ -22,8 +22,9 @@ export interface SiteSettings {
     ctaSecondary: string
   }
   shipping: {
-    freeThreshold: number
-    standardFee:   number
+    freeThreshold: number   // seuil livraison offerte (France)
+    standardFee:   number   // frais France
+    europeFee:     number   // frais Europe (hors France)
     deliveryDays:  string
     returnsDays:   number
   }
@@ -55,6 +56,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   shipping: {
     freeThreshold: 60,
     standardFee:   4.9,
+    europeFee:     9.9,
     deliveryDays:  '2-4 jours ouvrés',
     returnsDays:   14,
   },

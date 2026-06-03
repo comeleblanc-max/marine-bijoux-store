@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { useCart } from '@/store/cart'
 import { X, ShoppingBag, Minus, Plus, Trash2 } from 'lucide-react'
 import Link from 'next/link'
@@ -8,14 +9,29 @@ import { formatPrice } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const EASE = [0.22, 1, 0.36, 1] as const
-const FREE_SHIPPING = 60
 
 export function CartDrawer() {
   const { isOpen, closeCart, items, removeItem, updateQuantity, total, itemCount } = useCart()
   const cartTotal = total()
   const count = itemCount()
-  const remaining = FREE_SHIPPING - cartTotal
-  const progress = Math.min((cartTotal / FREE_SHIPPING) * 100, 100)
+
+  /* Config livraison réelle (depuis l'admin) */
+  const [cfg, setCfg] = useState({ freeThreshold: 60, franceFee: 4.9 })
+  useEffect(() => {
+    fetch('/api/shipping')
+      .then((r) => r.json())
+      .then((d) => {
+        if (d && typeof d.franceFee === 'number') {
+          setCfg({ freeThreshold: d.freeThreshold, franceFee: d.franceFee })
+        }
+      })
+      .catch(() => {})
+  }, [])
+
+  const remaining = cfg.freeThreshold - cartTotal
+  const progress = Math.min((cartTotal / cfg.freeThreshold) * 100, 100)
+  /* Estimation France (la zone exacte est choisie à l'étape commande) */
+  const estShipping = cartTotal >= cfg.freeThreshold ? 0 : cfg.franceFee
 
   return (
     <AnimatePresence>
@@ -171,12 +187,24 @@ export function CartDrawer() {
 
             {/* Pied */}
             {items.length > 0 && (
-              <div className="border-t border-[#E8E2D5] px-6 py-5 space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B]">Sous-total</span>
-                  <span className="text-lg text-[#0E4F5E] font-medium">{formatPrice(cartTotal)}</span>
+              <div className="border-t border-[#E8E2D5] px-6 py-5 space-y-3">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-[#6B6B6B]">Sous-total</span>
+                  <span className="text-[#0E4F5E]">{formatPrice(cartTotal)}</span>
                 </div>
-                <p className="text-[10px] text-[#6B6B6B] -mt-1">Taxes incluses · Livraison calculée à l'étape suivante</p>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-[#6B6B6B]">Livraison <span className="text-[10px]">(France)</span></span>
+                  <span className={estShipping === 0 ? 'text-[#D4AF37] font-medium' : 'text-[#0E4F5E]'}>
+                    {estShipping === 0 ? 'Offerte' : formatPrice(estShipping)}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between pt-2 border-t border-[#E8E2D5]">
+                  <span className="text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B]">Total estimé</span>
+                  <span className="text-lg text-[#0E4F5E] font-medium">{formatPrice(cartTotal + estShipping)}</span>
+                </div>
+                <p className="text-[10px] text-[#6B6B6B]">
+                  Taxes incluses · Europe et destination exacte choisies à l&apos;étape suivante
+                </p>
                 <Link href="/checkout" onClick={closeCart} className="btn-primary w-full">
                   Passer commande
                 </Link>
