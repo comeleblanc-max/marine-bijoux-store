@@ -25,6 +25,17 @@ function CheckoutSuccessInner() {
     clearCart()
   }, [clearCart])
 
+  /* Filet de sécurité : crée la commande côté serveur si le webhook ne l'a
+     pas (encore) fait. Idempotent — aucun doublon possible. */
+  useEffect(() => {
+    if (!sessionId) return
+    fetch('/api/checkout/confirm', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ sessionId }),
+    }).catch(() => {})
+  }, [sessionId])
+
   const shortId = sessionId ? sessionId.slice(-8).toUpperCase() : 'XXXXXXXX'
 
   return (
