@@ -5,6 +5,14 @@ import { auth } from '@/auth'
 import { getSettings } from '@/lib/settings'
 
 /**
+ * Montant minimum facturable par Stripe en EUR : 0,50 €.
+ * Si un prix est en dessous (ex. produit mis à 0,10 € pour un test), on le
+ * remonte automatiquement à ce plancher pour éviter une erreur Stripe.
+ * N'affecte jamais les vrais bijoux (tous > 0,50 €).
+ */
+const STRIPE_MIN_CENTS = 50
+
+/**
  * POST /api/checkout
  *
  * Crée une session Stripe Checkout à partir du panier reçu.
@@ -56,7 +64,8 @@ export async function POST(req: Request) {
       const product = products.find((p) => p.id === item.productId)
       if (!product) continue
 
-      const priceCents = Math.round(Number(product.price) * 100)
+      const rawCents   = Math.round(Number(product.price) * 100)
+      const priceCents = Math.max(rawCents, STRIPE_MIN_CENTS) // plancher Stripe 0,50 €
       const qty        = Math.max(1, Math.min(99, Math.floor(item.quantity)))
 
       lineItems.push({
