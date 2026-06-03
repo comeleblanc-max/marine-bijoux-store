@@ -13,15 +13,31 @@ export default function CheckoutPage() {
   const { items, total } = useCart()
   const cartTotal = total()
 
-  /* Frais de port : seuil de gratuité fixé à 60€ (configurable côté admin) */
-  const shipping = cartTotal >= 60 ? 0 : 4.9
-
+  const [zone, setZone] = useState<'france' | 'europe'>('france')
+  const [cfg, setCfg]   = useState({ freeThreshold: 60, franceFee: 4.9, europeFee: 9.9 })
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState('')
   const [hydrated, setHydrated] = useState(false)
 
   /* Évite le mismatch d'hydratation avec le panier persistant */
   useEffect(() => { setHydrated(true) }, [])
+
+  /* Config livraison réelle (depuis l'admin) */
+  useEffect(() => {
+    fetch('/api/shipping')
+      .then((r) => r.json())
+      .then((d) => {
+        if (d && typeof d.franceFee === 'number') {
+          setCfg({ freeThreshold: d.freeThreshold, franceFee: d.franceFee, europeFee: d.europeFee })
+        }
+      })
+      .catch(() => {})
+  }, [])
+
+  /* Frais de port selon la zone choisie */
+  const shipping = zone === 'france'
+    ? (cartTotal >= cfg.freeThreshold ? 0 : cfg.franceFee)
+    : cfg.europeFee
 
   const handleCheckout = async () => {
     setError('')
@@ -32,6 +48,7 @@ export default function CheckoutPage() {
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
           items: items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
+          zone,
         }),
       })
       const data = await res.json().catch(() => ({}))
@@ -102,13 +119,38 @@ export default function CheckoutPage() {
               </div>
             ))}
           </div>
+          {/* Zone de livraison */}
+          <div className="border-t border-[#E8E2D5] pt-4 mb-4">
+            <p className="text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B] mb-3">Destination</p>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setZone('france')}
+                className={`text-left border px-3 py-2.5 transition-colors ${zone === 'france' ? 'border-[#0E4F5E] bg-[#FAF5EA]' : 'border-[#E8E2D5] hover:border-[#0E4F5E]'}`}
+              >
+                <span className="block text-sm text-[#0E4F5E]">🇫🇷 France</span>
+                <span className="block text-[11px] text-[#6B6B6B]">
+                  {cartTotal >= cfg.freeThreshold ? 'Offerte' : formatPrice(cfg.franceFee)}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setZone('europe')}
+                className={`text-left border px-3 py-2.5 transition-colors ${zone === 'europe' ? 'border-[#0E4F5E] bg-[#FAF5EA]' : 'border-[#E8E2D5] hover:border-[#0E4F5E]'}`}
+              >
+                <span className="block text-sm text-[#0E4F5E]">🇪🇺 Europe</span>
+                <span className="block text-[11px] text-[#6B6B6B]">{formatPrice(cfg.europeFee)}</span>
+              </button>
+            </div>
+          </div>
+
           <div className="border-t border-[#E8E2D5] pt-4 space-y-2 text-sm">
             <div className="flex justify-between text-[#6B6B6B]">
               <span>Sous-total</span>
               <span>{formatPrice(cartTotal)}</span>
             </div>
             <div className="flex justify-between text-[#6B6B6B]">
-              <span>Livraison</span>
+              <span>Livraison ({zone === 'france' ? 'France' : 'Europe'})</span>
               <span className={shipping === 0 ? 'text-[#D4AF37] font-medium' : ''}>
                 {shipping === 0 ? 'Offerte' : formatPrice(shipping)}
               </span>

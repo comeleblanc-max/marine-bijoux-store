@@ -3,6 +3,11 @@ import { stripe } from '@/lib/stripe'
 import { db } from '@/lib/db'
 import { auth } from '@/auth'
 import { getSettings } from '@/lib/settings'
+import { shippingCents, allowedCountries, type ShipZone } from '@/lib/shipping'
+
+/** Type des pays autorisés, dérivé directement de la signature Stripe. */
+type CreateParams = NonNullable<Parameters<typeof stripe.checkout.sessions.create>[0]>
+type AllowedCountries = NonNullable<CreateParams['shipping_address_collection']>['allowed_countries']
 
 /**
  * Montant minimum facturable par Stripe en EUR : 0,50 €.
@@ -29,6 +34,7 @@ export async function POST(req: Request) {
   try {
     const body  = await req.json()
     const items = body.items as Array<{ productId: string; quantity: number }>
+    const zone: ShipZone = body.zone === 'europe' ? 'europe' : 'france'
 
     if (!items?.length) {
       return NextResponse.json({ error: 'Panier vide.' }, { status: 400 })
@@ -91,10 +97,16 @@ export async function POST(req: Request) {
       })
     }
 
-    /* Frais de port (depuis les paramètres) */
+    /* Frais de port selon la zone choisie (France / Europe) */
     const settings = await getSettings()
-    const free     = subtotalCents >= settings.shipping.freeThreshold * 100
-    const shipping = free ? 0 : Math.round(settings.shipping.standardFee * 100)
+    const shipping = shippingCents(zone, subtotalCents, {
+      freeThreshold: settings.shipping.freeThreshold,
+      standardFee:   settings.shipping.standardFee,
+      europeFee:     settings.shipping.europeFee,
+    })
+    const shippingLabel = shipping === 0
+      ? 'Livraison offerte'
+      : zone === 'europe' ? 'Livraison Europe' : 'Livraison France'
 
     /* User connecté ? */
     const session = await auth()
@@ -109,32 +121,22 @@ export async function POST(req: Request) {
       line_items: lineItems,
       currency: 'eur',
       customer_email: email,
-      shipping_address_collection: { allowed_countries: ['FR', 'BE', 'CH', 'LU', 'MC', 'DE', 'IT', 'ES', 'NL'] },
+      shipping_address_collection: {
+        allowed_countries: allowedCountries(zone) as AllowedCountries,
+      },
       phone_number_collection: { enabled: true },
       billing_address_collection: 'auto',
-      shipping_options: shipping > 0
-        ? [{
-            shipping_rate_data: {
-              type: 'fixed_amount',
-              fixed_amount: { amount: shipping, currency: 'eur' },
-              display_name:  'Livraison standard',
-              delivery_estimate: {
-                minimum: { unit: 'business_day', value: 2 },
-                maximum: { unit: 'business_day', value: 4 },
-              },
-            },
-          }]
-        : [{
-            shipping_rate_data: {
-              type: 'fixed_amount',
-              fixed_amount: { amount: 0, currency: 'eur' },
-              display_name:  'Livraison offerte',
-              delivery_estimate: {
-                minimum: { unit: 'business_day', value: 2 },
-                maximum: { unit: 'business_day', value: 4 },
-              },
-            },
-          }],
+      shipping_options: [{
+        shipping_rate_data: {
+          type: 'fixed_amount',
+          fixed_amount: { amount: shipping, currency: 'eur' },
+          display_name:  shippingLabel,
+          delivery_estimate: {
+            minimum: { unit: 'business_day', value: 2 },
+            maximum: { unit: 'business_day', value: zone === 'europe' ? 7 : 4 },
+          },
+        },
+      }],
       automatic_tax: { enabled: false },
       locale: 'fr',
       success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,

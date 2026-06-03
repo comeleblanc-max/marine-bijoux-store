@@ -182,23 +182,32 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
       </Card>
 
       {/* === LIVRAISON === */}
-      <Card title="🚚 Livraison & retours" desc="Affiché sur les fiches produits et la page livraison.">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Field label="Livraison offerte dès (€)">
-            <input
-              type="number"
-              step="0.01"
-              value={form.shipping.freeThreshold}
-              onChange={(e) => setForm({ ...form, shipping: { ...form.shipping, freeThreshold: Number(e.target.value) } })}
-              className="input"
-            />
-          </Field>
-          <Field label="Frais de port standard (€)">
+      <Card title="🚚 Livraison & retours" desc="Tarifs par zone. La livraison offerte (seuil) s'applique à la France.">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Field label="Frais France (€)">
             <input
               type="number"
               step="0.01"
               value={form.shipping.standardFee}
               onChange={(e) => setForm({ ...form, shipping: { ...form.shipping, standardFee: Number(e.target.value) } })}
+              className="input"
+            />
+          </Field>
+          <Field label="Frais Europe (€)">
+            <input
+              type="number"
+              step="0.01"
+              value={form.shipping.europeFee}
+              onChange={(e) => setForm({ ...form, shipping: { ...form.shipping, europeFee: Number(e.target.value) } })}
+              className="input"
+            />
+          </Field>
+          <Field label="Offerte dès (€, France)">
+            <input
+              type="number"
+              step="0.01"
+              value={form.shipping.freeThreshold}
+              onChange={(e) => setForm({ ...form, shipping: { ...form.shipping, freeThreshold: Number(e.target.value) } })}
               className="input"
             />
           </Field>
