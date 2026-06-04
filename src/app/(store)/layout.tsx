@@ -9,10 +9,21 @@ import { CustomCursor } from '@/components/ui/CustomCursor'
 import { FloatingParticles } from '@/components/ui/FloatingParticles'
 import { ScrollToTop } from '@/components/ui/ScrollToTop'
 import { getSettings } from '@/lib/settings'
+import { cookies } from 'next/headers'
+import { isLaunched, PREVIEW_COOKIE, LAUNCH_DATE } from '@/lib/launch'
+import { ComingSoon } from '@/components/ComingSoon'
 
 export const dynamic = 'force-dynamic'
 
 export default async function StoreLayout({ children }: { children: React.ReactNode }) {
+  /* Verrou "Bientôt disponible" — actif tant que le lancement n'a pas eu lieu
+     et qu'aucun code d'accès anticipé n'a été validé. L'admin et les API
+     (paiements, webhooks…) ne sont PAS concernés, ils continuent de tourner. */
+  if (!isLaunched()) {
+    const unlocked = (await cookies()).get(PREVIEW_COOKIE)?.value === '1'
+    if (!unlocked) return <ComingSoon targetIso={LAUNCH_DATE} />
+  }
+
   const settings = await getSettings()
 
   return (
