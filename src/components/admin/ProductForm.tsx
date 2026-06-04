@@ -68,7 +68,7 @@ export function ProductForm({ initial, mode }: { initial: ProductFormData; mode:
 
   /* Redimensionne l'image dans le navigateur (max 2000px, webp) pour
      un upload léger et rapide — évite d'envoyer une photo de 5 Mo. */
-  async function resizeImage(file: File, maxSize = 2000, quality = 0.85): Promise<Blob> {
+  async function resizeImage(file: Blob, maxSize = 2000, quality = 0.85): Promise<Blob> {
     const dataUrl = await new Promise<string>((resolve, reject) => {
       const fr = new FileReader()
       fr.onload  = () => resolve(fr.result as string)
@@ -106,14 +106,26 @@ export function ProductForm({ initial, mode }: { initial: ProductFormData; mode:
     const uploaded: string[] = []
     try {
       for (const file of Array.from(files)) {
-        if (!file.type.startsWith('image/')) continue
+        const isHeic = /\.hei[cf]$/i.test(file.name) || /heic|heif/i.test(file.type)
+        if (!file.type.startsWith('image/') && !isHeic) continue
+
+        /* Photo iPhone (HEIC) → conversion JPEG dans le navigateur */
+        let source: Blob = file
+        if (isHeic) {
+          try {
+            const heic2any = (await import('heic2any')).default
+            const conv = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.92 })
+            source = (Array.isArray(conv) ? conv[0] : conv) as Blob
+          } catch {
+            throw new Error(`Impossible de convertir « ${file.name} ». Réessaie, ou exporte-la en JPG.`)
+          }
+        }
+
         let body: Blob
         try {
-          body = await resizeImage(file)
+          body = await resizeImage(source)
         } catch {
-          throw new Error(
-            `Impossible de lire « ${file.name} ». Si c'est une photo iPhone (HEIC), exporte-la en JPG.`,
-          )
+          throw new Error(`Impossible de lire « ${file.name} ». Essaie une autre photo (JPG/PNG).`)
         }
         const fd = new FormData()
         fd.append('file', body, 'photo.webp')
@@ -305,7 +317,7 @@ export function ProductForm({ initial, mode }: { initial: ProductFormData; mode:
         >
           <input
             type="file"
-            accept="image/*"
+            accept="image/*,.heic,.heif"
             multiple
             disabled={uploading}
             onChange={(e) => { handleFiles(e.target.files); e.target.value = '' }}
