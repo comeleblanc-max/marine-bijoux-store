@@ -31,6 +31,7 @@ export function Hero({
         alt="Marine — collection bijoux d'été"
         fill
         priority
+        quality={90}
         className="object-cover object-[70%_center] sm:object-center"
         sizes="100vw"
       />
