@@ -19,7 +19,9 @@ const EXT: Record<string, string> = {
 /**
  * POST /api/admin/upload  (multipart/form-data, champ "file")
  * Téléverse une image produit sur Vercel Blob et renvoie son URL public.
- * Le fichier est déjà redimensionné côté client (≈ webp < 1 Mo).
+ *
+ * - Images normales : déjà redimensionnées en webp côté client → stockées telles quelles.
+ * - Photos iPhone HEIC : converties côté serveur (heic-convert → JPEG → sharp → webp).
  */
 export async function POST(req: Request) {
   if (!(await ensureAdmin())) {
@@ -40,20 +42,40 @@ export async function POST(req: Request) {
     if (!(file instanceof File)) {
       return NextResponse.json({ error: 'Aucun fichier reçu.' }, { status: 400 })
     }
-    if (!file.type.startsWith('image/')) {
+    if (file.size > 12 * 1024 * 1024) {
+      return NextResponse.json({ error: 'Image trop lourde (max 12 Mo).' }, { status: 413 })
+    }
+
+    const lowerName = (file.name || '').toLowerCase()
+    const isHeic =
+      file.type.includes('heic') || file.type.includes('heif') || /\.hei[cf]$/.test(lowerName)
+
+    let body: Blob | Buffer = file
+    let contentType = file.type
+    let ext = EXT[file.type] ?? 'jpg'
+
+    if (isHeic) {
+      /* Décode le HEIC en JPEG, puis redimensionne/optimise en webp */
+      const input  = Buffer.from(await file.arrayBuffer())
+      const heicConvert = (await import('heic-convert')).default
+      const jpeg   = await heicConvert({ buffer: input, format: 'JPEG', quality: 0.92 })
+      const sharp  = (await import('sharp')).default
+      const webp   = await sharp(Buffer.from(jpeg))
+        .rotate()
+        .resize(2000, 2000, { fit: 'inside', withoutEnlargement: true })
+        .webp({ quality: 82 })
+        .toBuffer()
+      body        = webp
+      contentType = 'image/webp'
+      ext         = 'webp'
+    } else if (!file.type.startsWith('image/')) {
       return NextResponse.json({ error: 'Le fichier doit être une image.' }, { status: 400 })
     }
-    // Garde-fou : le client redimensionne déjà, on plafonne à 8 Mo.
-    if (file.size > 8 * 1024 * 1024) {
-      return NextResponse.json({ error: 'Image trop lourde (max 8 Mo).' }, { status: 413 })
-    }
 
-    const ext  = EXT[file.type] ?? 'jpg'
     const name = `products/${crypto.randomUUID()}.${ext}`
-
-    const blob = await put(name, file, {
-      access:      'public',
-      contentType: file.type,
+    const blob = await put(name, body, {
+      access:          'public',
+      contentType,
       addRandomSuffix: false,
     })
 

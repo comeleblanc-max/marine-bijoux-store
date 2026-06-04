@@ -109,26 +109,20 @@ export function ProductForm({ initial, mode }: { initial: ProductFormData; mode:
         const isHeic = /\.hei[cf]$/i.test(file.name) || /heic|heif/i.test(file.type)
         if (!file.type.startsWith('image/') && !isHeic) continue
 
-        /* Photo iPhone (HEIC) → conversion JPEG dans le navigateur */
-        let source: Blob = file
+        const fd = new FormData()
         if (isHeic) {
+          /* HEIC iPhone : on envoie l'original, la conversion se fait côté serveur */
+          fd.append('file', file, file.name)
+        } else {
+          let body: Blob
           try {
-            const heic2any = (await import('heic2any')).default
-            const conv = await heic2any({ blob: file, toType: 'image/jpeg', quality: 0.92 })
-            source = (Array.isArray(conv) ? conv[0] : conv) as Blob
+            body = await resizeImage(file)
           } catch {
-            throw new Error(`Impossible de convertir « ${file.name} ». Réessaie, ou exporte-la en JPG.`)
+            throw new Error(`Impossible de lire « ${file.name} ». Essaie une autre photo (JPG/PNG).`)
           }
+          fd.append('file', body, 'photo.webp')
         }
 
-        let body: Blob
-        try {
-          body = await resizeImage(source)
-        } catch {
-          throw new Error(`Impossible de lire « ${file.name} ». Essaie une autre photo (JPG/PNG).`)
-        }
-        const fd = new FormData()
-        fd.append('file', body, 'photo.webp')
         const res  = await fetch('/api/admin/upload', { method: 'POST', body: fd })
         const data = await res.json().catch(() => ({}))
         if (!res.ok) throw new Error(data.error || 'Échec du téléversement.')
