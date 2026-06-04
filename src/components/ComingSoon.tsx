@@ -4,9 +4,100 @@ import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { motion, useAnimationFrame } from 'framer-motion'
-import { Lock, ArrowRight } from 'lucide-react'
+import { Lock, ArrowRight, Volume2, VolumeX } from 'lucide-react'
 
 interface Tile { name: string; image: string }
+
+/* ───────── Ambiance "vagues" générée via Web Audio (aucun fichier) ───────── */
+function createOcean(ctx: AudioContext) {
+  const master = ctx.createGain()
+  master.gain.value = 0
+  master.connect(ctx.destination)
+
+  /* Bruit "brown" (plus doux/grave que le blanc) */
+  const size = ctx.sampleRate * 4
+  const buffer = ctx.createBuffer(1, size, ctx.sampleRate)
+  const d = buffer.getChannelData(0)
+  let last = 0
+  for (let i = 0; i < size; i++) {
+    const white = Math.random() * 2 - 1
+    last = (last + 0.02 * white) / 1.02
+    d[i] = last * 3.2
+  }
+  const noise = ctx.createBufferSource()
+  noise.buffer = buffer
+  noise.loop = true
+
+  /* Filtre passe-bas → son feutré, façon ressac */
+  const lp = ctx.createBiquadFilter()
+  lp.type = 'lowpass'
+  lp.frequency.value = 600
+  lp.Q.value = 0.6
+
+  /* Gonflement lent des vagues (LFO sur le volume) */
+  const swell = ctx.createGain()
+  swell.gain.value = 0.55
+  const lfo = ctx.createOscillator()
+  lfo.frequency.value = 0.11
+  const lfoGain = ctx.createGain()
+  lfoGain.gain.value = 0.4
+  lfo.connect(lfoGain).connect(swell.gain)
+
+  /* Modulation du filtre → écume/mouvement */
+  const fLfo = ctx.createOscillator()
+  fLfo.frequency.value = 0.07
+  const fLfoGain = ctx.createGain()
+  fLfoGain.gain.value = 220
+  fLfo.connect(fLfoGain).connect(lp.frequency)
+
+  noise.connect(lp).connect(swell).connect(master)
+  noise.start()
+  lfo.start()
+  fLfo.start()
+
+  return {
+    fadeIn:  () => master.gain.linearRampToValueAtTime(0.22, ctx.currentTime + 1.6),
+    fadeOut: () => master.gain.linearRampToValueAtTime(0,    ctx.currentTime + 0.7),
+  }
+}
+
+function AmbientSound() {
+  const [on, setOn] = useState(false)
+  const ctxRef   = useRef<AudioContext | null>(null)
+  const oceanRef = useRef<ReturnType<typeof createOcean> | null>(null)
+
+  function toggle() {
+    if (!on) {
+      if (!ctxRef.current) {
+        const Ctx = window.AudioContext ||
+          (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+        if (!Ctx) return
+        ctxRef.current = new Ctx()
+      }
+      const ctx = ctxRef.current
+      ctx.resume().catch(() => {})
+      if (!oceanRef.current) oceanRef.current = createOcean(ctx)
+      oceanRef.current.fadeIn()
+      setOn(true)
+    } else {
+      oceanRef.current?.fadeOut()
+      setOn(false)
+    }
+  }
+
+  useEffect(() => () => { try { ctxRef.current?.close() } catch { /* noop */ } }, [])
+
+  return (
+    <button
+      onClick={toggle}
+      className="pointer-events-auto fixed bottom-5 left-1/2 -translate-x-1/2 z-20 inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 backdrop-blur border border-white/15 rounded-full pl-3 pr-4 py-2 text-[11px] tracking-wide text-white/80 transition-colors"
+      aria-label={on ? 'Couper le son' : 'Activer l\'ambiance marine'}
+    >
+      {on ? <Volume2 className="w-4 h-4 text-[#D4AF37]" /> : <VolumeX className="w-4 h-4" />}
+      {on ? 'Ambiance marine' : 'Activer l\'ambiance 🌊'}
+    </button>
+  )
+}
 
 function diff(targetTs: number) {
   const ms = Math.max(0, targetTs - Date.now())
@@ -248,6 +339,8 @@ export function ComingSoon({ targetIso, tiles = [] }: { targetIso: string; tiles
           </form>
         </motion.div>
       </div>
+
+      <AmbientSound />
     </main>
   )
 }
