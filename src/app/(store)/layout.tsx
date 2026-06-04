@@ -10,6 +10,7 @@ import { FloatingParticles } from '@/components/ui/FloatingParticles'
 import { ScrollToTop } from '@/components/ui/ScrollToTop'
 import { getSettings } from '@/lib/settings'
 import { cookies } from 'next/headers'
+import { db } from '@/lib/db'
 import { isLaunched, PREVIEW_COOKIE, LAUNCH_DATE } from '@/lib/launch'
 import { ComingSoon } from '@/components/ComingSoon'
 
@@ -21,7 +22,18 @@ export default async function StoreLayout({ children }: { children: React.ReactN
      (paiements, webhooks…) ne sont PAS concernés, ils continuent de tourner. */
   if (!isLaunched()) {
     const unlocked = (await cookies()).get(PREVIEW_COOKIE)?.value === '1'
-    if (!unlocked) return <ComingSoon targetIso={LAUNCH_DATE} />
+    if (!unlocked) {
+      const products = await db.product.findMany({
+        where:   { inStock: true },
+        select:  { name: true, images: true },
+        orderBy: { createdAt: 'desc' },
+        take:    16,
+      })
+      const tiles = products
+        .filter((p) => p.images?.[0])
+        .map((p) => ({ name: p.name, image: p.images[0] }))
+      return <ComingSoon targetIso={LAUNCH_DATE} tiles={tiles} />
+    }
   }
 
   const settings = await getSettings()
