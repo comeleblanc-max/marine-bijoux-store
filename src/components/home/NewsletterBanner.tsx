@@ -24,8 +24,8 @@ export function NewsletterBanner() {
               <span className="italic text-[#0E4F5E]">nouveautés</span> en avant-première
             </h2>
             <p className="text-white/85 text-sm leading-relaxed mb-8 max-w-sm mx-auto">
-              Inscrivez-vous et profitez de -10% sur votre première commande.
-              Pas de spam, promis.
+              Inscrivez-vous pour être prévenue des nouveautés et des éditions
+              limitées, avant tout le monde. Pas de spam, promis.
             </p>
 
             {submitted ? (
