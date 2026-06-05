@@ -7,12 +7,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import {
   LayoutDashboard,
   Package,
-  Grid3X3,
   ShoppingBag,
   Users,
   Settings,
   Star,
-  Tag,
   Mail,
   ExternalLink,
   LogOut,
@@ -36,8 +34,6 @@ const NAV: NavItem[] = [
   { label: 'Clientes',    href: '/admin/customers',   icon: Users },
   { label: 'Newsletter',  href: '/admin/newsletter',  icon: Mail },
   { label: 'Paramètres',  href: '/admin/settings',    icon: Settings },
-  { label: 'Collections', href: '/admin/collections', icon: Grid3X3, comingSoon: true },
-  { label: 'Promotions',  href: '/admin/promos',      icon: Tag,     comingSoon: true },
 ]
 
 const EASE = [0.22, 1, 0.36, 1] as const
