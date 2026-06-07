@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Heart, Plus, Minus, Truck, ShieldCheck, RefreshCw,
-  ChevronDown, Star,
+  ChevronDown, Star, ChevronLeft, ChevronRight,
 } from 'lucide-react'
 import type { Product } from '@/types'
 import { formatPrice } from '@/lib/utils'
@@ -21,6 +21,11 @@ const EASE = [0.22, 1, 0.36, 1] as const
 export function ProductView({ product, related }: { product: Product; related: Product[] }) {
   const [qty, setQty]         = useState(1)
   const [openTab, setOpenTab] = useState<'details' | 'shipping' | null>('details')
+  /* Galerie : index de la photo affichée + navigation flèches/miniatures */
+  const [imgIdx, setImgIdx] = useState(0)
+  const imgCount = product.images.length
+  const goPrev = () => setImgIdx((i) => (i - 1 + imgCount) % imgCount)
+  const goNext = () => setImgIdx((i) => (i + 1) % imgCount)
   const { addItem, openCart } = useCart()
   const { toggle, has }       = useWishlist()
   const wished = has(product.id)
@@ -68,18 +73,45 @@ export function ProductView({ product, related }: { product: Product; related: P
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
             {/* Galerie */}
             <div className="relative">
-              <div className="relative aspect-square bg-[#FAF5EA] overflow-hidden">
-                {product.images[0] ? (
+              <div className="group relative aspect-square bg-[#FAF5EA] overflow-hidden">
+                {product.images[imgIdx] ? (
                   <Image
-                    src={product.images[0]}
+                    src={product.images[imgIdx]}
                     alt={product.name}
                     fill
                     priority
-                    className="object-cover"
+                    className="object-cover transition-opacity duration-300"
                     sizes="(max-width: 1024px) 100vw, 50vw"
+                    key={imgIdx}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-7xl text-[#D4AF37]/30">✦</div>
+                )}
+
+                {/* Flèches navigation (si plusieurs photos) */}
+                {imgCount > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={goPrev}
+                      aria-label="Photo précédente"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-[#0E4F5E] flex items-center justify-center shadow-md opacity-80 hover:opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={goNext}
+                      aria-label="Photo suivante"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/85 hover:bg-white text-[#0E4F5E] flex items-center justify-center shadow-md opacity-80 hover:opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                    {/* Indicateur (photo X/Y) */}
+                    <div className="absolute bottom-3 right-3 bg-black/45 text-white text-[11px] px-2 py-1 rounded-full tabular-nums">
+                      {imgIdx + 1} / {imgCount}
+                    </div>
+                  </>
                 )}
 
                 {/* Badges */}
@@ -97,13 +129,23 @@ export function ProductView({ product, related }: { product: Product; related: P
                 </div>
               </div>
 
-              {/* Mini galerie si plusieurs images */}
-              {product.images.length > 1 && (
+              {/* Mini galerie cliquable si plusieurs images */}
+              {imgCount > 1 && (
                 <div className="grid grid-cols-4 gap-2 mt-3">
                   {product.images.map((img, i) => (
-                    <div key={i} className="relative aspect-square bg-[#FAF5EA]">
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setImgIdx(i)}
+                      aria-label={`Voir la photo ${i + 1}`}
+                      className={`relative aspect-square bg-[#FAF5EA] overflow-hidden transition-all ${
+                        i === imgIdx
+                          ? 'ring-2 ring-[#0E4F5E] ring-offset-2 ring-offset-white'
+                          : 'opacity-70 hover:opacity-100'
+                      }`}
+                    >
                       <Image src={img} alt="" fill className="object-cover" sizes="120px" />
-                    </div>
+                    </button>
                   ))}
                 </div>
               )}

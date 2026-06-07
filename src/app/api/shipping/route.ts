@@ -10,9 +10,11 @@ export const dynamic = 'force-dynamic'
 export async function GET() {
   const s = await getSettings()
   return NextResponse.json({
-    freeThreshold: s.shipping.freeThreshold,
-    franceFee:     s.shipping.standardFee,
-    europeFee:     s.shipping.europeFee,
-    deliveryDays:  s.shipping.deliveryDays,
+    freeThreshold:  s.shipping.freeThreshold,
+    franceFee:      s.shipping.standardFee,
+    europeFee:      s.shipping.europeFee,
+    mondialRelayFr: s.shipping.mondialRelayFr,
+    mondialRelayEu: s.shipping.mondialRelayEu,
+    deliveryDays:   s.shipping.deliveryDays,
   })
 }

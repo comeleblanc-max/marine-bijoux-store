@@ -22,11 +22,13 @@ export interface SiteSettings {
     ctaSecondary: string
   }
   shipping: {
-    freeThreshold: number   // seuil livraison offerte (France)
-    standardFee:   number   // frais France
-    europeFee:     number   // frais Europe (hors France)
-    deliveryDays:  string
-    returnsDays:   number
+    freeThreshold:    number   // seuil livraison offerte (France, La Poste)
+    standardFee:      number   // La Poste — France
+    europeFee:        number   // La Poste — Europe
+    mondialRelayFr:   number   // Mondial Relay — France (point relais)
+    mondialRelayEu:   number   // Mondial Relay — hors France
+    deliveryDays:     string
+    returnsDays:      number
   }
   contact: {
     email:     string
@@ -54,11 +56,13 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     ctaSecondary: 'Notre histoire',
   },
   shipping: {
-    freeThreshold: 60,
-    standardFee:   4.9,
-    europeFee:     9.9,
-    deliveryDays:  '2-4 jours ouvrés',
-    returnsDays:   14,
+    freeThreshold:  60,
+    standardFee:    7.59,
+    europeFee:      14.99,
+    mondialRelayFr: 4.10,
+    mondialRelayEu: 6.60,
+    deliveryDays:   '2-4 jours ouvrés',
+    returnsDays:    14,
   },
   contact: {
     email:     'mladouceurdelete@gmail.com',

@@ -182,30 +182,43 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
       </Card>
 
       {/* === LIVRAISON === */}
-      <Card title="🚚 Livraison & retours" desc="Tarifs par zone. La livraison offerte (seuil) s'applique à la France.">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <Field label="Frais France (€)">
+      <Card title="🚚 Livraison & retours" desc="Tarifs par transporteur. La livraison offerte (seuil) s'applique uniquement à La Poste France.">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Field label="La Poste — France (€)">
             <input
-              type="number"
-              step="0.01"
+              type="number" step="0.01"
               value={form.shipping.standardFee}
               onChange={(e) => setForm({ ...form, shipping: { ...form.shipping, standardFee: Number(e.target.value) } })}
               className="input"
             />
           </Field>
-          <Field label="Frais Europe (€)">
+          <Field label="La Poste — Europe (€)">
             <input
-              type="number"
-              step="0.01"
+              type="number" step="0.01"
               value={form.shipping.europeFee}
               onChange={(e) => setForm({ ...form, shipping: { ...form.shipping, europeFee: Number(e.target.value) } })}
               className="input"
             />
           </Field>
-          <Field label="Offerte dès (€, France)">
+          <Field label="Mondial Relay — France (€)">
             <input
-              type="number"
-              step="0.01"
+              type="number" step="0.01"
+              value={form.shipping.mondialRelayFr}
+              onChange={(e) => setForm({ ...form, shipping: { ...form.shipping, mondialRelayFr: Number(e.target.value) } })}
+              className="input"
+            />
+          </Field>
+          <Field label="Mondial Relay — Europe (€)">
+            <input
+              type="number" step="0.01"
+              value={form.shipping.mondialRelayEu}
+              onChange={(e) => setForm({ ...form, shipping: { ...form.shipping, mondialRelayEu: Number(e.target.value) } })}
+              className="input"
+            />
+          </Field>
+          <Field label="Offerte dès (€, La Poste France)">
+            <input
+              type="number" step="0.01"
               value={form.shipping.freeThreshold}
               onChange={(e) => setForm({ ...form, shipping: { ...form.shipping, freeThreshold: Number(e.target.value) } })}
               className="input"

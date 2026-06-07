@@ -13,8 +13,13 @@ export default function CheckoutPage() {
   const { items, total } = useCart()
   const cartTotal = total()
 
-  const [zone, setZone] = useState<'france' | 'europe'>('france')
-  const [cfg, setCfg]   = useState({ freeThreshold: 60, franceFee: 4.9, europeFee: 9.9 })
+  type Method = 'laposte-fr' | 'laposte-eu' | 'relay-fr' | 'relay-eu'
+  const [method, setMethod] = useState<Method>('laposte-fr')
+  const [relayPoint, setRelayPoint] = useState('')
+  const [cfg, setCfg] = useState({
+    freeThreshold: 60, franceFee: 7.59, europeFee: 14.99,
+    mondialRelayFr: 4.10, mondialRelayEu: 6.60,
+  })
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState('')
   const [hydrated, setHydrated] = useState(false)
@@ -28,18 +33,32 @@ export default function CheckoutPage() {
       .then((r) => r.json())
       .then((d) => {
         if (d && typeof d.franceFee === 'number') {
-          setCfg({ freeThreshold: d.freeThreshold, franceFee: d.franceFee, europeFee: d.europeFee })
+          setCfg({
+            freeThreshold:  d.freeThreshold,
+            franceFee:      d.franceFee,
+            europeFee:      d.europeFee,
+            mondialRelayFr: d.mondialRelayFr ?? 4.10,
+            mondialRelayEu: d.mondialRelayEu ?? 6.60,
+          })
         }
       })
       .catch(() => {})
   }, [])
 
-  /* Frais de port selon la zone choisie */
-  const shipping = zone === 'france'
-    ? (cartTotal >= cfg.freeThreshold ? 0 : cfg.franceFee)
-    : cfg.europeFee
+  /* Frais de port selon la méthode choisie */
+  const shipping =
+    method === 'laposte-fr' ? (cartTotal >= cfg.freeThreshold ? 0 : cfg.franceFee) :
+    method === 'laposte-eu' ? cfg.europeFee :
+    method === 'relay-fr'   ? cfg.mondialRelayFr :
+                              cfg.mondialRelayEu
+
+  const isRelay = method === 'relay-fr' || method === 'relay-eu'
 
   const handleCheckout = async () => {
+    if (isRelay && !relayPoint.trim()) {
+      setError('Merci de coller le nom et l\'adresse du point relais (ou Locker) que vous avez choisi.')
+      return
+    }
     setError('')
     setLoading(true)
     try {
@@ -48,7 +67,8 @@ export default function CheckoutPage() {
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({
           items: items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
-          zone,
+          method,
+          relayPoint: isRelay ? relayPoint.trim() : '',
         }),
       })
       const data = await res.json().catch(() => ({}))
@@ -119,29 +139,67 @@ export default function CheckoutPage() {
               </div>
             ))}
           </div>
-          {/* Zone de livraison */}
+          {/* Mode de livraison */}
           <div className="border-t border-[#E8E2D5] pt-4 mb-4">
-            <p className="text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B] mb-3">Destination</p>
+            <p className="text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B] mb-3">Livraison</p>
             <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => setZone('france')}
-                className={`text-left border px-3 py-2.5 transition-colors ${zone === 'france' ? 'border-[#0E4F5E] bg-[#FAF5EA]' : 'border-[#E8E2D5] hover:border-[#0E4F5E]'}`}
-              >
-                <span className="block text-sm text-[#0E4F5E]">🇫🇷 France</span>
-                <span className="block text-[11px] text-[#6B6B6B]">
-                  {cartTotal >= cfg.freeThreshold ? 'Offerte' : formatPrice(cfg.franceFee)}
-                </span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setZone('europe')}
-                className={`text-left border px-3 py-2.5 transition-colors ${zone === 'europe' ? 'border-[#0E4F5E] bg-[#FAF5EA]' : 'border-[#E8E2D5] hover:border-[#0E4F5E]'}`}
-              >
-                <span className="block text-sm text-[#0E4F5E]">🇪🇺 Europe</span>
-                <span className="block text-[11px] text-[#6B6B6B]">{formatPrice(cfg.europeFee)}</span>
-              </button>
+              <ShipTile
+                active={method === 'laposte-fr'}
+                onClick={() => setMethod('laposte-fr')}
+                title="🇫🇷 La Poste"
+                sub="France"
+                price={cartTotal >= cfg.freeThreshold ? 'Offerte' : formatPrice(cfg.franceFee)}
+                accent={cartTotal >= cfg.freeThreshold}
+              />
+              <ShipTile
+                active={method === 'relay-fr'}
+                onClick={() => setMethod('relay-fr')}
+                title="📦 Mondial Relay"
+                sub="France · point relais"
+                price={formatPrice(cfg.mondialRelayFr)}
+              />
+              <ShipTile
+                active={method === 'laposte-eu'}
+                onClick={() => setMethod('laposte-eu')}
+                title="🇪🇺 La Poste"
+                sub="Europe"
+                price={formatPrice(cfg.europeFee)}
+              />
+              <ShipTile
+                active={method === 'relay-eu'}
+                onClick={() => setMethod('relay-eu')}
+                title="📦 Mondial Relay"
+                sub="Europe · point relais"
+                price={formatPrice(cfg.mondialRelayEu)}
+              />
             </div>
+
+            {/* Choix du point relais (Mondial Relay uniquement) */}
+            {isRelay && (
+              <div className="mt-4 bg-[#FAF5EA] border border-[#E8E2D5] p-4 rounded-md">
+                <p className="text-xs text-[#0E4F5E] mb-2">
+                  📍 Choisis ton point relais ou ton <strong>Locker</strong> :
+                </p>
+                <a
+                  href="https://www.mondialrelay.fr/trouver-le-point-relais-le-plus-proche/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-xs text-[#24BBD0] hover:text-[#0E4F5E] underline mb-3"
+                >
+                  Ouvrir la carte Mondial Relay →
+                </a>
+                <textarea
+                  value={relayPoint}
+                  onChange={(e) => setRelayPoint(e.target.value)}
+                  rows={3}
+                  placeholder="Colle ici le nom et l'adresse du point relais choisi&#10;(ex. Tabac de la Plage — 12 rue des Pins, 33120 Arcachon)"
+                  className="w-full text-xs bg-white border border-[#E8E2D5] rounded-md px-3 py-2 outline-none focus:border-[#0E4F5E] resize-none"
+                />
+                <p className="text-[10px] text-[#6B6B6B] mt-1.5">
+                  Sur la carte Mondial Relay, choisis ton point puis copie son nom et son adresse ici.
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="border-t border-[#E8E2D5] pt-4 space-y-2 text-sm">
@@ -150,7 +208,7 @@ export default function CheckoutPage() {
               <span>{formatPrice(cartTotal)}</span>
             </div>
             <div className="flex justify-between text-[#6B6B6B]">
-              <span>Livraison ({zone === 'france' ? 'France' : 'Europe'})</span>
+              <span>Livraison</span>
               <span className={shipping === 0 ? 'text-[#D4AF37] font-medium' : ''}>
                 {shipping === 0 ? 'Offerte' : formatPrice(shipping)}
               </span>
@@ -185,5 +243,32 @@ export default function CheckoutPage() {
         </p>
       </div>
     </section>
+  )
+}
+
+function ShipTile({
+  active, onClick, title, sub, price, accent,
+}: {
+  active: boolean
+  onClick: () => void
+  title: string
+  sub: string
+  price: string
+  accent?: boolean
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`text-left border px-3 py-2.5 transition-colors ${
+        active ? 'border-[#0E4F5E] bg-[#FAF5EA]' : 'border-[#E8E2D5] hover:border-[#0E4F5E]'
+      }`}
+    >
+      <span className="block text-sm text-[#0E4F5E]">{title}</span>
+      <span className="block text-[10px] text-[#6B6B6B]">{sub}</span>
+      <span className={`block text-[11px] mt-0.5 ${accent ? 'text-[#D4AF37] font-medium' : 'text-[#0E4F5E] font-medium'}`}>
+        {price}
+      </span>
+    </button>
   )
 }

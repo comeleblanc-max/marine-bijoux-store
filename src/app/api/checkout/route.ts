@@ -3,7 +3,9 @@ import { stripe } from '@/lib/stripe'
 import { db } from '@/lib/db'
 import { auth } from '@/auth'
 import { getSettings } from '@/lib/settings'
-import { shippingCents, allowedCountries, type ShipZone } from '@/lib/shipping'
+import { shippingCents, allowedCountries, shippingLabel, type ShipMethod } from '@/lib/shipping'
+
+const VALID_METHODS: ShipMethod[] = ['laposte-fr', 'laposte-eu', 'relay-fr', 'relay-eu']
 
 /** Type des pays autorisés, dérivé directement de la signature Stripe. */
 type CreateParams = NonNullable<Parameters<typeof stripe.checkout.sessions.create>[0]>
@@ -34,7 +36,12 @@ export async function POST(req: Request) {
   try {
     const body  = await req.json()
     const items = body.items as Array<{ productId: string; quantity: number }>
-    const zone: ShipZone = body.zone === 'europe' ? 'europe' : 'france'
+    /* Compat. : si on reçoit l'ancien "zone", on retombe sur La Poste. */
+    const method: ShipMethod =
+      VALID_METHODS.includes(body.method)
+        ? body.method
+        : body.zone === 'europe' ? 'laposte-eu' : 'laposte-fr'
+    const relayPoint = typeof body.relayPoint === 'string' ? body.relayPoint.slice(0, 280) : ''
 
     if (!items?.length) {
       return NextResponse.json({ error: 'Panier vide.' }, { status: 400 })
@@ -97,16 +104,16 @@ export async function POST(req: Request) {
       })
     }
 
-    /* Frais de port selon la zone choisie (France / Europe) */
+    /* Frais de port selon la méthode choisie */
     const settings = await getSettings()
-    const shipping = shippingCents(zone, subtotalCents, {
-      freeThreshold: settings.shipping.freeThreshold,
-      standardFee:   settings.shipping.standardFee,
-      europeFee:     settings.shipping.europeFee,
+    const shipping = shippingCents(method, subtotalCents, {
+      freeThreshold:  settings.shipping.freeThreshold,
+      standardFee:    settings.shipping.standardFee,
+      europeFee:      settings.shipping.europeFee,
+      mondialRelayFr: settings.shipping.mondialRelayFr,
+      mondialRelayEu: settings.shipping.mondialRelayEu,
     })
-    const shippingLabel = shipping === 0
-      ? 'Livraison offerte'
-      : zone === 'europe' ? 'Livraison Europe' : 'Livraison France'
+    const shipLabel = shippingLabel(method, shipping === 0)
 
     /* User connecté ? */
     const session = await auth()
@@ -122,7 +129,7 @@ export async function POST(req: Request) {
       currency: 'eur',
       customer_email: email,
       shipping_address_collection: {
-        allowed_countries: allowedCountries(zone) as AllowedCountries,
+        allowed_countries: allowedCountries(method) as AllowedCountries,
       },
       phone_number_collection: { enabled: true },
       billing_address_collection: 'auto',
@@ -130,10 +137,10 @@ export async function POST(req: Request) {
         shipping_rate_data: {
           type: 'fixed_amount',
           fixed_amount: { amount: shipping, currency: 'eur' },
-          display_name:  shippingLabel,
+          display_name:  shipLabel,
           delivery_estimate: {
             minimum: { unit: 'business_day', value: 2 },
-            maximum: { unit: 'business_day', value: zone === 'europe' ? 7 : 4 },
+            maximum: { unit: 'business_day', value: method.endsWith('-eu') ? 7 : 4 },
           },
         },
       }],
@@ -142,8 +149,11 @@ export async function POST(req: Request) {
       success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url:  `${baseUrl}/checkout`,
       metadata: {
-        userId:   userId ?? '',
-        itemsJSON: JSON.stringify(orderItems),
+        userId:      userId ?? '',
+        itemsJSON:   JSON.stringify(orderItems),
+        shipMethod:  method,
+        shipLabel,
+        relayPoint:  relayPoint,
       },
     })
 
