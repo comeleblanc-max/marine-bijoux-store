@@ -30,11 +30,15 @@ model Product {
   inStock     Boolean     @default(true)
   featured    Boolean     @default(false)
   newArrival  Boolean     @default(false)
+  /** Position dans "Tous les bijoux" — plus petit = plus haut. */
+  sortOrder   Int         @default(1000)
   variants    Variant[]
   orderItems  OrderItem[]
   reviews     Review[]
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+
+  @@index([sortOrder])
 }
 
 model Variant {

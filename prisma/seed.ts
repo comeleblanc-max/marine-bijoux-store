@@ -76,6 +76,26 @@ async function main() {
   }
 
   console.log(`✅ Seed terminé : ${created} créé(s), ${synced} sync'd, ${skipped} ignoré(s).`)
+
+  /* Ordre par défaut souhaité par Marine. On l'applique UNIQUEMENT à ceux
+     qui sont encore au sortOrder par défaut (1000) — pour ne JAMAIS écraser
+     un ordre personnalisé fixé depuis l'admin par la suite. */
+  const DEFAULT_ORDER = [
+    'collier-solea', 'bracelet-eclat-ocean', 'bague-trois-soleils', 'boucles-lumia',
+    'collier-perla-bora', 'bracelet-vaiana', 'bague-bora-bora', 'boucles-ibiza',
+    'collier-nacre', 'boucles-azura', 'collier-sirena', 'bracelet-ibiza',
+    'bague-noumea', 'boucles-nalia',
+  ]
+  let ordered = 0
+  for (let i = 0; i < DEFAULT_ORDER.length; i++) {
+    const slug = DEFAULT_ORDER[i]
+    const res = await db.product.updateMany({
+      where: { slug, sortOrder: 1000 },
+      data:  { sortOrder: (i + 1) * 10 },
+    })
+    if (res.count) ordered++
+  }
+  if (ordered > 0) console.log(`📋 Ordre par défaut appliqué à ${ordered} produit(s).`)
 }
 
 main()

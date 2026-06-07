@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Plus } from 'lucide-react'
+import { Plus, ArrowUpDown } from 'lucide-react'
 import { db } from '@/lib/db'
 import { ProductsTable } from '@/components/admin/ProductsTable'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
@@ -31,6 +31,13 @@ export default async function AdminProductsPage() {
         title="Produits"
         subtitle={`${data.length} produit${data.length > 1 ? 's' : ''} en boutique`}
       >
+        <Link
+          href="/admin/products/reorder"
+          className="inline-flex items-center gap-2 bg-white border border-gray-200 hover:border-[#0E4F5E] text-[#0E4F5E] px-4 py-2.5 rounded-xl text-sm font-medium transition-colors"
+        >
+          <ArrowUpDown className="w-4 h-4" />
+          Réordonner
+        </Link>
         <Link
           href="/admin/products/new"
           className="inline-flex items-center gap-2 bg-[#24BBD0] text-white px-4 py-2.5 rounded-xl text-sm font-medium hover:bg-[#1A9AAD] transition-colors"

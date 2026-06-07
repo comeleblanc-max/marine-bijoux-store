@@ -9,28 +9,6 @@ import { Stagger, StaggerItem } from '@/components/ui/motion'
 
 export const dynamic = 'force-dynamic'
 
-/**
- * Ordre d'affichage souhaité par Marine sur la page "Tous les bijoux".
- * Les bijoux non listés ici (ou ajoutés plus tard) sont placés à la fin,
- * triés par date d'ajout descendante.
- */
-const MANUAL_ORDER: string[] = [
-  'collier-solea',
-  'bracelet-eclat-ocean',
-  'bague-trois-soleils',
-  'boucles-lumia',
-  'collier-perla-bora',
-  'bracelet-vaiana',
-  'bague-bora-bora',
-  'boucles-ibiza',
-  'collier-nacre',
-  'boucles-azura',
-  'collier-sirena',
-  'bracelet-ibiza',
-  'bague-noumea',
-  'boucles-nalia', // « Coralia » dans la liste — slug actuel
-]
-
 interface PageProps {
   params: Promise<{ slug: string }>
 }
@@ -53,13 +31,10 @@ export default async function CollectionPage({ params }: PageProps) {
 
   let raw
   if (slug === 'all') {
-    raw = await db.product.findMany({ orderBy: { createdAt: 'desc' } })
-    /* Applique l'ordre manuel pour "Tous les bijoux" */
-    const rank = new Map(MANUAL_ORDER.map((s, i) => [s, i]))
-    raw.sort((a, b) => {
-      const ra = rank.get(a.slug) ?? Number.MAX_SAFE_INTEGER
-      const rb = rank.get(b.slug) ?? Number.MAX_SAFE_INTEGER
-      return ra - rb
+    /* Ordre défini dans Admin → Produits → Ordre d'affichage (drag & drop).
+       sortOrder croissant = haut → bas. createdAt en tie-breaker. */
+    raw = await db.product.findMany({
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
     })
   } else {
     const col = COLLECTIONS.find((c) => c.slug === slug)
