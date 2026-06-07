@@ -33,6 +33,8 @@ export async function fulfillOrder(session: Stripe.Checkout.Session): Promise<{ 
   const metadata  = session.metadata ?? {}
   const userId    = metadata.userId || null
   const itemsJSON = metadata.itemsJSON ?? '[]'
+  const shipLabel = metadata.shipLabel ?? ''
+  const relayPoint = metadata.relayPoint ?? ''
   let orderItems: OrderItemMeta[] = []
   try { orderItems = JSON.parse(itemsJSON) } catch { orderItems = [] }
 
@@ -61,6 +63,10 @@ export async function fulfillOrder(session: Stripe.Checkout.Session): Promise<{ 
       shippingCity:    address?.city  ?? '',
       shippingZip:     address?.postal_code ?? '',
       shippingCountry: address?.country     ?? 'FR',
+      adminNote: [
+        shipLabel ? `Livraison choisie : ${shipLabel}` : '',
+        relayPoint ? `Point relais : ${relayPoint}` : '',
+      ].filter(Boolean).join('\n') || null,
       items: {
         create: orderItems.map((it) => ({
           productId: it.productId,

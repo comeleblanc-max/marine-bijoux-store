@@ -16,7 +16,7 @@ export function CartDrawer() {
   const count = itemCount()
 
   /* Config livraison réelle (depuis l'admin) */
-  const [cfg, setCfg] = useState({ freeThreshold: 60, franceFee: 4.9 })
+  const [cfg, setCfg] = useState({ freeThreshold: 60, franceFee: 7.59 })
   useEffect(() => {
     fetch('/api/shipping')
       .then((r) => r.json())
