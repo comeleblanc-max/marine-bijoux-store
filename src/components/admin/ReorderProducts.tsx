@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Reorder } from 'framer-motion'
@@ -11,13 +11,13 @@ interface Item { id: string; name: string; slug: string; image: string | null; c
 
 export function ReorderProducts({ initial }: { initial: Item[] }) {
   const router = useRouter()
-  const initialIds = useRef(initial.map((p) => p.id))
+  const [savedIds, setSavedIds] = useState<string[]>(() => initial.map((p) => p.id))
   const [items, setItems] = useState(initial)
   const [saving, setSaving] = useState(false)
   const [status, setStatus] = useState<'idle' | 'saved' | 'error'>('idle')
   const [error, setError]   = useState('')
 
-  const dirty = items.map((i) => i.id).join('|') !== initialIds.current.join('|')
+  const dirty = items.map((i) => i.id).join('|') !== savedIds.join('|')
 
   useEffect(() => {
     /* Avertit si on quitte la page avec des changements non enregistrés */
@@ -41,7 +41,7 @@ export function ReorderProducts({ initial }: { initial: Item[] }) {
         setError(d.error || 'Erreur lors de la sauvegarde.')
         setStatus('error')
       } else {
-        initialIds.current = items.map((p) => p.id)
+        setSavedIds(items.map((p) => p.id))
         setStatus('saved')
         router.refresh()
         setTimeout(() => setStatus('idle'), 2500)
