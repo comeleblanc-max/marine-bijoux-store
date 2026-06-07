@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
