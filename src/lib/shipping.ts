@@ -27,19 +27,16 @@ const METHOD_LABEL: Record<ShipMethod, string> = {
 
 /**
  * Calcule les frais de port en centimes pour une méthode donnée.
- * - laposte-fr : gratuit si subtotal ≥ freeThreshold, sinon tarif fixe.
- * - autres : tarif fixe (pas de gratuité automatique).
+ * Livraison OFFERTE pour toutes les méthodes dès que le sous-total
+ * atteint freeThreshold ; sinon, tarif fixe de la méthode.
  */
 export function shippingCents(method: ShipMethod, subtotalCents: number, cfg: ShippingConfig): number {
+  if (subtotalCents >= cfg.freeThreshold * 100) return 0
   switch (method) {
-    case 'laposte-fr':
-      return subtotalCents >= cfg.freeThreshold * 100 ? 0 : Math.round(cfg.standardFee * 100)
-    case 'laposte-eu':
-      return Math.round(cfg.europeFee * 100)
-    case 'relay-fr':
-      return Math.round(cfg.mondialRelayFr * 100)
-    case 'relay-eu':
-      return Math.round(cfg.mondialRelayEu * 100)
+    case 'laposte-fr': return Math.round(cfg.standardFee * 100)
+    case 'laposte-eu': return Math.round(cfg.europeFee * 100)
+    case 'relay-fr':   return Math.round(cfg.mondialRelayFr * 100)
+    case 'relay-eu':   return Math.round(cfg.mondialRelayEu * 100)
   }
 }
 

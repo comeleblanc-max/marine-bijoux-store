@@ -45,9 +45,10 @@ export default function CheckoutPage() {
       .catch(() => {})
   }, [])
 
-  /* Frais de port selon la méthode choisie */
-  const shipping =
-    method === 'laposte-fr' ? (cartTotal >= cfg.freeThreshold ? 0 : cfg.franceFee) :
+  /* Livraison offerte dès le seuil, pour toutes les méthodes */
+  const freeShip = cartTotal >= cfg.freeThreshold
+  const shipping = freeShip ? 0 :
+    method === 'laposte-fr' ? cfg.franceFee :
     method === 'laposte-eu' ? cfg.europeFee :
     method === 'relay-fr'   ? cfg.mondialRelayFr :
                               cfg.mondialRelayEu
@@ -148,29 +149,32 @@ export default function CheckoutPage() {
                 onClick={() => setMethod('laposte-fr')}
                 title="🇫🇷 La Poste"
                 sub="France"
-                price={cartTotal >= cfg.freeThreshold ? 'Offerte' : formatPrice(cfg.franceFee)}
-                accent={cartTotal >= cfg.freeThreshold}
+                price={freeShip ? 'Offerte' : formatPrice(cfg.franceFee)}
+                accent={freeShip}
               />
               <ShipTile
                 active={method === 'relay-fr'}
                 onClick={() => setMethod('relay-fr')}
                 title="📦 Mondial Relay"
                 sub="France · point relais"
-                price={formatPrice(cfg.mondialRelayFr)}
+                price={freeShip ? 'Offerte' : formatPrice(cfg.mondialRelayFr)}
+                accent={freeShip}
               />
               <ShipTile
                 active={method === 'laposte-eu'}
                 onClick={() => setMethod('laposte-eu')}
                 title="🇪🇺 La Poste"
                 sub="Europe"
-                price={formatPrice(cfg.europeFee)}
+                price={freeShip ? 'Offerte' : formatPrice(cfg.europeFee)}
+                accent={freeShip}
               />
               <ShipTile
                 active={method === 'relay-eu'}
                 onClick={() => setMethod('relay-eu')}
                 title="📦 Mondial Relay"
                 sub="Europe · point relais"
-                price={formatPrice(cfg.mondialRelayEu)}
+                price={freeShip ? 'Offerte' : formatPrice(cfg.mondialRelayEu)}
+                accent={freeShip}
               />
             </div>
 
