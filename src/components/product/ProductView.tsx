@@ -8,6 +8,7 @@ import {
   Heart, Plus, Minus, Truck, ShieldCheck, RefreshCw,
   ChevronDown, Star, ChevronLeft, ChevronRight,
 } from 'lucide-react'
+import { ZoomImage } from '@/components/product/ZoomImage'
 import type { Product } from '@/types'
 import { formatPrice } from '@/lib/utils'
 import { useCart } from '@/store/cart'
@@ -75,14 +76,11 @@ export function ProductView({ product, related }: { product: Product; related: P
             <div className="relative">
               <div className="group relative aspect-square bg-[#FAF5EA] overflow-hidden">
                 {product.images[imgIdx] ? (
-                  <Image
+                  <ZoomImage
+                    key={imgIdx}
                     src={product.images[imgIdx]}
                     alt={product.name}
-                    fill
                     priority
-                    className="object-cover transition-opacity duration-300"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    key={imgIdx}
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center text-7xl text-[#D4AF37]/30">✦</div>
