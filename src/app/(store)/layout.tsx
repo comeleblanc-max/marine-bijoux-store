@@ -1,6 +1,7 @@
 import { AnnouncementBar } from '@/components/layout/AnnouncementBar'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
+import { MobileBottomNav } from '@/components/layout/MobileBottomNav'
 import { CartDrawer } from '@/components/cart/CartDrawer'
 import { CookieConsent } from '@/components/layout/CookieConsent'
 import { PageTransition } from '@/components/ui/motion'
@@ -39,7 +40,10 @@ export default async function StoreLayout({ children }: { children: React.ReactN
   const settings = await getSettings()
 
   return (
-    <div data-section="store" className="flex flex-col flex-1">
+    <div
+      data-section="store"
+      className="flex flex-col flex-1 pb-[calc(4rem+env(safe-area-inset-bottom))] lg:pb-0"
+    >
       <ScrollToTop />
       <CustomCursor />
       <FloatingParticles count={12} />
@@ -55,6 +59,7 @@ export default async function StoreLayout({ children }: { children: React.ReactN
       <CartDrawer />
       <CookieConsent />
       <ToastContainer />
+      <MobileBottomNav />
     </div>
   )
 }
