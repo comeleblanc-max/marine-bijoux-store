@@ -57,8 +57,8 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   },
   shipping: {
     freeThreshold:  60,
-    standardFee:    7.59,
-    europeFee:      14.99,
+    standardFee:    3.47,   // Lettre Suivie France
+    europeFee:      7.50,   // Lettre Suivie International
     mondialRelayFr: 4.10,
     mondialRelayEu: 6.60,
     deliveryDays:   '2-4 jours ouvrés',

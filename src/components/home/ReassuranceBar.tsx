@@ -9,7 +9,7 @@ const ITEMS = [
 
 export function ReassuranceBar() {
   return (
-    <section className="border-y border-[#E8E2D5] bg-white">
+    <section className="border-y border-[#E8E2D5] bg-[#FAF5EA]">
       <div className="container-x py-8 sm:py-10">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-4">
           {ITEMS.map(({ icon: Icon, label, sub }) => (

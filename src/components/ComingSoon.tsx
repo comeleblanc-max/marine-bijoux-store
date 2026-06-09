@@ -273,7 +273,7 @@ export function ComingSoon({ targetIso, tiles = [] }: { targetIso: string; tiles
           className="pointer-events-auto w-full max-w-md text-center bg-[#0E4F5E]/50 sm:bg-[#0a3a45]/55 backdrop-blur-md rounded-3xl border border-white/10 px-6 py-10 sm:px-9 sm:py-12 shadow-2xl"
         >
           <Image
-            src="/logo-marine-white.png"
+            src="/logo-marine-transparent.png"
             alt="Marine et la douceur de l'été"
             width={200}
             height={110}

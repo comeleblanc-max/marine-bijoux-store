@@ -147,7 +147,7 @@ export default function CheckoutPage() {
               <ShipTile
                 active={method === 'laposte-fr'}
                 onClick={() => setMethod('laposte-fr')}
-                title="🇫🇷 La Poste"
+                title="🇫🇷 Lettre Suivie"
                 sub="France"
                 price={freeShip ? 'Offerte' : formatPrice(cfg.franceFee)}
                 accent={freeShip}
@@ -163,8 +163,8 @@ export default function CheckoutPage() {
               <ShipTile
                 active={method === 'laposte-eu'}
                 onClick={() => setMethod('laposte-eu')}
-                title="🇪🇺 La Poste"
-                sub="Europe"
+                title="🇪🇺 Lettre Suivie"
+                sub="International"
                 price={freeShip ? 'Offerte' : formatPrice(cfg.europeFee)}
                 accent={freeShip}
               />

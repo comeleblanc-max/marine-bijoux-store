@@ -8,9 +8,9 @@
  * (ou via les variables d'environnement NEXT_PUBLIC_LAUNCH_DATE / PREVIEW_CODE).
  */
 
-/** Date/heure d'ouverture officielle (fuseau Paris). */
+/** Date/heure d'ouverture officielle (dimanche 21 juin 2026, 12h, Paris). */
 export const LAUNCH_DATE =
-  process.env.NEXT_PUBLIC_LAUNCH_DATE || '2026-06-15T00:00:00+02:00'
+  process.env.NEXT_PUBLIC_LAUNCH_DATE || '2026-06-21T12:00:00+02:00'
 
 export const LAUNCH_TS = new Date(LAUNCH_DATE).getTime()
 
