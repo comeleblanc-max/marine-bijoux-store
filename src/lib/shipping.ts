@@ -19,8 +19,8 @@ export interface ShippingConfig {
 }
 
 const METHOD_LABEL: Record<ShipMethod, string> = {
-  'laposte-fr': 'La Poste — France',
-  'laposte-eu': 'La Poste — Europe',
+  'laposte-fr': 'Lettre Suivie — France',
+  'laposte-eu': 'Lettre Suivie — International',
   'relay-fr':   'Mondial Relay — France',
   'relay-eu':   'Mondial Relay — Europe',
 }

@@ -41,7 +41,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: 'Le nettoyage de fin de journée',
         paragraphs: [
-          'Un simple passage avec un chiffon doux et sec suffit à enlever les traces de sel et de sébum. Pour l\'argent 925, un chiffon spécial argenterie ravivera l\'éclat en quelques gestes.',
+          'Un simple passage avec un chiffon doux et sec suffit à enlever les traces de sel et de sébum. Pour les bijoux argentés, un chiffon doux microfibre suffit à raviver l\'éclat en quelques gestes.',
         ],
       },
     ],

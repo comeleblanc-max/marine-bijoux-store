@@ -182,9 +182,9 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
       </Card>
 
       {/* === LIVRAISON === */}
-      <Card title="🚚 Livraison & retours" desc="Tarifs par transporteur. La livraison offerte (seuil) s'applique uniquement à La Poste France.">
+      <Card title="🚚 Livraison & retours" desc="Tarifs par transporteur. La livraison est offerte (toutes méthodes) dès le seuil.">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Field label="La Poste — France (€)">
+          <Field label="Lettre Suivie — France (€)">
             <input
               type="number" step="0.01"
               value={form.shipping.standardFee}
@@ -192,7 +192,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
               className="input"
             />
           </Field>
-          <Field label="La Poste — Europe (€)">
+          <Field label="Lettre Suivie — International (€)">
             <input
               type="number" step="0.01"
               value={form.shipping.europeFee}
@@ -216,7 +216,7 @@ export function SettingsForm({ initial }: { initial: SiteSettings }) {
               className="input"
             />
           </Field>
-          <Field label="Offerte dès (€, La Poste France)">
+          <Field label="Offerte dès (€)">
             <input
               type="number" step="0.01"
               value={form.shipping.freeThreshold}

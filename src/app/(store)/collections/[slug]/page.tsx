@@ -69,7 +69,9 @@ export default async function CollectionPage({ params, searchParams }: PageProps
     if (!col) notFound()
     raw = await db.product.findMany({
       where:   { OR: [{ category: slug }, { collection: slug }] },
-      orderBy: { createdAt: 'desc' },
+      /* Même tri que "Tous les bijoux" : on respecte l'ordre fixé dans
+         Admin → Produits → Réordonner. createdAt en tie-breaker. */
+      orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
     })
     title       = col.name
     description = col.description ?? ''

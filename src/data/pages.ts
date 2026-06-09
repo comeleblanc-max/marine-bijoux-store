@@ -304,7 +304,7 @@ export const CONTENT_PAGES: ContentPage[] = [
       {
         heading: 'Nettoyage',
         body: [
-          'Nettoyez délicatement vos bijoux avec un chiffon doux et sec. Pour l\'argent 925, un chiffon spécial argenterie ravive l\'éclat. N\'utilisez jamais de produits abrasifs.',
+          'Nettoyez délicatement vos bijoux avec un chiffon doux et sec. Pour les bijoux argentés, un chiffon microfibre suffit à raviver l\'éclat. N\'utilisez jamais de produits abrasifs.',
         ],
       },
       {
@@ -317,7 +317,7 @@ export const CONTENT_PAGES: ContentPage[] = [
         heading: 'Nos matières',
         list: [
           'Acier inoxydable doré : résistant à l\'eau, idéal au quotidien.',
-          'Argent sterling 925 : précieux, à protéger de l\'humidité.',
+          'Acier inoxydable argenté : éclat lumineux qui ne ternit pas.',
           'Nacre et perles naturelles : fragiles, à manipuler avec douceur.',
         ],
       },
