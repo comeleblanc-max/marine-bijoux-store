@@ -9,6 +9,7 @@ const COL_SHOP = [
   { label: 'Lumière d\'été', href: '/collections/lumiere-dete' },
   { label: 'Colliers',    href: '/collections/colliers' },
   { label: 'Bracelets',   href: '/collections/bracelets' },
+  { label: 'Bracelets de cheville', href: '/collections/bracelets-cheville' },
   { label: 'Bagues',      href: '/collections/bagues' },
   { label: 'Boucles',     href: '/collections/boucles-doreilles' },
 ]
@@ -44,11 +45,11 @@ export function Footer() {
           {/* Marque + social */}
           <div className="col-span-2">
             <Image
-              src="/logo-marine-white.png"
-              alt="Marine"
-              width={180}
-              height={90}
-              className="h-12 w-auto object-contain mb-5"
+              src="/logo-marine-launch.png"
+              alt="Marine et la douceur de l'été"
+              width={120}
+              height={120}
+              className="h-16 w-auto object-contain mb-5"
             />
             <p className="text-[#A8A8A8] text-sm leading-relaxed max-w-xs mb-6">
               Des bijoux en acier inoxydable inspirés par le soleil, la mer

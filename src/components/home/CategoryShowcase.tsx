@@ -14,11 +14,12 @@ interface Tile {
 }
 
 const TILES: Tile[] = [
-  { slug: 'lumiere-dete',      name: 'Lumière d\'été',     eyebrow: 'Collection', span: 'wide' },
-  { slug: 'colliers',          name: 'Colliers',           eyebrow: 'Catégorie' },
-  { slug: 'bracelets',         name: 'Bracelets',          eyebrow: 'Catégorie' },
-  { slug: 'boucles-doreilles', name: 'Boucles d\'oreilles', eyebrow: 'Catégorie' },
-  { slug: 'bagues',            name: 'Bagues',             eyebrow: 'Catégorie' },
+  { slug: 'lumiere-dete',       name: 'Lumière d\'été',       eyebrow: 'Collection', span: 'wide' },
+  { slug: 'colliers',           name: 'Colliers',             eyebrow: 'Catégorie' },
+  { slug: 'bracelets',          name: 'Bracelets',            eyebrow: 'Catégorie' },
+  { slug: 'bracelets-cheville', name: 'Bracelets de cheville', eyebrow: 'Catégorie' },
+  { slug: 'boucles-doreilles',  name: 'Boucles d\'oreilles',   eyebrow: 'Catégorie' },
+  { slug: 'bagues',             name: 'Bagues',               eyebrow: 'Catégorie' },
 ]
 
 /**
@@ -27,11 +28,12 @@ const TILES: Tile[] = [
  * avec le même nom et redéploie.
  */
 const TILE_IMAGES: Record<string, string> = {
-  'lumiere-dete':      '/tiles/lumiere-dete.webp',
-  'colliers':          '/tiles/colliers.webp',
-  'bracelets':         '/tiles/bracelets.webp',
-  'boucles-doreilles': '/tiles/boucles-doreilles.webp',
-  'bagues':            '/tiles/bagues.webp',
+  'lumiere-dete':       '/tiles/lumiere-dete.webp',
+  'colliers':           '/tiles/colliers.webp',
+  'bracelets':          '/tiles/bracelets.webp',
+  'bracelets-cheville': '/tiles/bracelets.webp', // fallback : on réutilise l'image bracelets tant que Marine n'a pas envoyé /tiles/bracelets-cheville.webp
+  'boucles-doreilles':  '/tiles/boucles-doreilles.webp',
+  'bagues':             '/tiles/bagues.webp',
 }
 
 /**

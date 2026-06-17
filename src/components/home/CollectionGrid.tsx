@@ -3,11 +3,12 @@ import { COLLECTIONS } from '@/lib/data'
 import { Reveal } from '@/components/ui/motion'
 
 const TILES: Record<string, { emoji: string; bg: string }> = {
-  'lumiere-dete': { emoji: '☀️', bg: 'bg-gradient-to-br from-[#FAF5EA] to-[#F2E5CC]' },
-  colliers:        { emoji: '📿', bg: 'bg-gradient-to-br from-[#E8F4F8] to-[#c9e8f2]' },
-  bracelets:       { emoji: '✨', bg: 'bg-gradient-to-br from-[#F5F0FF] to-[#e8dcff]' },
-  'boucles-doreilles': { emoji: '🌟', bg: 'bg-gradient-to-br from-[#FFF5E6] to-[#fde8c8]' },
-  bagues:          { emoji: '💍', bg: 'bg-gradient-to-br from-[#F0FFF4] to-[#c8f0d8]' },
+  'lumiere-dete':       { emoji: '☀️', bg: 'bg-gradient-to-br from-[#FAF5EA] to-[#F2E5CC]' },
+  colliers:             { emoji: '📿', bg: 'bg-gradient-to-br from-[#E8F4F8] to-[#c9e8f2]' },
+  bracelets:            { emoji: '✨', bg: 'bg-gradient-to-br from-[#F5F0FF] to-[#e8dcff]' },
+  'bracelets-cheville': { emoji: '🌊', bg: 'bg-gradient-to-br from-[#E8F7FA] to-[#bfe7ee]' },
+  'boucles-doreilles':  { emoji: '🌟', bg: 'bg-gradient-to-br from-[#FFF5E6] to-[#fde8c8]' },
+  bagues:               { emoji: '💍', bg: 'bg-gradient-to-br from-[#F0FFF4] to-[#c8f0d8]' },
 }
 
 export function CollectionGrid() {
