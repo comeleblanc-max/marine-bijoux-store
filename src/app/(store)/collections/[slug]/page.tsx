@@ -14,10 +14,11 @@ export const revalidate = 60
 
 /** Catégories proposées sur la page "Tous les bijoux". */
 const SHOP_CATEGORIES = [
-  { slug: 'colliers',          label: 'Colliers' },
-  { slug: 'bracelets',         label: 'Bracelets' },
-  { slug: 'bagues',            label: 'Bagues' },
-  { slug: 'boucles-doreilles', label: 'Boucles' },
+  { slug: 'colliers',            label: 'Colliers' },
+  { slug: 'bracelets',           label: 'Bracelets' },
+  { slug: 'bracelets-cheville',  label: 'Cheville' },
+  { slug: 'bagues',              label: 'Bagues' },
+  { slug: 'boucles-doreilles',   label: 'Boucles' },
 ]
 
 const VALID_CATS = new Set(SHOP_CATEGORIES.map((c) => c.slug))

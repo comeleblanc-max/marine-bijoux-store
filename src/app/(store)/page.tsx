@@ -53,7 +53,7 @@ export default async function HomePage() {
 
   /* Image de fond pour chaque tuile catégorie */
   const tileImages: Record<string, string | null> = {}
-  const tileSlugs = ['lumiere-dete', 'colliers', 'bracelets', 'boucles-doreilles', 'bagues']
+  const tileSlugs = ['lumiere-dete', 'colliers', 'bracelets', 'bracelets-cheville', 'boucles-doreilles', 'bagues']
   for (const slug of tileSlugs) {
     const isCollection = slug === 'lumiere-dete'
     const found = tileSource.find((p) =>

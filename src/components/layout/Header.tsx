@@ -25,11 +25,12 @@ const EASE = [0.22, 1, 0.36, 1] as const
 
 /* Catégories regroupées dans le menu "Bijoux" */
 const CATEGORIES = [
-  { label: 'Colliers',           href: '/collections/colliers' },
-  { label: 'Bracelets',          href: '/collections/bracelets' },
-  { label: "Boucles d'oreilles", href: '/collections/boucles-doreilles' },
-  { label: 'Bagues',             href: '/collections/bagues' },
-  { label: 'Tous les bijoux',    href: '/collections/all' },
+  { label: 'Colliers',              href: '/collections/colliers' },
+  { label: 'Bracelets',             href: '/collections/bracelets' },
+  { label: 'Bracelets de cheville', href: '/collections/bracelets-cheville' },
+  { label: "Boucles d'oreilles",    href: '/collections/boucles-doreilles' },
+  { label: 'Bagues',                href: '/collections/bagues' },
+  { label: 'Tous les bijoux',       href: '/collections/all' },
 ]
 
 /* Liens principaux */

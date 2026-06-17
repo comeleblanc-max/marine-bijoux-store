@@ -23,10 +23,11 @@ interface ProductFormData {
 }
 
 const CATEGORIES = [
-  { value: 'colliers',          label: 'Colliers' },
-  { value: 'bracelets',         label: 'Bracelets' },
-  { value: 'boucles-doreilles', label: 'Boucles d\'oreilles' },
-  { value: 'bagues',            label: 'Bagues' },
+  { value: 'colliers',            label: 'Colliers' },
+  { value: 'bracelets',           label: 'Bracelets' },
+  { value: 'bracelets-cheville',  label: 'Bracelets de cheville' },
+  { value: 'boucles-doreilles',   label: 'Boucles d\'oreilles' },
+  { value: 'bagues',              label: 'Bagues' },
 ]
 
 const COLLECTIONS = [
