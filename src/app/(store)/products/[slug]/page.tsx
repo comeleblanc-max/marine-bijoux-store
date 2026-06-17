@@ -5,7 +5,8 @@ import { serializeProduct, serializeProducts } from '@/lib/serialize'
 import { ProductView } from '@/components/product/ProductView'
 import { JsonLd } from '@/components/seo/JsonLd'
 
-export const dynamic = 'force-dynamic'
+/* Cache ISR par fiche produit (60 s). L'admin invalide à chaque sauvegarde. */
+export const revalidate = 60
 
 const BASE = process.env.NEXT_PUBLIC_BASE_URL || 'https://marineetladouceurdelete.com'
 const BRAND = "Marine et la douceur de l'été"

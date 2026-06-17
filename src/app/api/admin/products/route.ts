@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/auth'
 import { db } from '@/lib/db'
+import { bustStoreCache } from '@/lib/revalidate'
 
 function unauthorized() {
   return NextResponse.json({ error: 'Non autorisée.' }, { status: 401 })
@@ -71,6 +72,7 @@ export async function POST(req: Request) {
       },
     })
 
+    bustStoreCache({ productSlug: product.slug })
     return NextResponse.json({ ok: true, product })
   } catch (err) {
     console.error('[admin/products POST] erreur :', err)

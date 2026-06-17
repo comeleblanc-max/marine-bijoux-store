@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/auth'
 import { getSettings, updateSettings } from '@/lib/settings'
+import { bustStoreCache } from '@/lib/revalidate'
 
 async function ensureAdmin() {
   const session = await auth()
@@ -23,6 +24,7 @@ export async function PATCH(req: Request) {
   try {
     const body     = await req.json()
     const settings = await updateSettings(body)
+    bustStoreCache()
     return NextResponse.json({ ok: true, settings })
   } catch (err) {
     console.error('[admin/settings PATCH] erreur :', err)

@@ -1,4 +1,6 @@
 import type { NextAuthConfig } from 'next-auth'
+import { NextResponse } from 'next/server'
+import { isLaunched, PREVIEW_COOKIE } from '@/lib/launch'
 
 /**
  * Config légère de NextAuth pour la middleware (Edge runtime).
@@ -29,13 +31,28 @@ export const authConfig = {
       }
       return session
     },
-    authorized({ auth, request: { nextUrl } }) {
-      const { pathname } = nextUrl
+    authorized({ auth, request }) {
+      const { pathname } = request.nextUrl
 
+      /* Admin → réservé aux comptes ADMIN connectés */
       if (pathname.startsWith('/admin')) {
         if (!auth) return false                                       // non connectée
         const role = (auth.user as { role?: string } | undefined)?.role
         return role === 'ADMIN'
+      }
+
+      /* Verrou "Bientôt disponible" — actif tant que LAUNCH_DATE n'est pas
+         atteinte et que le cookie d'accès anticipé n'est pas posé. La page
+         /bientot et les API restent accessibles (sinon impossible d'entrer). */
+      if (
+        !isLaunched() &&
+        pathname !== '/bientot' &&
+        !pathname.startsWith('/api/')
+      ) {
+        const unlocked = request.cookies.get(PREVIEW_COOKIE)?.value === '1'
+        if (!unlocked) {
+          return NextResponse.redirect(new URL('/bientot', request.url))
+        }
       }
 
       return true

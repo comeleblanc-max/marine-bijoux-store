@@ -4,7 +4,8 @@ import type { Metadata } from 'next'
 import { Star, MessageSquare, ArrowRight } from 'lucide-react'
 import { db } from '@/lib/db'
 
-export const dynamic = 'force-dynamic'
+/* Cache ISR (60 s). Invalidé depuis l'admin à l'approbation d'un avis. */
+export const revalidate = 60
 
 const BASE = process.env.NEXT_PUBLIC_BASE_URL || 'https://marineetladouceurdelete.com'
 

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/auth'
 import { db } from '@/lib/db'
+import { bustStoreCache } from '@/lib/revalidate'
 
 function unauthorized() {
   return NextResponse.json({ error: 'Non autorisée.' }, { status: 401 })
@@ -51,6 +52,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     }
 
     const product = await db.product.update({ where: { id }, data })
+    bustStoreCache({ productSlug: product.slug })
     return NextResponse.json({ ok: true, product })
   } catch (err) {
     console.error('[admin/products PATCH] erreur :', err)
@@ -66,7 +68,9 @@ export async function DELETE(_: Request, { params }: { params: Promise<{ id: str
   const { id } = await params
 
   try {
+    const before = await db.product.findUnique({ where: { id }, select: { slug: true } })
     await db.product.delete({ where: { id } })
+    bustStoreCache({ productSlug: before?.slug })
     return NextResponse.json({ ok: true })
   } catch (err) {
     console.error('[admin/products DELETE] erreur :', err)
