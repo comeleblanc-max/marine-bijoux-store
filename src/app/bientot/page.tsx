@@ -1,11 +1,11 @@
 import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
 import { db } from '@/lib/db'
-import { isLaunched, LAUNCH_DATE } from '@/lib/launch'
+import { isLaunched, LAUNCH_DATE, PREVIEW_COOKIE } from '@/lib/launch'
 import { ComingSoon } from '@/components/ComingSoon'
 
-/* Page revalidée toutes les heures — son contenu (les photos de bijoux qui
-   défilent en colonnes) change peu, pas besoin de DB à chaque visite. */
-export const revalidate = 3600
+/* La page lit les cookies à chaque hit pour décider si elle redirige : pas d'ISR. */
+export const dynamic = 'force-dynamic'
 
 /* Pas d'indexation Google pour la page d'attente. */
 export const metadata = {
@@ -16,6 +16,11 @@ export const metadata = {
 export default async function BientotPage() {
   /* Si on est passé la date de lancement, la page d'attente n'a plus de sens. */
   if (isLaunched()) redirect('/')
+
+  /* Après un POST /api/preview-unlock réussi, le cookie est posé et le client
+     fait un router.refresh(). On en profite pour le renvoyer vers la home. */
+  const unlocked = (await cookies()).get(PREVIEW_COOKIE)?.value === '1'
+  if (unlocked) redirect('/')
 
   const products = await db.product.findMany({
     where:   { inStock: true },
