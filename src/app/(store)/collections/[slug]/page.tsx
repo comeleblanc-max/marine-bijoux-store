@@ -9,7 +9,8 @@ import { ProductCard } from '@/components/product/ProductCard'
 import { Stagger, StaggerItem } from '@/components/ui/motion'
 import { ShopFilters } from '@/components/shop/ShopFilters'
 
-export const dynamic = 'force-dynamic'
+/* Cache ISR (60 s). Invalidé depuis l'admin sur sauvegarde produit / réordon. */
+export const revalidate = 60
 
 /** Catégories proposées sur la page "Tous les bijoux". */
 const SHOP_CATEGORIES = [

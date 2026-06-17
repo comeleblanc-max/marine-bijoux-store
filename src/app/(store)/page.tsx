@@ -9,7 +9,9 @@ import { db } from '@/lib/db'
 import { serializeProducts } from '@/lib/serialize'
 import { getSettings } from '@/lib/settings'
 
-export const dynamic = 'force-dynamic'
+/* Cache ISR : la page est régénérée toutes les 60s.
+   L'invalidation est forcée depuis l'admin après chaque sauvegarde. */
+export const revalidate = 60
 
 const BASE = process.env.NEXT_PUBLIC_BASE_URL || 'https://marineetladouceurdelete.com'
 

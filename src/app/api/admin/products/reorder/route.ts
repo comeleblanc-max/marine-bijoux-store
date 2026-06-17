@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/auth'
 import { db } from '@/lib/db'
+import { bustStoreCache } from '@/lib/revalidate'
 
 export const dynamic = 'force-dynamic'
 
@@ -28,6 +29,7 @@ export async function POST(req: Request) {
         db.product.update({ where: { id }, data: { sortOrder: (i + 1) * 10 } }),
       ),
     )
+    bustStoreCache()
     return NextResponse.json({ ok: true })
   } catch (err) {
     console.error('[admin/products/reorder]', err)
