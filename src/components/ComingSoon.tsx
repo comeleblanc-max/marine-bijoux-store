@@ -272,14 +272,17 @@ export function ComingSoon({ targetIso, tiles = [] }: { targetIso: string; tiles
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="pointer-events-auto w-full max-w-md text-center bg-[#0E4F5E]/50 sm:bg-[#0a3a45]/55 backdrop-blur-md rounded-3xl border border-white/10 px-6 py-10 sm:px-9 sm:py-12 shadow-2xl"
         >
-          <Image
-            src="/logo-marine-launch.png"
-            alt="Marine et la douceur de l'été"
-            width={200}
-            height={110}
-            priority
-            className="h-16 sm:h-20 w-auto object-contain mx-auto mb-7"
-          />
+          {/* Médaillon beige — fait ressortir le logo coloré sur le fond foncé */}
+          <div className="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-7 rounded-full bg-[#FAF5EA] shadow-[0_8px_30px_rgba(0,0,0,0.25)] ring-1 ring-[#D4AF37]/30 flex items-center justify-center">
+            <Image
+              src="/logo-marine-transparent.png"
+              alt="Marine et la douceur de l'été"
+              width={200}
+              height={206}
+              priority
+              className="w-[88%] h-[88%] object-contain"
+            />
+          </div>
 
           <p className="text-[11px] tracking-[0.3em] uppercase text-[#A7D5E6] mb-3">
             ✨ Ouverture imminente
