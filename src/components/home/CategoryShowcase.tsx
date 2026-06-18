@@ -13,15 +13,17 @@ interface Tile {
   span?:   'wide' | 'tall'
 }
 
-/* 5 tuiles = grid parfait : la grande "wide" (2×2) + 4 petites = 8 slots sur 4 colonnes.
-   "Bracelets de cheville" n'étant pas une vraie catégorie produit, on l'a retirée pour
-   éviter une tuile orpheline en bas. */
+/* 6 tuiles sur une grille 3 colonnes :
+   - desktop : Lumière d'été en grande (2×2) + 5 catégories = 9 slots = 3 rangées pleines
+   - mobile  : tout à taille égale en 2 colonnes = 3 rangées pleines
+   → aucune tuile orpheline, "Bracelets de cheville" bien intégrée. */
 const TILES: Tile[] = [
-  { slug: 'lumiere-dete',       name: 'Lumière d\'été',     eyebrow: 'Collection', span: 'wide' },
-  { slug: 'colliers',           name: 'Colliers',           eyebrow: 'Catégorie' },
-  { slug: 'bracelets',          name: 'Bracelets',          eyebrow: 'Catégorie' },
-  { slug: 'bagues',             name: 'Bagues',             eyebrow: 'Catégorie' },
-  { slug: 'boucles-doreilles',  name: 'Boucles d\'oreilles', eyebrow: 'Catégorie' },
+  { slug: 'lumiere-dete',       name: 'Lumière d\'été',        eyebrow: 'Collection', span: 'wide' },
+  { slug: 'colliers',           name: 'Colliers',              eyebrow: 'Catégorie' },
+  { slug: 'bracelets',          name: 'Bracelets',             eyebrow: 'Catégorie' },
+  { slug: 'bracelets-cheville', name: 'Bracelets de cheville', eyebrow: 'Catégorie' },
+  { slug: 'boucles-doreilles',  name: 'Boucles d\'oreilles',    eyebrow: 'Catégorie' },
+  { slug: 'bagues',             name: 'Bagues',                eyebrow: 'Catégorie' },
 ]
 
 /**
@@ -30,11 +32,12 @@ const TILES: Tile[] = [
  * avec le même nom et redéploie.
  */
 const TILE_IMAGES: Record<string, string> = {
-  'lumiere-dete':      '/tiles/lumiere-dete.webp',
-  'colliers':          '/tiles/colliers.webp',
-  'bracelets':         '/tiles/bracelets.webp',
-  'boucles-doreilles': '/tiles/boucles-doreilles.webp',
-  'bagues':            '/tiles/bagues.webp',
+  'lumiere-dete':       '/tiles/lumiere-dete.webp',
+  'colliers':           '/tiles/colliers.webp',
+  'bracelets':          '/tiles/bracelets.webp',
+  'bracelets-cheville': '/tiles/bracelets.webp', // fallback : réutilise l'image bracelets jusqu'à /tiles/bracelets-cheville.webp
+  'boucles-doreilles':  '/tiles/boucles-doreilles.webp',
+  'bagues':             '/tiles/bagues.webp',
 }
 
 /**
@@ -58,8 +61,9 @@ export function CategoryShowcase(_props: { images?: Record<string, string | null
           </h2>
         </motion.div>
 
-        {/* Grille 2x3 — mainajewels style */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 auto-rows-[180px] sm:auto-rows-[260px] lg:auto-rows-[300px]">
+        {/* Grille 3 colonnes : Lumière d'été en grande (2×2) sur desktop, le reste à
+            taille égale. Mobile = 2 colonnes à taille égale (aucune orpheline). */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 auto-rows-[180px] sm:auto-rows-[240px] lg:auto-rows-[270px]">
           {TILES.map((tile, i) => {
             const img = TILE_IMAGES[tile.slug] ?? null
             return (
@@ -69,7 +73,7 @@ export function CategoryShowcase(_props: { images?: Record<string, string | null
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-40px' }}
                 transition={{ duration: 0.6, delay: i * 0.08, ease: EASE }}
-                className={tile.span === 'wide' ? 'col-span-2 row-span-2 lg:col-span-2 lg:row-span-2' : ''}
+                className={tile.span === 'wide' ? 'lg:col-span-2 lg:row-span-2' : ''}
               >
                 <Link
                   href={`/collections/${tile.slug}`}
@@ -97,7 +101,7 @@ export function CategoryShowcase(_props: { images?: Record<string, string | null
                     </p>
                     <h3
                       className={`text-white font-light ${
-                        tile.span === 'wide' ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-lg sm:text-xl'
+                        tile.span === 'wide' ? 'text-lg sm:text-xl lg:text-4xl' : 'text-lg sm:text-xl'
                       }`}
                     >
                       {tile.name}
