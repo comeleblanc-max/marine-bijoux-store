@@ -21,6 +21,7 @@ export default async function AdminProductsPage() {
     price:     Number(p.price),
     compareAt: p.compareAt != null ? Number(p.compareAt) : null,
     inStock:   p.inStock,
+    stock:     p.stock,
     featured:  p.featured,
     newArrival: p.newArrival,
   }))
