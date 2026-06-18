@@ -41,10 +41,10 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   announcement: {
     enabled:  true,
     messages: [
-      'RETOURS GRATUITS SOUS 14 JOURS',
+      '-10% SUR VOTRE PREMIÈRE COMMANDE — CODE BIENVENUE10',
       'LIVRAISON OFFERTE DÈS 60€',
+      'RETOURS GRATUITS SOUS 14 JOURS',
       'ACIER INOXYDABLE HYPOALLERGÉNIQUE — NE TERNIT PAS',
-      'NOUVELLE COLLECTION ÉTÉ 2026 ✨',
     ],
   },
   hero: {
