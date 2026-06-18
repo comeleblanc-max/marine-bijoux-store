@@ -23,6 +23,8 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError]     = useState('')
   const [hydrated, setHydrated] = useState(false)
+  const [promoCode, setPromoCode]   = useState('')
+  const [promoEmail, setPromoEmail] = useState('')
 
   /* Évite le mismatch d'hydratation avec le panier persistant */
   useEffect(() => { setHydrated(true) }, [])
@@ -70,6 +72,8 @@ export default function CheckoutPage() {
           items: items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
           method,
           relayPoint: isRelay ? relayPoint.trim() : '',
+          promoCode:  promoCode.trim(),
+          promoEmail: promoEmail.trim(),
         }),
       })
       const data = await res.json().catch(() => ({}))
@@ -204,6 +208,31 @@ export default function CheckoutPage() {
                 </p>
               </div>
             )}
+          </div>
+
+          {/* Code promo */}
+          <div className="border-t border-[#E8E2D5] pt-4 mb-4">
+            <p className="text-[11px] tracking-[0.2em] uppercase text-[#6B6B6B] mb-3">Code promo</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <input
+                type="email"
+                value={promoEmail}
+                onChange={(e) => setPromoEmail(e.target.value)}
+                placeholder="Votre email"
+                className="text-xs bg-white border border-[#E8E2D5] rounded-md px-3 py-2 outline-none focus:border-[#0E4F5E]"
+                autoComplete="email"
+              />
+              <input
+                type="text"
+                value={promoCode}
+                onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+                placeholder="Ex : BIENVENUE10"
+                className="text-xs bg-white border border-[#E8E2D5] rounded-md px-3 py-2 outline-none focus:border-[#0E4F5E] uppercase tracking-wider"
+              />
+            </div>
+            <p className="text-[10px] text-[#6B6B6B] mt-2">
+              💝 <strong>BIENVENUE10</strong> — 10 % offerts sur ta toute première commande (un seul email).
+            </p>
           </div>
 
           <div className="border-t border-[#E8E2D5] pt-4 space-y-2 text-sm">

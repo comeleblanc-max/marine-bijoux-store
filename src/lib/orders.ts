@@ -35,6 +35,11 @@ export async function fulfillOrder(session: Stripe.Checkout.Session): Promise<{ 
   const itemsJSON = metadata.itemsJSON ?? '[]'
   const shipLabel = metadata.shipLabel ?? ''
   const relayPoint = metadata.relayPoint ?? ''
+  const promoCode  = metadata.promoCode || null
+  /* Stripe expose le total avant remise (amount_subtotal) et après
+     (amount_total). La différence inclut aussi les frais de port, donc
+     on calcule le discount uniquement à partir de total_details. */
+  const discountCents = session.total_details?.amount_discount ?? 0
   let orderItems: OrderItemMeta[] = []
   try { orderItems = JSON.parse(itemsJSON) } catch { orderItems = [] }
 
@@ -63,9 +68,12 @@ export async function fulfillOrder(session: Stripe.Checkout.Session): Promise<{ 
       shippingCity:    address?.city  ?? '',
       shippingZip:     address?.postal_code ?? '',
       shippingCountry: address?.country     ?? 'FR',
+      promoCode:       promoCode || null,
+      discount:        discountCents > 0 ? discountCents / 100 : null,
       adminNote: [
         shipLabel ? `Livraison choisie : ${shipLabel}` : '',
         relayPoint ? `Point relais : ${relayPoint}` : '',
+        promoCode ? `Code promo : ${promoCode} (-${(discountCents / 100).toFixed(2)} €)` : '',
       ].filter(Boolean).join('\n') || null,
       items: {
         create: orderItems.map((it) => ({
