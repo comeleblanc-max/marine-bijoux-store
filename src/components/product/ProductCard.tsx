@@ -184,7 +184,7 @@ export function ProductCard({ product }: Props) {
       {/* Infos */}
       <div className="space-y-1.5">
         <p className="eyebrow">Acier inoxydable</p>
-        <h3 className="text-sm text-[#0E4F5E] group-hover:text-[#D4AF37] transition-colors leading-snug">
+        <h3 className="text-sm font-semibold text-[#0E4F5E] group-hover:text-[#D4AF37] transition-colors leading-snug">
           {product.name}
         </h3>
         <div className="flex items-center gap-2">

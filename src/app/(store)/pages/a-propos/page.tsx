@@ -44,7 +44,7 @@ export default function AProposPage() {
 
         <Reveal>
           <p className="text-gray-700 leading-loose mb-6 text-lg">
-            Je m'appelle <strong className="text-[#0E4F5E]">Marine</strong>, j'ai 21 ans,
+            Je m'appelle <strong className="text-[#0E4F5E]">Marine</strong>, j'ai 21 ans
             et la création de cette boutique en ligne est pour moi la concrétisation
             d'une passion de toujours.
           </p>
