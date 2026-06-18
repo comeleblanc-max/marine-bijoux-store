@@ -37,7 +37,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
     const allowed = [
       'name', 'description', 'details', 'price', 'compareAt',
       'images', 'category', 'collection', 'material',
-      'inStock', 'featured', 'newArrival',
+      'stock', 'featured', 'newArrival',
     ] as const
 
     const data: Record<string, unknown> = {}
@@ -49,6 +49,12 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ id: st
         if ((key === 'description' || key === 'details' || key === 'collection' || key === 'material') && val === '') val = null
         data[key] = val
       }
+    }
+    /* Si le stock est mis à jour, on synchronise inStock automatiquement. */
+    if ('stock' in body) {
+      const s = Math.max(0, Math.floor(Number(body.stock) || 0))
+      data.stock = s
+      data.inStock = s > 0
     }
 
     const product = await db.product.update({ where: { id }, data })

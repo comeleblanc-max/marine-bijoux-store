@@ -11,6 +11,8 @@ export interface Product {
   collection?: string | null
   material?: string | null
   inStock: boolean
+  /** Quantité réellement en stock (toujours présent côté DB ; optionnel pour les fixtures src/lib/data.ts). */
+  stock?: number
   featured: boolean
   newArrival: boolean
   variants: Variant[]

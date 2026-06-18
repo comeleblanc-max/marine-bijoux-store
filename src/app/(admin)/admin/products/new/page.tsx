@@ -15,7 +15,7 @@ export default function NewProductPage() {
         category:    '',
         collection:  '',
         material:    'Acier inoxydable doré',
-        inStock:     true,
+        stock:       '1',
         featured:    false,
         newArrival:  true,
       }}

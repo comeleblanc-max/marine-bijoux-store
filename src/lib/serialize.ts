@@ -21,6 +21,7 @@ export function serializeProduct(p: DbProduct): Product {
     collection:  p.collection,
     material:    p.material,
     inStock:     p.inStock,
+    stock:       p.stock,
     featured:    p.featured,
     newArrival:  p.newArrival,
     variants:    [],

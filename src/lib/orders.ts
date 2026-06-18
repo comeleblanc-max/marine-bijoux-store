@@ -79,6 +79,26 @@ export async function fulfillOrder(session: Stripe.Checkout.Session): Promise<{ 
     },
   })
 
+  /* Décrémente le stock pour chaque ligne. Si on tombe à 0, on bascule
+     automatiquement inStock=false (le filet en checkout ne laissera plus
+     personne ajouter ce produit au panier). On agrège les quantités par
+     produit au cas où la même réf apparaît plusieurs fois dans la commande. */
+  const decrementByProduct = new Map<string, number>()
+  for (const it of orderItems) {
+    decrementByProduct.set(it.productId, (decrementByProduct.get(it.productId) ?? 0) + it.quantity)
+  }
+  await Promise.allSettled(
+    Array.from(decrementByProduct.entries()).map(async ([productId, qty]) => {
+      const p = await db.product.findUnique({ where: { id: productId }, select: { stock: true } })
+      if (!p) return
+      const newStock = Math.max(0, p.stock - qty)
+      await db.product.update({
+        where: { id: productId },
+        data:  { stock: newStock, inStock: newStock > 0 },
+      })
+    }),
+  )
+
   await Promise.allSettled([
     sendCustomerEmail({ email, name, orderId: order.id, totalCents, items: orderItems }),
     sendAdminEmail({ email, name, orderId: order.id, totalCents, items: orderItems, address }),

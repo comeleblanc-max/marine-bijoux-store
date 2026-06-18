@@ -57,6 +57,26 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Produits introuvables.' }, { status: 400 })
     }
 
+    /* Vérifie qu'on a assez de stock pour chaque ligne du panier. On ne réserve
+       pas (la décrémentation se fait quand le paiement est confirmé), mais on
+       refuse au moins de partir en checkout sur un produit déjà épuisé ou en
+       quantité insuffisante. */
+    for (const item of items) {
+      const p = products.find((x) => x.id === item.productId)
+      if (!p) continue
+      const qty = Math.max(1, Math.floor(item.quantity))
+      if (p.stock < qty) {
+        return NextResponse.json(
+          {
+            error: p.stock === 0
+              ? `« ${p.name } » est épuisé.`
+              : `« ${p.name} » : il ne reste que ${p.stock} en stock (vous en demandez ${qty}).`,
+          },
+          { status: 409 },
+        )
+      }
+    }
+
     /* Construit les lignes Stripe en utilisant les VRAIS prix de la base */
     const lineItems: Array<{
       price_data: {

@@ -28,6 +28,8 @@ model Product {
   collection  String?
   material    String?
   inStock     Boolean     @default(true)
+  /** Quantité réelle disponible — décrémentée à chaque commande payée. */
+  stock       Int         @default(99)
   featured    Boolean     @default(false)
   newArrival  Boolean     @default(false)
   /** Position dans "Tous les bijoux" — plus petit = plus haut. */
