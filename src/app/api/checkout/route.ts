@@ -4,6 +4,7 @@ import { db } from '@/lib/db'
 import { auth } from '@/auth'
 import { getSettings } from '@/lib/settings'
 import { shippingCents, allowedCountries, shippingLabel, type ShipMethod } from '@/lib/shipping'
+import { normalizeCode, validateWelcomeCode, ensureWelcomeCoupon, WELCOME_CODE } from '@/lib/promo'
 
 const VALID_METHODS: ShipMethod[] = ['laposte-fr', 'laposte-eu', 'relay-fr', 'relay-eu']
 
@@ -42,6 +43,8 @@ export async function POST(req: Request) {
         ? body.method
         : body.zone === 'europe' ? 'laposte-eu' : 'laposte-fr'
     const relayPoint = typeof body.relayPoint === 'string' ? body.relayPoint.slice(0, 280) : ''
+    const promoCode  = normalizeCode(body.promoCode)
+    const promoEmail = typeof body.promoEmail === 'string' ? body.promoEmail.trim().toLowerCase() : ''
 
     if (!items?.length) {
       return NextResponse.json({ error: 'Panier vide.' }, { status: 400 })
@@ -140,6 +143,20 @@ export async function POST(req: Request) {
     const userId  = session?.user ? (session.user as { id?: string }).id : null
     const email   = session?.user?.email ?? undefined
 
+    /* Code promo de bienvenue : on valide côté serveur que c'est bien la
+       première commande de cet email avant d'attacher le coupon Stripe. */
+    let appliedCouponId: string | null = null
+    let appliedPromoLabel: string | null = null
+    if (promoCode) {
+      const promoEmailToCheck = promoEmail || email || ''
+      const check = await validateWelcomeCode(promoCode, promoEmailToCheck)
+      if (!check.ok) {
+        return NextResponse.json({ error: check.reason }, { status: 400 })
+      }
+      appliedCouponId = await ensureWelcomeCoupon()
+      appliedPromoLabel = WELCOME_CODE
+    }
+
     const baseUrl = getBaseUrl(req)
 
     const checkout = await stripe.checkout.sessions.create({
@@ -168,12 +185,14 @@ export async function POST(req: Request) {
       locale: 'fr',
       success_url: `${baseUrl}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url:  `${baseUrl}/checkout`,
+      ...(appliedCouponId ? { discounts: [{ coupon: appliedCouponId }] } : {}),
       metadata: {
         userId:      userId ?? '',
         itemsJSON:   JSON.stringify(orderItems),
         shipMethod:  method,
         shipLabel,
         relayPoint:  relayPoint,
+        promoCode:   appliedPromoLabel ?? '',
       },
     })
 
