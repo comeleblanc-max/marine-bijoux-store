@@ -15,6 +15,7 @@ interface Product {
   price:      number
   compareAt:  number | null
   inStock:    boolean
+  stock?:     number
   featured:   boolean
   newArrival: boolean
 }
@@ -121,9 +122,22 @@ export function ProductsTable({ products }: { products: Product[] }) {
                     )}
                   </td>
                   <td className="px-6 py-4">
-                    <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${p.inStock ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
-                      {p.inStock ? 'En stock' : 'Rupture'}
-                    </span>
+                    {(() => {
+                      const stock = p.stock ?? 0
+                      const cls =
+                        stock === 0   ? 'bg-red-100 text-red-700' :
+                        stock <= 3    ? 'bg-orange-100 text-orange-700' :
+                        stock <= 10   ? 'bg-amber-100 text-amber-700' :
+                                        'bg-green-100 text-green-700'
+                      const label =
+                        stock === 0 ? 'Rupture' :
+                        `${stock} en stock`
+                      return (
+                        <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${cls}`}>
+                          {label}
+                        </span>
+                      )
+                    })()}
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2 justify-end">

@@ -198,34 +198,42 @@ export function ProductView({ product, related }: { product: Product; related: P
                 </p>
               )}
 
-              {/* Quantité + ajout */}
-              <div className="flex items-stretch gap-3 mb-4">
-                <div className="flex items-center border border-[#0E4F5E]">
-                  <button
-                    onClick={() => setQty(Math.max(1, qty - 1))}
-                    className="w-10 h-12 flex items-center justify-center hover:bg-[#24BBD0] hover:text-white transition-colors"
-                    aria-label="Diminuer"
-                  >
-                    <Minus className="w-3.5 h-3.5" />
-                  </button>
-                  <span className="w-10 text-center text-sm">{qty}</span>
-                  <button
-                    onClick={() => setQty(qty + 1)}
-                    className="w-10 h-12 flex items-center justify-center hover:bg-[#24BBD0] hover:text-white transition-colors"
-                    aria-label="Augmenter"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-                <motion.button
-                  onClick={handleAdd}
-                  disabled={!product.inStock}
-                  whileTap={{ scale: 0.97 }}
-                  className="flex-1 btn-primary disabled:bg-[#6B6B6B] disabled:hover:bg-[#6B6B6B] disabled:hover:gap-2"
-                >
-                  {product.inStock ? 'Ajouter au panier' : 'Épuisé'}
-                </motion.button>
-              </div>
+              {/* Quantité + ajout (qty plafonnée au stock disponible) */}
+              {(() => {
+                const maxQty = Math.max(1, product.stock ?? 99)
+                const atMax  = qty >= maxQty
+                return (
+                  <div className="flex items-stretch gap-3 mb-4">
+                    <div className="flex items-center border border-[#0E4F5E]">
+                      <button
+                        onClick={() => setQty(Math.max(1, qty - 1))}
+                        disabled={qty <= 1}
+                        className="w-10 h-12 flex items-center justify-center hover:bg-[#24BBD0] hover:text-white transition-colors disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[#0E4F5E]"
+                        aria-label="Diminuer"
+                      >
+                        <Minus className="w-3.5 h-3.5" />
+                      </button>
+                      <span className="w-10 text-center text-sm">{qty}</span>
+                      <button
+                        onClick={() => setQty(Math.min(maxQty, qty + 1))}
+                        disabled={atMax}
+                        className="w-10 h-12 flex items-center justify-center hover:bg-[#24BBD0] hover:text-white transition-colors disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[#0E4F5E]"
+                        aria-label="Augmenter"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                    <motion.button
+                      onClick={handleAdd}
+                      disabled={!product.inStock}
+                      whileTap={{ scale: 0.97 }}
+                      className="flex-1 btn-primary disabled:bg-[#6B6B6B] disabled:hover:bg-[#6B6B6B] disabled:hover:gap-2"
+                    >
+                      {product.inStock ? 'Ajouter au panier' : 'Épuisé'}
+                    </motion.button>
+                  </div>
+                )
+              })()}
 
               <button
                 onClick={() => toggle(product.id)}
