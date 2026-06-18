@@ -17,7 +17,7 @@ interface ProductFormData {
   category:    string
   collection:  string
   material:    string
-  inStock:     boolean
+  stock:       string
   featured:    boolean
   newArrival:  boolean
 }
@@ -412,12 +412,22 @@ export function ProductForm({ initial, mode }: { initial: ProductFormData; mode:
 
       {/* STATUTS */}
       <Card title="Statuts">
-        <div className="space-y-3">
-          <Toggle
-            label="En stock (visible et achetable)"
-            checked={form.inStock}
-            onChange={(v) => setForm({ ...form, inStock: v })}
-          />
+        <div className="space-y-4">
+          <Field label="Stock disponible">
+            <input
+              type="number"
+              min="0"
+              step="1"
+              value={form.stock}
+              onChange={(e) => setForm({ ...form, stock: e.target.value })}
+              className="input w-32"
+              placeholder="0"
+            />
+            <p className="text-[11px] text-gray-400 mt-1">
+              Quantité réellement en ta possession. Diminue automatiquement à chaque commande payée.
+              À 0 → le produit affiche « Épuisé » et n&apos;est plus commandable.
+            </p>
+          </Field>
           <Toggle
             label="Coup de cœur (mis en avant sur la page d'accueil)"
             checked={form.featured}

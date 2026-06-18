@@ -190,6 +190,14 @@ export function ProductView({ product, related }: { product: Product; related: P
                 <p className="text-[#6B6B6B] leading-relaxed mb-8">{product.description}</p>
               )}
 
+              {/* Bandeau urgence si peu de stock restant */}
+              {product.inStock && product.stock != null && product.stock > 0 && product.stock <= 3 && (
+                <p className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-[#D4AF37] bg-[#FAF5EA] border border-[#E8E2D5] px-3 py-2 mb-6">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
+                  {product.stock === 1 ? 'Plus qu\'un en stock !' : `Plus que ${product.stock} en stock !`}
+                </p>
+              )}
+
               {/* Quantité + ajout */}
               <div className="flex items-stretch gap-3 mb-4">
                 <div className="flex items-center border border-[#0E4F5E]">

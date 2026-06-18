@@ -24,7 +24,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
         category:    product.category,
         collection:  product.collection ?? '',
         material:    product.material ?? '',
-        inStock:     product.inStock,
+        stock:       String(product.stock),
         featured:    product.featured,
         newArrival:  product.newArrival,
       }}

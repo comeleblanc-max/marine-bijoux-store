@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     const {
       name, slug, description, details, price, compareAt,
       images, category, collection, material,
-      inStock, featured, newArrival,
+      stock, featured, newArrival,
     } = body
 
     if (!name || !slug || !category || price == null) {
@@ -66,7 +66,8 @@ export async function POST(req: Request) {
         category,
         collection:  collection || null,
         material:    material   || null,
-        inStock:     inStock    !== false,
+        stock:       Math.max(0, Math.floor(Number(stock) || 0)),
+        inStock:     Math.max(0, Math.floor(Number(stock) || 0)) > 0,
         featured:    !!featured,
         newArrival:  !!newArrival,
       },
