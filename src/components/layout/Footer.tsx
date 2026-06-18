@@ -44,13 +44,15 @@ export function Footer() {
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
           {/* Marque + social */}
           <div className="col-span-2">
-            <Image
-              src="/logo-marine-launch.png"
-              alt="Marine et la douceur de l'été"
-              width={120}
-              height={120}
-              className="h-16 w-auto object-contain mb-5"
-            />
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-white shadow-sm mb-5">
+              <Image
+                src="/logo-marine-transparent.png"
+                alt="Marine et la douceur de l'été"
+                width={200}
+                height={206}
+                className="w-[86%] h-[86%] object-contain"
+              />
+            </div>
             <p className="text-[#A8A8A8] text-sm leading-relaxed max-w-xs mb-6">
               Des bijoux en acier inoxydable inspirés par le soleil, la mer
               et la douceur de l'été.
