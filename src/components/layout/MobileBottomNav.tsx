@@ -61,7 +61,7 @@ export function MobileBottomNav() {
                 href={href}
                 aria-current={active ? 'page' : undefined}
                 className={`relative flex flex-col items-center justify-center gap-1 py-2.5 text-[10px] tracking-wider uppercase transition-colors ${
-                  active ? 'text-[#0E4F5E]' : 'text-[#6B6B6B] hover:text-[#0E4F5E]'
+                  active ? 'text-[#24BBD0]' : 'text-[#24BBD0]/55 hover:text-[#24BBD0]'
                 }`}
               >
                 <span className="relative">
