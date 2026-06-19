@@ -29,13 +29,22 @@ export const COLLECTIONS: Collection[] = [
     order: 3,
   },
   {
+    id: '6',
+    name: 'Bracelets de cheville',
+    slug: 'bracelets-cheville',
+    description: 'Des bracelets de cheville pour les pieds nus dans le sable.',
+    image: '/images/collection-bracelets.jpg',
+    featured: false,
+    order: 4,
+  },
+  {
     id: '4',
     name: 'Boucles d\'oreilles',
     slug: 'boucles-doreilles',
     description: 'Des boucles légères comme une brise estivale.',
     image: '/images/collection-boucles.jpg',
     featured: true,
-    order: 4,
+    order: 5,
   },
   {
     id: '5',
