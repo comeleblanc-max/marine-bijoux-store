@@ -7,6 +7,7 @@
  */
 import type Stripe from 'stripe'
 import { db } from '@/lib/db'
+import { stripe } from '@/lib/stripe'
 import { Resend } from 'resend'
 
 const resendApiKey = process.env.RESEND_API_KEY || ''
@@ -175,6 +176,67 @@ async function sendAdminEmail({
         <p><strong>Articles :</strong><br>${itemsList}</p>
         <p style="font-size:18px;color:#D4AF37;font-weight:600">Total : ${(totalCents/100).toFixed(2)} €</p>
         <p style="margin-top:24px;font-size:12px;color:#6B6B6B">Voir tous les détails dans ton tableau de bord admin.</p>
+      </div>
+    `,
+  })
+}
+
+/**
+ * Marque la commande « Remboursée » + email à la cliente, quand Stripe émet
+ * « charge.refunded » (clic sur Rembourser dans le dashboard Stripe).
+ * Idempotent : ne refait rien si la commande est déjà REFUNDED.
+ */
+export async function handleRefund(charge: Stripe.Charge): Promise<void> {
+  const pi = typeof charge.payment_intent === 'string'
+    ? charge.payment_intent
+    : charge.payment_intent?.id
+  if (!pi) return
+
+  /* Les commandes sont rangées par id de session checkout (stripeId). On
+     retrouve la session à partir du payment_intent du paiement remboursé. */
+  const sessions = await stripe.checkout.sessions.list({ payment_intent: pi, limit: 1 })
+  const session  = sessions.data[0]
+  if (!session) return
+
+  const order = await db.order.findFirst({ where: { stripeId: session.id } })
+  if (!order) return
+  if (order.status === 'REFUNDED') return
+
+  await db.order.update({ where: { id: order.id }, data: { status: 'REFUNDED' } })
+
+  await sendRefundEmail({
+    email:         order.email,
+    name:          order.shippingName,
+    orderId:       order.id,
+    refundedCents: charge.amount_refunded ?? 0,
+  })
+}
+
+async function sendRefundEmail({
+  email, name, orderId, refundedCents,
+}: { email: string; name: string; orderId: string; refundedCents: number }) {
+  if (!email || !resendApiKey) return
+  const resend = new Resend(resendApiKey)
+  const amount = (refundedCents / 100).toFixed(2)
+
+  await resend.emails.send({
+    from: `Marine et la douceur de l'été <${fromEmail}>`,
+    to:   [email],
+    subject: `Remboursement de votre commande #${orderId.slice(-8).toUpperCase()}`,
+    html: `
+      <div style="font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:560px;margin:auto;color:#0E4F5E">
+        <div style="background:#24BBD0;color:white;padding:32px 24px;text-align:center">
+          <h1 style="margin:0;font-weight:300;font-size:24px">Votre remboursement est en route</h1>
+        </div>
+        <div style="padding:28px 24px;background:#FAF5EA">
+          <p style="margin:0 0 16px 0">Bonjour ${escape(name) || 'à vous'},</p>
+          <p style="margin:0 0 16px 0">Nous avons bien procédé au remboursement de votre commande <strong>#${orderId.slice(-8).toUpperCase()}</strong> 🐚</p>
+          <table style="width:100%;background:white;padding:16px;border-radius:8px">
+            <tr><td style="padding:6px 0">Montant remboursé</td><td style="text-align:right;font-weight:600;color:#D4AF37">${amount} €</td></tr>
+          </table>
+          <p style="margin:24px 0 0 0">Le montant réapparaîtra sur votre moyen de paiement sous <strong>5 à 10 jours ouvrés</strong>, selon votre banque.</p>
+          <p style="margin:16px 0 0 0;font-size:13px;color:#6B6B6B">Une question&nbsp;? Répondez simplement à cet email.<br/>À très vite,<br/>Marine</p>
+        </div>
       </div>
     `,
   })
