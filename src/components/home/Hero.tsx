@@ -27,7 +27,7 @@ export function Hero({
     <section className="relative w-full h-[75vh] min-h-[520px] max-h-[820px] overflow-hidden bg-[#FAF5EA]">
       {/* Image pleine largeur */}
       <Image
-        src="/hero-marine.webp"
+        src="/hero-marine.jpg"
         alt="Marine — collection bijoux d'été"
         fill
         priority
