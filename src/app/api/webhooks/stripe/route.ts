@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import type Stripe from 'stripe'
 import { stripe } from '@/lib/stripe'
-import { fulfillOrder } from '@/lib/orders'
+import { fulfillOrder, handleRefund } from '@/lib/orders'
 
 export const dynamic = 'force-dynamic'
 
@@ -41,6 +41,16 @@ export async function POST(req: Request) {
     } catch (err) {
       console.error('[stripe webhook] erreur traitement :', err)
       return NextResponse.json({ error: 'Erreur traitement commande.' }, { status: 500 })
+    }
+  } else if (event.type === 'charge.refunded') {
+    /* Clic sur « Rembourser » dans Stripe → on marque la commande REFUNDED
+       et on envoie l'email de remboursement à la cliente. */
+    const charge = event.data.object as Stripe.Charge
+    try {
+      await handleRefund(charge)
+    } catch (err) {
+      console.error('[stripe webhook] erreur remboursement :', err)
+      return NextResponse.json({ error: 'Erreur traitement remboursement.' }, { status: 500 })
     }
   }
 
