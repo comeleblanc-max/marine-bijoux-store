@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import type { Prisma } from '@prisma/client'
 import { COLLECTIONS } from '@/lib/data'
 import { db } from '@/lib/db'
+import { getCategories } from '@/lib/categories'
 import { serializeProducts } from '@/lib/serialize'
 import { ProductCard } from '@/components/product/ProductCard'
 import { Stagger, StaggerItem } from '@/components/ui/motion'
@@ -12,16 +13,6 @@ import { ShopFilters } from '@/components/shop/ShopFilters'
 /* Cache ISR (60 s). Invalidé depuis l'admin sur sauvegarde produit / réordon. */
 export const revalidate = 60
 
-/** Catégories proposées sur la page "Tous les bijoux". */
-const SHOP_CATEGORIES = [
-  { slug: 'colliers',            label: 'Colliers' },
-  { slug: 'bracelets',           label: 'Bracelets' },
-  { slug: 'bracelets-cheville',  label: 'Cheville' },
-  { slug: 'bagues',              label: 'Bagues' },
-  { slug: 'boucles-doreilles',   label: 'Boucles' },
-]
-
-const VALID_CATS = new Set(SHOP_CATEGORIES.map((c) => c.slug))
 const VALID_SORTS = new Set(['manual', 'new', 'price-asc', 'price-desc'])
 
 interface PageProps {
@@ -49,12 +40,14 @@ function orderByFor(sort: string): Prisma.ProductOrderByWithRelationInput[] {
 }
 
 export default async function CollectionPage({ params, searchParams }: PageProps) {
-  const { slug }   = await params
-  const sp         = await searchParams
-  const rawCat     = (sp.cat  ?? '').toLowerCase()
-  const rawSort    = (sp.sort ?? '').toLowerCase()
-  const activeCat  = VALID_CATS.has(rawCat) ? rawCat : null
-  const activeSort = VALID_SORTS.has(rawSort) ? rawSort : 'manual'
+  const { slug }     = await params
+  const sp           = await searchParams
+  const rawCat       = (sp.cat  ?? '').toLowerCase()
+  const rawSort      = (sp.sort ?? '').toLowerCase()
+  const categories   = await getCategories()
+  const validCats    = new Set(categories.map((c) => c.slug))
+  const activeCat    = validCats.has(rawCat) ? rawCat : null
+  const activeSort   = VALID_SORTS.has(rawSort) ? rawSort : 'manual'
 
   let title       = 'Tous les bijoux'
   let description = 'Découvrez l\'intégralité de la collection.'
@@ -67,17 +60,17 @@ export default async function CollectionPage({ params, searchParams }: PageProps
       orderBy: orderByFor(activeSort),
     })
   } else {
+    /* Le slug est-il une catégorie admin OU une collection statique (data.ts) ? */
+    const cat = categories.find((c) => c.slug === slug)
     const col = COLLECTIONS.find((c) => c.slug === slug)
-    if (!col) notFound()
+    if (!cat && !col) notFound()
     raw = await db.product.findMany({
       where:   { OR: [{ category: slug }, { collection: slug }] },
-      /* Même tri que "Tous les bijoux" : on respecte l'ordre fixé dans
-         Admin → Produits → Réordonner. createdAt en tie-breaker. */
       orderBy: [{ sortOrder: 'asc' }, { createdAt: 'desc' }],
     })
-    title       = col.name
-    description = col.description ?? ''
-    eyebrow     = col.slug === 'lumiere-dete' ? 'Collection' : 'Catégorie'
+    title       = cat?.name ?? col!.name
+    description = cat?.description ?? col?.description ?? ''
+    eyebrow     = slug === 'lumiere-dete' ? 'Collection' : 'Catégorie'
   }
 
   const products = serializeProducts(raw)
@@ -108,7 +101,7 @@ export default async function CollectionPage({ params, searchParams }: PageProps
         <div className="container-x">
           {isShop && (
             <ShopFilters
-              categories={SHOP_CATEGORIES}
+              categories={categories.map((c) => ({ slug: c.slug, label: c.name }))}
               activeCat={activeCat}
               activeSort={activeSort}
               count={products.length}

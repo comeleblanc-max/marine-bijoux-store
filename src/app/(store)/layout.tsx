@@ -31,7 +31,7 @@ export default async function StoreLayout({ children }: { children: React.ReactN
         enabled={settings.announcement.enabled}
         messages={settings.announcement.messages}
       />
-      <Header />
+      <Header categories={settings.categories} />
       <main className="flex-1">
         <PageTransition>{children}</PageTransition>
       </main>

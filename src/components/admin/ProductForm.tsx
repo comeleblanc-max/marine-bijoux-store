@@ -22,7 +22,8 @@ interface ProductFormData {
   newArrival:  boolean
 }
 
-const CATEGORIES = [
+/* Fallback si la page parent ne fournit pas les catégories */
+const FALLBACK_CATEGORIES = [
   { value: 'colliers',            label: 'Colliers' },
   { value: 'bracelets',           label: 'Bracelets' },
   { value: 'bracelets-cheville',  label: 'Bracelets de cheville' },
@@ -35,7 +36,17 @@ const COLLECTIONS = [
   { value: 'lumiere-dete', label: 'Lumière d\'été' },
 ]
 
-export function ProductForm({ initial, mode }: { initial: ProductFormData; mode: 'create' | 'edit' }) {
+interface ProductFormProps {
+  initial:     ProductFormData
+  mode:        'create' | 'edit'
+  categories?: { slug: string; name: string }[]
+}
+
+export function ProductForm({ initial, mode, categories }: ProductFormProps) {
+  const CATEGORIES = categories && categories.length > 0
+    ? categories.map((c) => ({ value: c.slug, label: c.name }))
+    : FALLBACK_CATEGORIES
+
   const router = useRouter()
   const [form, setForm] = useState<ProductFormData>(initial)
   const [saving, setSaving] = useState(false)

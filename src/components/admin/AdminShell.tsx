@@ -16,6 +16,7 @@ import {
   LogOut,
   Menu,
   X,
+  Tag,
 } from 'lucide-react'
 import { cn } from '@/utils/cn'
 
@@ -29,6 +30,7 @@ interface NavItem {
 const NAV: NavItem[] = [
   { label: 'Dashboard',   href: '/admin',             icon: LayoutDashboard },
   { label: 'Produits',    href: '/admin/products',    icon: Package },
+  { label: 'Catégories',  href: '/admin/categories',  icon: Tag },
   { label: 'Commandes',   href: '/admin/orders',      icon: ShoppingBag },
   { label: 'Avis',        href: '/admin/reviews',     icon: Star },
   { label: 'Clientes',    href: '/admin/customers',   icon: Users },

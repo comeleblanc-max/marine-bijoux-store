@@ -8,11 +8,19 @@
  */
 import { db } from '@/lib/db'
 
+export interface CategoryEntry {
+  slug:        string   // identifiant URL (ex: "bracelets-cheville")
+  name:        string   // libellé affiché (ex: "Bracelets de cheville")
+  image?:      string   // URL de la photo de tuile (optionnelle)
+  description?: string  // description courte (optionnelle, pour la page collection)
+}
+
 export interface SiteSettings {
   announcement: {
     enabled:  boolean
     messages: string[]
   }
+  categories: CategoryEntry[]
   hero: {
     eyebrow:     string
     title:       string
@@ -47,6 +55,13 @@ export const DEFAULT_SETTINGS: SiteSettings = {
       'ACIER INOXYDABLE HYPOALLERGÉNIQUE — NE TERNIT PAS',
     ],
   },
+  categories: [
+    { slug: 'colliers',           name: 'Colliers',              image: '/tiles/colliers.webp' },
+    { slug: 'bracelets',          name: 'Bracelets',             image: '/tiles/bracelets.webp' },
+    { slug: 'bracelets-cheville', name: 'Bracelets de cheville', image: '/tiles/bracelets.webp' },
+    { slug: 'boucles-doreilles',  name: "Boucles d'oreilles",    image: '/tiles/boucles-doreilles.webp' },
+    { slug: 'bagues',             name: 'Bagues',                image: '/tiles/bagues.webp' },
+  ],
   hero: {
     eyebrow:      '🐚 Collection — Été 2026 ✨',
     title:        "La douceur de l'été",
@@ -102,6 +117,9 @@ export async function updateSettings(patch: Partial<SiteSettings>): Promise<Site
 function mergeSettings(base: SiteSettings, override: Partial<SiteSettings>): SiteSettings {
   return {
     announcement: { ...base.announcement, ...(override.announcement ?? {}) },
+    /* Pour categories : la liste est remplacée d'un bloc (pas merge profond),
+       ce qui permet à l'admin de réordonner et supprimer librement. */
+    categories:   override.categories ?? base.categories,
     hero:         { ...base.hero,         ...(override.hero         ?? {}) },
     shipping:     { ...base.shipping,     ...(override.shipping     ?? {}) },
     contact:      { ...base.contact,      ...(override.contact      ?? {}) },

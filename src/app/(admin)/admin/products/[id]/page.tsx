@@ -1,17 +1,22 @@
 import { notFound } from 'next/navigation'
 import { db } from '@/lib/db'
 import { ProductForm } from '@/components/admin/ProductForm'
+import { getCategories } from '@/lib/categories'
 
 export const dynamic = 'force-dynamic'
 
 export default async function EditProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const product = await db.product.findUnique({ where: { id } })
+  const [product, categories] = await Promise.all([
+    db.product.findUnique({ where: { id } }),
+    getCategories(),
+  ])
   if (!product) notFound()
 
   return (
     <ProductForm
       mode="edit"
+      categories={categories}
       initial={{
         id:          product.id,
         name:        product.name,
