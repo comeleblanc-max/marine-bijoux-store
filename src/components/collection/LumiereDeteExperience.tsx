@@ -1,9 +1,8 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import type { Product } from '@/types'
 import { formatPrice } from '@/utils/format'
@@ -11,36 +10,13 @@ import { formatPrice } from '@/utils/format'
 interface Props { products: Product[] }
 
 const EASE = [0.22, 1, 0.36, 1] as const
-const MAX_SCENES = 6 // on plafonne les scènes cinéma (perf) ; la grille montre tout
-
-/* Détecte un grand écran APRÈS le montage (évite le mismatch d'hydratation
-   et surtout évite de monter la version lourde "cinéma" sur mobile). */
-function useIsDesktop() {
-  const [d, setD] = useState(false)
-  useEffect(() => {
-    const m = window.matchMedia('(min-width: 1024px)')
-    const on = () => setD(m.matches)
-    on()
-    m.addEventListener('change', on)
-    return () => m.removeEventListener('change', on)
-  }, [])
-  return d
-}
 
 export function LumiereDeteExperience({ products }: Props) {
-  const reduceMotion = useReducedMotion()
-  const isDesktop    = useIsDesktop()
-  const cinematic    = isDesktop && !reduceMotion && products.length > 0
-
   return (
     <main className="bg-[#FAF5EA] text-[#0E4F5E] overflow-x-hidden">
       <Hero />
       <Manifesto />
-      {products.length > 0 && (
-        cinematic
-          ? <Cinema products={products.slice(0, MAX_SCENES)} />
-          : <SimpleShowcase products={products} />
-      )}
+      {products.length > 0 && <SimpleShowcase products={products} />}
       <Grid products={products} />
     </main>
   )
@@ -140,124 +116,67 @@ function backdropStyle(): React.CSSProperties {
   }
 }
 
-/* ────────────────────────── CINEMA STICKY (desktop) ────────────────────────── */
-function Cinema({ products }: { products: Product[] }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] })
-  const n = products.length
-  const sectionVh = (n + 0.5) * 100
-
-  return (
-    <section ref={ref} style={{ height: `${sectionVh}vh` }} className="relative bg-[#0E4F5E]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        <div className="absolute inset-0" style={backdropStyle()} />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0E4F5E]/85 via-[#0E4F5E]/55 to-[#0E4F5E]/30" />
-        <div className="absolute top-6 left-6 z-20 text-[11px] tracking-[0.3em] uppercase text-[#D4AF37]">
-          ✦ La collection
-        </div>
-        {products.map((p, i) => (
-          <Scene key={p.id} product={p} index={i} total={n} progress={scrollYProgress} />
-        ))}
-      </div>
-    </section>
-  )
-}
-
-function Scene({
-  product, index, total, progress,
-}: {
-  product: Product
-  index: number
-  total: number
-  progress: ReturnType<typeof useScroll>['scrollYProgress']
-}) {
-  const step  = 1 / total
-  const start = index * step
-  const end   = start + step
-  const pad   = step * 0.15
-  const opacity = useTransform(progress, [start - pad, start + pad, end - pad, end + pad], [0, 1, 1, 0])
-  const y       = useTransform(progress, [start, end], [50, -50])
-
-  const img = product.images?.[0]
-
-  return (
-    <motion.div style={{ opacity }} className="absolute inset-0 flex items-center justify-center px-6 sm:px-10">
-      <motion.div style={{ y }} className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 max-w-5xl w-full items-center">
-        <div className="order-2 lg:order-1 relative aspect-[4/5] bg-white/5 rounded-lg overflow-hidden border border-white/10">
-          {img ? (
-            <Image src={img} alt={product.name} fill sizes="480px" className="object-cover" />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-6xl text-[#D4AF37]/30">✦</div>
-          )}
-        </div>
-        <div className="order-1 lg:order-2 text-[#FAF5EA] text-center lg:text-left">
-          <p className="text-[10px] tracking-[0.35em] uppercase text-[#D4AF37] mb-3">
-            Pièce {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-          </p>
-          <h3 className="text-4xl sm:text-5xl mb-4 leading-tight" style={{ fontFamily: 'var(--font-playfair)' }}>
-            {product.name}
-          </h3>
-          {product.description && (
-            <p className="text-sm sm:text-base text-[#A7D5E6] max-w-md mx-auto lg:mx-0 leading-relaxed mb-7">
-              {product.description}
-            </p>
-          )}
-          <div className="flex items-center justify-center lg:justify-start gap-5">
-            <span className="text-xl sm:text-2xl text-[#D4AF37] font-light tabular-nums">
-              {formatPrice(product.price)}
-            </span>
-            <Link
-              href={`/products/${product.slug}`}
-              className="inline-flex items-center gap-2 bg-[#D4AF37] text-[#0E4F5E] px-6 py-2.5 text-[10px] tracking-[0.25em] uppercase font-medium hover:bg-[#FAF5EA] transition-colors"
-            >
-              Acheter <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  )
-}
-
-/* ──────────── VERSION SIMPLE (mobile / reduced-motion) ──────────── */
+/* ──────────── VITRINE ÉLÉGANTE (mobile + desktop) ──────────── */
 function SimpleShowcase({ products }: { products: Product[] }) {
   return (
-    <section className="bg-[#0E4F5E] py-16 px-6" style={backdropStyle()}>
-      <div className="max-w-md mx-auto space-y-14">
-        {products.map((p, i) => (
-          <motion.div
-            key={p.id}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, ease: EASE }}
-            className="text-center text-[#FAF5EA]"
-          >
-            <div className="relative aspect-[4/5] rounded-lg overflow-hidden border border-white/10 mb-5">
-              {p.images?.[0] ? (
-                <Image src={p.images[0]} alt={p.name} fill sizes="90vw" className="object-cover" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-6xl text-[#D4AF37]/30">✦</div>
-              )}
-            </div>
-            <p className="text-[10px] tracking-[0.35em] uppercase text-[#D4AF37] mb-2">
-              Pièce {String(i + 1).padStart(2, '0')}
-            </p>
-            <h3 className="text-3xl mb-2" style={{ fontFamily: 'var(--font-playfair)' }}>{p.name}</h3>
-            {p.description && (
-              <p className="text-sm text-[#A7D5E6] leading-relaxed mb-4">{p.description}</p>
-            )}
-            <div className="flex items-center justify-center gap-4">
-              <span className="text-xl text-[#D4AF37] font-light tabular-nums">{formatPrice(p.price)}</span>
-              <Link
-                href={`/products/${p.slug}`}
-                className="inline-flex items-center gap-2 bg-[#D4AF37] text-[#0E4F5E] px-5 py-2.5 text-[10px] tracking-[0.25em] uppercase font-medium"
-              >
-                Acheter <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-          </motion.div>
-        ))}
+    <section className="bg-[#0E4F5E] py-20 sm:py-28 px-6" style={backdropStyle()}>
+      <div className="max-w-5xl mx-auto space-y-20 sm:space-y-28">
+        {products.map((p, i) => {
+          const reversed = i % 2 === 1
+          return (
+            <motion.div
+              key={p.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={{ duration: 0.8, ease: EASE }}
+              className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center ${
+                reversed ? 'lg:[&>*:first-child]:order-2' : ''
+              }`}
+            >
+              <div className="relative aspect-[4/5] rounded-lg overflow-hidden border border-white/10 max-w-md mx-auto lg:max-w-none w-full">
+                {p.images?.[0] ? (
+                  <Image
+                    src={p.images[0]}
+                    alt={p.name}
+                    fill
+                    sizes="(max-width: 1024px) 90vw, 480px"
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-6xl text-[#D4AF37]/30">✦</div>
+                )}
+              </div>
+              <div className="text-center lg:text-left text-[#FAF5EA]">
+                <p className="text-[10px] tracking-[0.35em] uppercase text-[#D4AF37] mb-3">
+                  Pièce {String(i + 1).padStart(2, '0')} / {String(products.length).padStart(2, '0')}
+                </p>
+                <h3
+                  className="text-4xl sm:text-5xl mb-4 leading-tight"
+                  style={{ fontFamily: 'var(--font-playfair)' }}
+                >
+                  {p.name}
+                </h3>
+                {p.description && (
+                  <p className="text-sm sm:text-base text-[#A7D5E6] max-w-md mx-auto lg:mx-0 leading-relaxed mb-7">
+                    {p.description}
+                  </p>
+                )}
+                <div className="flex items-center justify-center lg:justify-start gap-5 flex-wrap">
+                  <span className="text-xl sm:text-2xl text-[#D4AF37] font-light tabular-nums">
+                    {formatPrice(p.price)}
+                  </span>
+                  <Link
+                    href={`/products/${p.slug}`}
+                    className="inline-flex items-center gap-2 bg-[#D4AF37] text-[#0E4F5E] px-6 py-2.5 text-[10px] tracking-[0.25em] uppercase font-medium hover:bg-[#FAF5EA] transition-colors"
+                  >
+                    Acheter <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )
+        })}
       </div>
     </section>
   )
