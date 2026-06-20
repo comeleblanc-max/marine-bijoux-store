@@ -96,9 +96,9 @@ function Manifesto() {
           className="text-2xl sm:text-3xl lg:text-4xl text-[#0E4F5E] leading-[1.35]"
           style={{ fontFamily: 'var(--font-playfair)' }}
         >
-          « Chaque bijou capture un instant&nbsp;:
-          <span className="italic text-[#D4AF37]"> la chaleur dorée</span> d&apos;un coucher
-          de soleil, <span className="italic text-[#D4AF37]">la fraîcheur</span> d&apos;une vague. »
+          « Chaque bijou capture un instant&nbsp;:{' '}
+          <span className="italic text-[#D4AF37]">la chaleur dorée</span>{' '}d&apos;un coucher de
+          soleil,{' '}<span className="italic text-[#D4AF37]">la douceur</span>{' '}d&apos;une vague. »
         </p>
       </motion.div>
     </section>
