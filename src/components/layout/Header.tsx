@@ -23,8 +23,8 @@ import { SearchModal } from '@/features/search/SearchModal'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
-/* Catégories regroupées dans le menu "Bijoux" */
-const CATEGORIES = [
+/* Catégories de secours si la layout serveur n'en fournit pas */
+const FALLBACK_CATEGORIES = [
   { label: 'Colliers',              href: '/collections/colliers' },
   { label: 'Bracelets',             href: '/collections/bracelets' },
   { label: 'Bracelets de cheville', href: '/collections/bracelets-cheville' },
@@ -33,13 +33,25 @@ const CATEGORIES = [
   { label: 'Tous les bijoux',       href: '/collections/all' },
 ]
 
+interface HeaderCategory { slug: string; name: string }
+interface HeaderProps    { categories?: HeaderCategory[] }
+
 /* Liens principaux */
 const MAIN_LINKS = [
   { label: 'Le Journal',    href: '/blog' },
   { label: 'Notre histoire', href: '/pages/a-propos' },
 ]
 
-export function Header() {
+export function Header({ categories }: HeaderProps = {}) {
+  /* Catégories dynamiques venant de l'admin (Setting.categories), +
+     "Tous les bijoux" toujours ajouté en dernier. */
+  const CATEGORIES = categories && categories.length > 0
+    ? [
+        ...categories.map((c) => ({ label: c.name, href: `/collections/${c.slug}` })),
+        { label: 'Tous les bijoux', href: '/collections/all' },
+      ]
+    : FALLBACK_CATEGORIES
+
   const [menuOpen, setMenuOpen]     = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const [scrolled, setScrolled]     = useState(false)

@@ -1,9 +1,14 @@
 import { ProductForm } from '@/components/admin/ProductForm'
+import { getCategories } from '@/lib/categories'
 
-export default function NewProductPage() {
+export const dynamic = 'force-dynamic'
+
+export default async function NewProductPage() {
+  const categories = await getCategories()
   return (
     <ProductForm
       mode="create"
+      categories={categories}
       initial={{
         name:        '',
         slug:        '',
